@@ -1,0 +1,19 @@
+
+mega_man.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+megaman7_megaman_sheet
+  rotate: false
+  xy: 1, 1
+  size: 396, 859
+  orig: 396, 859
+  offset: 0, 0
+  index: -1
+megamanx3_bosses_sheet
+  rotate: false
+  xy: 399, 636
+  size: 440, 224
+  orig: 440, 224
+  offset: 0, 0
+  index: -1
