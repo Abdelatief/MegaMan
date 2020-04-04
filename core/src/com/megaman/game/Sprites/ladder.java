@@ -1,4 +1,4 @@
-package com.mygdx.game.Sprites;
+package com.megaman.game.Sprites;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;

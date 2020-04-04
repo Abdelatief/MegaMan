@@ -1,12 +1,10 @@
-package com.mygdx.game.Sprites;
+package com.megaman.game.Sprites;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
-import com.mygdx.game.MyGdxGame;
-
-import java.awt.*;
+import com.megaman.game.Megaman;
 
 public abstract class  interactiveTileobject {
    protected World world;
@@ -24,9 +22,9 @@ public abstract class  interactiveTileobject {
         PolygonShape shape=new PolygonShape();
         //define body type and position
         bdef.type=BodyDef.BodyType.StaticBody;
-        bdef.position.set((bounds.getX() + bounds.getWidth() / 2) / MyGdxGame.PPM,(bounds.getY() + bounds.getHeight() / 2) / MyGdxGame.PPM);
+        bdef.position.set((bounds.getX() + bounds.getWidth() / 2) / Megaman.PPM,(bounds.getY() + bounds.getHeight() / 2) / Megaman.PPM);
         body=world.createBody(bdef);
-        shape.setAsBox((bounds.getWidth()/2)/MyGdxGame.PPM,(bounds.getHeight()/2)/MyGdxGame.PPM);
+        shape.setAsBox((bounds.getWidth()/2)/ Megaman.PPM,(bounds.getHeight()/2)/ Megaman.PPM);
         fdef.shape=shape;
         body.createFixture(fdef);
 

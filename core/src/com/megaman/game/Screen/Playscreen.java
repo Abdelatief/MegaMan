@@ -1,32 +1,25 @@
-package com.mygdx.game.Screen;
-import com.badlogic.gdx.Game;
+package com.megaman.game.Screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import  com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.viewport.*;
-import com.mygdx.game.MyGdxGame;
+import com.megaman.game.Megaman;
 
-import  com.mygdx.game.MyGdxGame;
-import com.mygdx.game.Scenes.Hud;
-import com.mygdx.game.Sprites.Mega_Man;
-import com.mygdx.game.Tools.B2WorldCreator;
+import com.megaman.game.Scenes.Hud;
+import com.megaman.game.Sprites.Mega_Man;
+import com.megaman.game.Tools.B2WorldCreator;
 
 public class Playscreen implements Screen{
     private TextureAtlas atlas;
-    private MyGdxGame game;
+    private Megaman game;
     private Hud hud;
     private OrthographicCamera gamecam;
     private Viewport gameport;
@@ -38,20 +31,20 @@ public class Playscreen implements Screen{
     private World world;
     private Box2DDebugRenderer b2dr;//Gives graphical representation of fixtures and body inside box2d world
     private Mega_Man player;
-    public  Playscreen(MyGdxGame game)
+    public  Playscreen(Megaman game)
     {
         atlas=new TextureAtlas("mega_man.pack");
         this.game=game;
 
         gamecam=new OrthographicCamera();
         //create a Fitviewport to maintain virtual aspect rato despite screen
-        gameport=new FitViewport(MyGdxGame.V_WIDTH/MyGdxGame.PPM,MyGdxGame.V_HEIGHT/MyGdxGame.PPM,gamecam);
+        gameport=new FitViewport(Megaman.V_WIDTH/ Megaman.PPM, Megaman.V_HEIGHT/ Megaman.PPM,gamecam);
        //create our game HUD for scores /timers/level info
         hud=new Hud(game.batch);
         //Load our map and setup our map remderer
        mapLoader=new TmxMapLoader();
     map =mapLoader.load("Mega_Level1.tmx");
-     renderer=new OrthogonalTiledMapRenderer(map,1/MyGdxGame.PPM);
+     renderer=new OrthogonalTiledMapRenderer(map,1/ Megaman.PPM);
      //initially set our gamcam to be centered correctly at the start of map
         gamecam.position.set(gameport.getWorldWidth()/2, gameport.getWorldHeight()/ 2,0);
      //vector2 this is for gravity(0,0) no gravity now
