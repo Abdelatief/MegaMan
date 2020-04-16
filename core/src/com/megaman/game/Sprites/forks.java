@@ -9,6 +9,5 @@ public class forks extends interactiveTileobject {
     public forks(World world, TiledMap map, Rectangle bounds)
     {
         super(world,map,bounds);
-
     }
 }
