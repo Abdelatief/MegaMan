@@ -73,7 +73,7 @@ public class Mega_Man extends Sprite {
         TextureRegion region;
         switch (currentState){
             case RUNNING:
-                region = (TextureRegion) run.getKeyFrame(stateTimer, true);
+                region = (TextureRegion) runAndShoot.getKeyFrame(stateTimer, true);
                 break;
 
             case JUMPING:
@@ -130,7 +130,7 @@ public class Mega_Man extends Sprite {
         fall = new Animation(0.25f, GetArrayFromSheet(158, 400, 4, false));
         idle = new Animation(0.25f, GetArrayFromSheet(8, 50, 8, false));
         intro = new Animation(0.05f, GetArrayFromSheet(8, 0, 8, false));
-        runAndShoot = new Animation(0.05f, GetArrayFromSheet(258,300, 11, true));
+        runAndShoot = new Animation(0.05f, GetArrayFromSheet(258,250, 11, true));
     }
 
     private Array<TextureRegion> GetArrayFromSheet(int x, int y, int numberOfSprites, boolean continuous)
