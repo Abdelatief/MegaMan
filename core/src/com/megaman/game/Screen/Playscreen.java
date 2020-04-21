@@ -41,7 +41,7 @@ public class Playscreen implements Screen{
 
         gamecam=new OrthographicCamera();
         //create a Fitviewport to maintain virtual aspect ratio despite screen
-        gameport=new FitViewport(Megaman.V_WIDTH/ Megaman.PPM, Megaman.V_HEIGHT/ Megaman.PPM,gamecam);
+        gameport=new FitViewport(400/ Megaman.PPM, 208/ Megaman.PPM,gamecam);
         //create our game HUD for scores /timers/level info
         hud=new Hud(game.batch);
         //Load our map and setup our map renderer
