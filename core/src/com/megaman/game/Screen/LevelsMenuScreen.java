@@ -23,10 +23,10 @@ public class LevelsMenuScreen implements Screen {
         background= new Texture("bg.jpg");
 
         Logo= new Texture("Mega_Man_Logo.png");
-        inactive_Level1_button = new Texture("inactive_Level1_button.jpg");
-        active_Level1_button = new Texture("active_Level1_button.jpg");
-        inactive_Level2_button= new Texture("inactive_Level2_button.jpg");
-        active_Level2_button= new Texture("active_Level2_button.jpg");
+        inactive_Level1_button = new Texture("inactive_level1_button.jpg");
+        active_Level1_button = new Texture("active_level1_button.jpg");
+        inactive_Level2_button= new Texture("inactive_level2_button.jpg");
+        active_Level2_button= new Texture("active_level2_button.jpg");
         inactive_Back_button=new Texture("inactive_Back_button.jpg");
         active_Back_button= new Texture("active_Back_button.jpg");
     }
