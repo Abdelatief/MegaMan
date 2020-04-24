@@ -10,12 +10,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.megaman.game.Megaman;
+import com.megaman.game.MegamanGame;
 
 
 public class Hud implements Disposable {
     public Stage stage;
-   private Viewport viewport;
+    private Viewport viewport;
 
     private Integer worldTimer;
     private float timecount;
@@ -31,7 +31,7 @@ public class Hud implements Disposable {
         worldTimer=300;
         timecount=0;
         score=0;
-        viewport=new FitViewport(Megaman.V_WIDTH, Megaman.V_HEIGHT,new OrthographicCamera());
+        viewport=new FitViewport(MegamanGame.V_WIDTH, MegamanGame.V_HEIGHT,new OrthographicCamera());
 
        stage =new Stage(viewport,sb);
         Table table=new Table();

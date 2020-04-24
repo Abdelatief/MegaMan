@@ -4,7 +4,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
-import com.megaman.game.Megaman;
+import com.megaman.game.MegamanGame;
 
 public abstract class  interactiveTileobject {
    protected World world;
@@ -22,9 +22,9 @@ public abstract class  interactiveTileobject {
         PolygonShape shape=new PolygonShape();
         //define body type and position
         bdef.type=BodyDef.BodyType.StaticBody;
-        bdef.position.set((bounds.getX() + bounds.getWidth() / 2) / Megaman.PPM,(bounds.getY() + bounds.getHeight() / 2) / Megaman.PPM);
+        bdef.position.set((bounds.getX() + bounds.getWidth() / 2) / MegamanGame.PPM,(bounds.getY() + bounds.getHeight() / 2) / MegamanGame.PPM);
         body=world.createBody(bdef);
-        shape.setAsBox((bounds.getWidth()/2)/ Megaman.PPM,(bounds.getHeight()/2)/ Megaman.PPM);
+        shape.setAsBox((bounds.getWidth()/2)/ MegamanGame.PPM,(bounds.getHeight()/2)/ MegamanGame.PPM);
         fdef.shape=shape;
         body.createFixture(fdef);
 

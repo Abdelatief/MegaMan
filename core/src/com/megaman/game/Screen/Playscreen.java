@@ -11,15 +11,15 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.viewport.*;
-import com.megaman.game.Megaman;
+import com.megaman.game.MegamanGame;
 
 import com.megaman.game.Scenes.Hud;
-import com.megaman.game.Sprites.Mega_Man;
+import com.megaman.game.Sprites.MegaMan;
 import com.megaman.game.Tools.B2WorldCreator;
 
 public class Playscreen implements Screen{
     private TextureAtlas atlas;
-    private Megaman game;
+    private MegamanGame game;
     private Hud hud;
     private OrthographicCamera gamecam;
     private Viewport gameport;
@@ -29,25 +29,25 @@ public class Playscreen implements Screen{
     private TiledMap map;                           //this is reference to map itself
     private OrthogonalTiledMapRenderer renderer;    //this is render map to screen
 
-     //Box2d variables
+    //Box2d variables
     private World world;
-    private Box2DDebugRenderer b2dr;//Gives graphical representation of fixtures and body inside box2d world
-    private Mega_Man player;
+    private Box2DDebugRenderer b2dr;                //Gives graphical representation of fixtures and body inside box2d world
+    private MegaMan player;
 
-    public  Playscreen(Megaman game)
+    public  Playscreen(MegamanGame game)
     {
         atlas=new TextureAtlas("mega_man.pack");
         this.game=game;
 
         gamecam=new OrthographicCamera();
         //create a Fitviewport to maintain virtual aspect ratio despite screen
-        gameport=new FitViewport(Megaman.V_WIDTH/ Megaman.PPM, Megaman.V_HEIGHT/ Megaman.PPM,gamecam);
+        gameport=new FitViewport(MegamanGame.V_WIDTH/ MegamanGame.PPM, MegamanGame.V_HEIGHT/ MegamanGame.PPM,gamecam);
         //create our game HUD for scores /timers/level info
         hud=new Hud(game.batch);
         //Load our map and setup our map renderer
         mapLoader=new TmxMapLoader();
          map =mapLoader.load("Mega_Level1.tmx");
-        renderer=new OrthogonalTiledMapRenderer(map,1/ Megaman.PPM);
+        renderer=new OrthogonalTiledMapRenderer(map,1/ MegamanGame.PPM);
         //initially set our gamcam to be centered correctly at the start of map
         gamecam.position.set(gameport.getWorldWidth()/2, gameport.getWorldHeight()/ 2,0);
          //vector2 this is for gravity(0,0) no gravity now
@@ -56,12 +56,14 @@ public class Playscreen implements Screen{
         b2dr=new Box2DDebugRenderer();
         new B2WorldCreator(world,map);
         //create megaman in game
-        player=new Mega_Man(world,this);
+        player=new MegaMan(world,this);
     }
+
     @Override
     public void show() {
 
     }
+
     public void handelInput(float dt)
     {
         if(Gdx.input.isKeyJustPressed(Input.Keys.W)||Gdx.input.isKeyJustPressed(Input.Keys.UP))
@@ -69,15 +71,16 @@ public class Playscreen implements Screen{
             //impulse->media change
             player.b2body.applyLinearImpulse(new Vector2(0,4f),player.b2body.getWorldCenter(),true);
         }
-       if((Gdx.input.isKeyPressed(Input.Keys.D)||Gdx.input.isKeyPressed(Input.Keys.RIGHT))&&(player.b2body.getLinearVelocity() .x<= 2))
-       {
-           player.b2body.applyLinearImpulse(new Vector2(0.1f,0),player.b2body.getWorldCenter(),true);
-       }
+        if((Gdx.input.isKeyPressed(Input.Keys.D)||Gdx.input.isKeyPressed(Input.Keys.RIGHT))&&(player.b2body.getLinearVelocity() .x<= 2))
+        {
+            player.b2body.applyLinearImpulse(new Vector2(0.1f,0),player.b2body.getWorldCenter(),true);
+        }
         if((Gdx.input.isKeyPressed(Input.Keys.A)||Gdx.input.isKeyPressed(Input.Keys.LEFT))&&(player.b2body.getLinearVelocity() .x>=- 2))
         {
             player.b2body.applyLinearImpulse(new Vector2(-0.1f,0),player.b2body.getWorldCenter(),true);
         }
     }
+
     public void update(float dt)
     {
         //first handel user input
@@ -90,6 +93,7 @@ public class Playscreen implements Screen{
         //tell our render to draw what our camera sees
         renderer.setView(gamecam);
     }
+
     @Override
     public void render(float delta)
     {

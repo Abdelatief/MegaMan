@@ -1,21 +1,15 @@
 package com.megaman.game.Sprites;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
+import com.megaman.game.Observer.PlayerSubscriber;
 import com.megaman.game.Screen.Playscreen;
-import com.megaman.game.Megaman;
-import org.w3c.dom.Text;
+import com.megaman.game.MegamanGame;
 
-public class Mega_Man extends Sprite {
-    public enum State {FALLING, JUMPING, STANDING, RUNNING, IDLE, INTRO, RUNANDSHOOT}
-    public State currentState;
-    public State previousState;
-    public World world;
-    public Body b2body;
+public class MegaMan extends Entity {
     private TextureRegion ManStand;
     private Animation run;
     private Animation jump;
@@ -23,16 +17,14 @@ public class Mega_Man extends Sprite {
     private Animation idle;
     private Animation intro;
     private Animation runAndShoot;
-    private float stateTimer;
     private float timer;
-    private boolean runningRight;
     private boolean introAnimationPlayed;
+    private PlayerSubscriber eventSubscriber;
 
-    public Mega_Man(World  world , Playscreen screen)
+    public MegaMan(World  world , Playscreen screen)
     {
-        super(screen.getAtlas().findRegion("megaman7_megaman_sheet"));
-        this.world=world;
-
+        super(world, screen, "megaman7_megaman_sheet", 100);
+        // register it to the publisher later, when the classes are implemented properly
         currentState = State.STANDING;
         previousState = State.STANDING;
         stateTimer = 0;
@@ -40,20 +32,21 @@ public class Mega_Man extends Sprite {
         runningRight = true;
         introAnimationPlayed = true;
 
-        TextureRegionArraysSetup();
-        defineMegaMan();
-        setBounds(0,0,32/ Megaman.PPM,40/ Megaman.PPM);
+        animationSetup();
+        define();
+        setBounds(0,0,32/ MegamanGame.PPM,40/ MegamanGame.PPM);
     }
 
-    public void defineMegaMan()
+    @Override
+    public void define()
     {
         BodyDef bdef=new BodyDef();
-        bdef.position.set(32/ Megaman.PPM,100/ Megaman.PPM);
+        bdef.position.set(32/ MegamanGame.PPM,100/ MegamanGame.PPM);
         bdef.type=BodyDef.BodyType.DynamicBody;
-        b2body=world.createBody(bdef);
-        FixtureDef fdef=new FixtureDef();
-        CircleShape shape=new CircleShape();
-        shape.setRadius(1/ Megaman.PPM );
+        b2body = world.createBody(bdef);
+        FixtureDef fdef = new FixtureDef();
+        CircleShape shape = new CircleShape();
+        shape.setRadius(1 / MegamanGame.PPM );
         fdef.shape=shape;
         b2body.createFixture(fdef);
     }
@@ -73,7 +66,7 @@ public class Mega_Man extends Sprite {
         TextureRegion region;
         switch (currentState){
             case RUNNING:
-                region = (TextureRegion) runAndShoot.getKeyFrame(stateTimer, true);
+                region = (TextureRegion) run.getKeyFrame(stateTimer, true);
                 break;
 
             case JUMPING:
@@ -121,7 +114,8 @@ public class Mega_Man extends Sprite {
             return State.IDLE;
     }
 
-    private void TextureRegionArraysSetup()
+    @Override
+    protected void animationSetup()
     {
         int width = 35;
         int height = 45;
