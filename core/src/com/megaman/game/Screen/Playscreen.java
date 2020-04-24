@@ -4,6 +4,7 @@ import com.badlogic.gdx.Input;
 import  com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -23,7 +24,10 @@ public class Playscreen implements Screen{
     private Hud hud;
     private OrthographicCamera gamecam;
     private Viewport gameport;
-
+    private Texture inactive_pause_button;
+    private Texture active_pause_button;
+    private int Button_Width=100;
+    private int Button_Height=100;
     //Tiled map variables
     private TmxMapLoader mapLoader;                 //this is going to load all maps into game
     private TiledMap map;                           //this is reference to map itself
@@ -38,10 +42,12 @@ public class Playscreen implements Screen{
     {
         atlas=new TextureAtlas("mega_man.pack");
         this.game=game;
-
+        //pause button
+        inactive_pause_button=new Texture("inactive_pause_button.jpg");
+        active_pause_button=new Texture("active_pause_button.jpg");
         gamecam=new OrthographicCamera();
         //create a Fitviewport to maintain virtual aspect ratio despite screen
-        gameport=new FitViewport(MegamanGame.V_WIDTH/ MegamanGame.PPM, MegamanGame.V_HEIGHT/ MegamanGame.PPM,gamecam);
+        gameport=new FitViewport(400/ MegamanGame.PPM, 208/ MegamanGame.PPM,gamecam);
         //create our game HUD for scores /timers/level info
         hud=new Hud(game.batch);
         //Load our map and setup our map renderer
@@ -95,16 +101,15 @@ public class Playscreen implements Screen{
     }
 
     @Override
-    public void render(float delta)
-    {
+    public void render(float delta) {
         update(delta);
         //clear screen with black
-        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         //render game map
         renderer.render();
         //render our box2dDebuglines
-        b2dr.render(world,gamecam.combined);
+        b2dr.render(world, gamecam.combined);
         game.batch.setProjectionMatrix(gamecam.combined);
         game.batch.begin();
         player.draw(game.batch);
@@ -112,6 +117,18 @@ public class Playscreen implements Screen{
         //set batch to draw what hud camera sees
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
+        //draw pause button
+        game.batch.begin();
+        if (Gdx.input.getX() >= 1825 && Gdx.input.getX() <= (1825 + Button_Width) && Gdx.input.getY() <= 100 && Gdx.input.getY() >=100 - Button_Height) {
+         game.batch.draw(active_pause_button, 1890, 900, Button_Width, Button_Height);
+            if (Gdx.input.isTouched()) {
+                this.dispose();
+                game.setScreen(new LevelsMenuScreen(game));
+            }
+        } else
+
+            game.batch.draw(inactive_pause_button, 1890, 900, Button_Width, Button_Height);
+        game.batch.end();
     }
 
     public TextureAtlas getAtlas()
