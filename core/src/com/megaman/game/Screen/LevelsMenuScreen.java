@@ -6,8 +6,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.megaman.game.MegamanGame;
 
-public class LevelsMenuScreen implements Screen {
-    private MegamanGame game;
+public class LevelsMenuScreen extends screen {
+
     private Texture inactive_Level1_button;
     private Texture active_Level1_button;
     private Texture background;
@@ -16,8 +16,8 @@ public class LevelsMenuScreen implements Screen {
     private Texture active_Back_button;
     private Texture inactive_Back_button;
     private Texture Logo;
-    private static final int Button_Width=500;
-    private static final int Button_Height=100;
+    private   int Button_Width=500;
+    private   int Button_Height=100;
     public LevelsMenuScreen(MegamanGame game) {
         this.game = game;
         background= new Texture("bg.jpg");
@@ -31,12 +31,6 @@ public class LevelsMenuScreen implements Screen {
         active_Back_button= new Texture("active_Back_button.jpg");
     }
 
-
-
-    @Override
-    public void show() {
-
-    }
 
     @Override
     public void render(float delta) {
@@ -74,28 +68,4 @@ public class LevelsMenuScreen implements Screen {
     }
 
 
-    @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
-    public void dispose() {
-
-    }
 }

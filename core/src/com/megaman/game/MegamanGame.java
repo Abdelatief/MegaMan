@@ -3,7 +3,6 @@ package com.megaman.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megaman.game.Screen.MainMenuScreen;
-import com.megaman.game.Screen.PauseMenuScreen;
 import com.megaman.game.Screen.Playscreen;
 
 public class MegamanGame extends Game {
@@ -15,7 +14,7 @@ public class MegamanGame extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		setScreen(new Playscreen(this));
+		setScreen(new MainMenuScreen(this));
 	}
 
 	@Override

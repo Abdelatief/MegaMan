@@ -18,16 +18,20 @@ import com.megaman.game.Scenes.Hud;
 import com.megaman.game.Sprites.MegaMan;
 import com.megaman.game.Tools.B2WorldCreator;
 
-public class Playscreen implements Screen{
+public class Playscreen extends screen{
     private TextureAtlas atlas;
-    private MegamanGame game;
     private Hud hud;
     private OrthographicCamera gamecam;
     private Viewport gameport;
     private Texture inactive_pause_button;
     private Texture active_pause_button;
+    private Texture inactive_continue_button;
+    private Texture active_continue_button;
+    private Texture inactive_Main_Menu;
+    private Texture active_Main_Menu;
     private int Button_Width=100;
     private int Button_Height=100;
+    private boolean pause;
     //Tiled map variables
     private TmxMapLoader mapLoader;                 //this is going to load all maps into game
     private TiledMap map;                           //this is reference to map itself
@@ -42,9 +46,15 @@ public class Playscreen implements Screen{
     {
         atlas=new TextureAtlas("mega_man.pack");
         this.game=game;
-        //pause button
+        pause=false;
+        //pause,continue button
         inactive_pause_button=new Texture("inactive_pause_button.jpg");
         active_pause_button=new Texture("active_pause_button.jpg");
+        active_continue_button=new Texture("active_continue_button.jpg");
+        inactive_continue_button=new Texture("inactive_continue_button.jpg");
+        //Main Menu button
+        active_Main_Menu=new Texture("active_Main_Menu.jpg");
+        inactive_Main_Menu=new Texture("inactive_Main_Menu.jpg");
         gamecam=new OrthographicCamera();
         //create a Fitviewport to maintain virtual aspect ratio despite screen
         gameport=new FitViewport(400/ MegamanGame.PPM, 208/ MegamanGame.PPM,gamecam);
@@ -65,10 +75,7 @@ public class Playscreen implements Screen{
         player=new MegaMan(world,this);
     }
 
-    @Override
-    public void show() {
 
-    }
 
     public void handelInput(float dt)
     {
@@ -89,6 +96,14 @@ public class Playscreen implements Screen{
 
     public void update(float dt)
     {
+        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            pause = true;
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         //first handel user input
         handelInput(dt);
         world.step(1/60f,6,2);
@@ -102,7 +117,20 @@ public class Playscreen implements Screen{
 
     @Override
     public void render(float delta) {
-        update(delta);
+        if (pause) {
+            if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+                pause = false;
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        } else {
+            update(delta);
+
+        }
         //clear screen with black
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -117,20 +145,51 @@ public class Playscreen implements Screen{
         //set batch to draw what hud camera sees
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
-        //draw pause button
+        //draw pause,continue button
         game.batch.begin();
-        if (Gdx.input.getX() >= 1825 && Gdx.input.getX() <= (1825 + Button_Width) && Gdx.input.getY() <= 100 && Gdx.input.getY() >=100 - Button_Height) {
-         game.batch.draw(active_pause_button, 1890, 900, Button_Width, Button_Height);
-            if (Gdx.input.isTouched()) {
-                this.dispose();
-                game.setScreen(new LevelsMenuScreen(game));
+        if(!pause)
+        {
+            if (Gdx.input.getX() >= 1825 && Gdx.input.getX() <= (1825 + Button_Width) && Gdx.input.getY() <= 100 && Gdx.input.getY() >= 100 - Button_Height) {
+                game.batch.draw(active_pause_button, 1890, 900, Button_Width, Button_Height);
+                if (Gdx.input.isTouched()) {
+                    pause = true;
+                   try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }else {
+                game.batch.draw(inactive_pause_button, 1890, 900, Button_Width, Button_Height);
             }
-        } else
-
-            game.batch.draw(inactive_pause_button, 1890, 900, Button_Width, Button_Height);
-        game.batch.end();
-    }
-
+        }else {
+            if (Gdx.input.getX() >= 1825 && Gdx.input.getX() <= (1825 + Button_Width) && Gdx.input.getY() <= 100 && Gdx.input.getY() >= 100 - Button_Height) {
+                game.batch.draw(active_continue_button, 1890, 900, Button_Width, Button_Height);
+                if (Gdx.input.isTouched()) {
+                    pause = false;
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            else
+            game.batch.draw(inactive_continue_button, 1890, 900, Button_Width, Button_Height);
+        }
+    //Draw MainMenu button
+      if(  Gdx.input.getX() >= 1825 && Gdx.input.getX() <= (1825 + Button_Width) && Gdx.input.getY() <= 200 && Gdx.input.getY() >= 200 - Button_Height) {
+            game.batch.draw(active_Main_Menu, 1890, 800, Button_Width, Button_Height);
+            if(Gdx.input.isTouched())
+            {
+                this.dispose();
+                game.setScreen(new MainMenuScreen(game));
+            }
+        }
+        else
+            game.batch.draw(inactive_Main_Menu,1890,800,Button_Width,Button_Height);
+            game.batch.end();
+        }
     public TextureAtlas getAtlas()
     {
         return atlas;
@@ -141,20 +200,7 @@ public class Playscreen implements Screen{
         gameport.update(width,height);
     }
 
-    @Override
-    public void pause() {
 
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
 
     @Override
     public void dispose() {
