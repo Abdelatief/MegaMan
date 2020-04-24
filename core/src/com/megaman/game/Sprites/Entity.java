@@ -9,7 +9,7 @@ import com.megaman.game.Screen.Playscreen;
 
 public abstract class Entity extends Sprite
 {
-    enum State{FALLING, JUMPING, STANDING, RUNNING, IDLE, INTRO, RUNANDSHOOT};
+    enum State{FALLING, JUMPING, STANDING, RUNNING, IDLE, INTRO, RUNANDSHOOT, SHOOTING};
     private int maxHealth;
     private int currentHealth;
     public State currentState;
@@ -18,7 +18,7 @@ public abstract class Entity extends Sprite
     public Playscreen screen;
     public Body b2body;
     public float stateTimer;
-    boolean runningRight;
+    public boolean runningRight;
 
     public Entity(World world, Playscreen screen, String spriteSheet, int maxHealth)
     {

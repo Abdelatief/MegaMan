@@ -31,8 +31,6 @@ public class LevelsMenuScreen implements Screen {
         active_Back_button= new Texture("active_Back_button.jpg");
     }
 
-
-
     @Override
     public void show() {
 

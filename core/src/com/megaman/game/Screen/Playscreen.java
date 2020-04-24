@@ -15,8 +15,11 @@ import com.badlogic.gdx.utils.viewport.*;
 import com.megaman.game.MegamanGame;
 
 import com.megaman.game.Scenes.Hud;
+import com.megaman.game.Sprites.Bullet;
 import com.megaman.game.Sprites.MegaMan;
 import com.megaman.game.Tools.B2WorldCreator;
+
+import java.util.ArrayList;
 
 public class Playscreen implements Screen{
     private TextureAtlas atlas;
@@ -37,6 +40,8 @@ public class Playscreen implements Screen{
     private World world;
     private Box2DDebugRenderer b2dr;                //Gives graphical representation of fixtures and body inside box2d world
     private MegaMan player;
+
+    private ArrayList<Bullet> bullets;              //This arraylist will contain all the bullets in the screen
 
     public  Playscreen(MegamanGame game)
     {
@@ -63,6 +68,7 @@ public class Playscreen implements Screen{
         new B2WorldCreator(world,map);
         //create megaman in game
         player=new MegaMan(world,this);
+        bullets = new ArrayList<Bullet>();          //arraylist allocation
     }
 
     @Override
@@ -85,6 +91,10 @@ public class Playscreen implements Screen{
         {
             player.b2body.applyLinearImpulse(new Vector2(-0.1f,0),player.b2body.getWorldCenter(),true);
         }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE))        //Shooting
+        {
+            bullets.add(new Bullet(player.b2body.getPosition().x, player.b2body.getPosition().y, player.runningRight));
+        }
     }
 
     public void update(float dt)
@@ -98,6 +108,14 @@ public class Playscreen implements Screen{
         gamecam.update();
         //tell our render to draw what our camera sees
         renderer.setView(gamecam);
+        // update the bullets and remove them after 3 seconds
+        ArrayList<Bullet> removeBullets = new ArrayList<Bullet>();
+        for (Bullet bullet: bullets) {
+            if (bullet.remove)
+                removeBullets.add(bullet);
+            bullet.update(dt);
+        }
+        bullets.removeAll(removeBullets);
     }
 
     @Override
@@ -113,6 +131,8 @@ public class Playscreen implements Screen{
         game.batch.setProjectionMatrix(gamecam.combined);
         game.batch.begin();
         player.draw(game.batch);
+        for (Bullet bullet: bullets)
+            bullet.render(game.batch);
         game.batch.end();
         //set batch to draw what hud camera sees
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);

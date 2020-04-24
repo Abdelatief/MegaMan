@@ -1,7 +1,8 @@
 package com.megaman.game.Sprites;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
@@ -15,10 +16,13 @@ public class MegaMan extends Entity {
     private Animation jump;
     private Animation fall;
     private Animation idle;
+    private Animation shoot;
     private Animation intro;
     private Animation runAndShoot;
     private float timer;
     private boolean introAnimationPlayed;
+    private boolean isAnimationPlaying;
+    private float animationStart;
     private PlayerSubscriber eventSubscriber;
 
     public MegaMan(World  world , Playscreen screen)
@@ -56,6 +60,39 @@ public class MegaMan extends Entity {
         timer += dt;
         if (timer > 0.64)
             introAnimationPlayed = false;
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
+        {
+            if (b2body.getLinearVelocity().x != 0)
+            {
+                animationStart = timer;
+                isAnimationPlaying = true;
+                currentState = State.RUNANDSHOOT;
+            }
+            else
+            {
+                animationStart = timer;
+                isAnimationPlaying = true;
+                currentState = State.SHOOTING;
+            }
+        }
+        if (isAnimationPlaying)
+        {
+            float animationTime = 0;
+            if (currentState == State.SHOOTING)
+                animationTime = 0.15f;
+            else if (currentState == State.RUNANDSHOOT)
+                animationTime = 0.75f;
+
+            if (timer - animationStart >= animationTime)
+            {
+                isAnimationPlaying = false;
+            }
+        }
+        System.out.println((b2body.getLinearVelocity().x > 0));
+        System.out.println("Is animation playing: " + isAnimationPlaying);
+        System.out.println("Start time for animation: " + animationStart);
+        System.out.println("Timer: " + timer);
+        System.out.println("Current State: " + currentState);
         setPosition(b2body.getPosition().x-getWidth()/2,b2body.getPosition().y-getHeight()/8);
         setRegion(getFrame(dt));
     }
@@ -81,8 +118,17 @@ public class MegaMan extends Entity {
                 region = (TextureRegion) intro.getKeyFrame(stateTimer);
                 break;
 
+            case SHOOTING:
+                region = (TextureRegion) shoot.getKeyFrame(stateTimer);
+                break;
+
+            case RUNANDSHOOT:
+                region = (TextureRegion) runAndShoot.getKeyFrame(stateTimer);
+                break;
+
             default:
                 region = (TextureRegion) idle.getKeyFrame(stateTimer);
+                break;
         }
 
         if ((b2body.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX())
@@ -102,8 +148,12 @@ public class MegaMan extends Entity {
 
     public State getState()
     {
+        if (isAnimationPlaying)
+            return currentState;
         if (introAnimationPlayed)
             return State.INTRO;
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
+            return State.SHOOTING;
         if (b2body.getLinearVelocity().y > 0)
             return State.JUMPING;
         else if (b2body.getLinearVelocity().y < 0)
@@ -125,6 +175,7 @@ public class MegaMan extends Entity {
         idle = new Animation(0.25f, GetArrayFromSheet(8, 50, 8, false));
         intro = new Animation(0.05f, GetArrayFromSheet(8, 0, 8, false));
         runAndShoot = new Animation(0.05f, GetArrayFromSheet(258,250, 11, true));
+        shoot = new Animation(0.05f, GetArrayFromSheet(8, 100, 3, false));
     }
 
     private Array<TextureRegion> GetArrayFromSheet(int x, int y, int numberOfSprites, boolean continuous)
@@ -137,7 +188,7 @@ public class MegaMan extends Entity {
                 x = 8;
                 y += 50;
             }
-            array.add(new TextureRegion(getTexture(), x, y, 34, 45));
+            array.add(new TextureRegion(getTexture(), x, y, 40, 45));
             x += 50;
         }
         if (continuous) {
