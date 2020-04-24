@@ -107,7 +107,7 @@ public class Playscreen extends screen{
 
     public void update(float dt)
     {
-        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+        if(Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             pause = true;
             try {
                 Thread.sleep(500);
@@ -137,7 +137,7 @@ public class Playscreen extends screen{
     @Override
     public void render(float delta) {
         if (pause) {
-            if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
                 pause = false;
                 try {
                     Thread.sleep(500);
