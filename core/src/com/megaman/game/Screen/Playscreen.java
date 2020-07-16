@@ -2,6 +2,8 @@ package com.megaman.game.Screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import  com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,7 +15,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.viewport.*;
 import com.megaman.game.MegamanGame;
-
 import com.megaman.game.Scenes.Hud;
 import com.megaman.game.Sprites.Bullet;
 import com.megaman.game.Sprites.MegaMan;
@@ -48,47 +49,48 @@ public class Playscreen extends screen{
 
     private ArrayList<Bullet> bullets;              //This arraylist will contain all the bullets in the screen
 
-    public  Playscreen(MegamanGame game)
-    {
-        atlas=new TextureAtlas("mega_man.pack");
-        this.game=game;
-        pause=false;
+    private Sound jumpSound;//jump sound
+    public  Playscreen(MegamanGame game) {
+        atlas = new TextureAtlas("mega_man.pack");
+        this.game = game;
+        pause = false;
         //pause,continue button
-        inactive_pause_button=new Texture("inactive_pause_button.jpg");
-        active_pause_button=new Texture("active_pause_button.jpg");
-        active_continue_button=new Texture("active_continue_button.jpg");
-        inactive_continue_button=new Texture("inactive_continue_button.jpg");
+        inactive_pause_button = new Texture("inactive_pause_button.jpg");
+        active_pause_button = new Texture("active_pause_button.jpg");
+        active_continue_button = new Texture("active_continue_button.jpg");
+        inactive_continue_button = new Texture("inactive_continue_button.jpg");
         //Main Menu button
-        active_Main_Menu=new Texture("active_Main_Menu.jpg");
-        inactive_Main_Menu=new Texture("inactive_Main_Menu.jpg");
-        gamecam=new OrthographicCamera();
+        active_Main_Menu = new Texture("active_Main_Menu.jpg");
+        inactive_Main_Menu = new Texture("inactive_Main_Menu.jpg");
+        gamecam = new OrthographicCamera();
         //create a Fitviewport to maintain virtual aspect ratio despite screen
-        gameport=new FitViewport(400/ MegamanGame.PPM, 208/ MegamanGame.PPM,gamecam);
+        gameport = new FitViewport(400 / MegamanGame.PPM, 208 / MegamanGame.PPM, gamecam);
         //create our game HUD for scores /timers/level info
-        hud=new Hud(game.batch);
+        hud = new Hud(game.batch);
         //Load our map and setup our map renderer
-        mapLoader=new TmxMapLoader();
-         map =mapLoader.load("Mega_Level1.tmx");
-        renderer=new OrthogonalTiledMapRenderer(map,1/ MegamanGame.PPM);
+        mapLoader = new TmxMapLoader();
+        map = mapLoader.load("Mega_Level1.tmx");
+        renderer = new OrthogonalTiledMapRenderer(map, 1 / MegamanGame.PPM);
         //initially set our gamcam to be centered correctly at the start of map
-        gamecam.position.set(gameport.getWorldWidth()/2, gameport.getWorldHeight()/ 2,0);
-         //vector2 this is for gravity(0,0) no gravity now
+        gamecam.position.set(gameport.getWorldWidth() / 2, gameport.getWorldHeight() / 2, 0);
+        //vector2 this is for gravity(0,0) no gravity now
         //do sleep:true bec:box2d doesn't want to be calculated inside its  physics simulation "body rest"
-        world =new World(new Vector2(0,-10),true);
-        b2dr=new Box2DDebugRenderer();
-        new B2WorldCreator(world,map);
+        world = new World(new Vector2(0, -10), true);
+        b2dr = new Box2DDebugRenderer();
+        new B2WorldCreator(world, map);
         //create megaman in game
-        player=new MegaMan(world,this);
+        player = new MegaMan(world, this);
         bullets = new ArrayList<Bullet>();          //arraylist allocation
+        //Music
+        jumpSound = Gdx.audio.newSound(Gdx.files.internal("audio/sounds/Jump-SoundBible.com-1007297584.mp3"));;//jump sound
+
     }
-
-
-
     public void handelInput(float dt)
     {
         if(Gdx.input.isKeyJustPressed(Input.Keys.W)||Gdx.input.isKeyJustPressed(Input.Keys.UP))
         {
             //impulse->media change
+            jumpSound.play();
             player.b2body.applyLinearImpulse(new Vector2(0,4f),player.b2body.getWorldCenter(),true);
         }
         if((Gdx.input.isKeyPressed(Input.Keys.D)||Gdx.input.isKeyPressed(Input.Keys.RIGHT))&&(player.b2body.getLinearVelocity() .x<= 2))

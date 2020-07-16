@@ -2,6 +2,7 @@ package com.megaman.game.Sprites;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.*;
@@ -24,6 +25,7 @@ public class MegaMan extends Entity {
     private boolean isAnimationPlaying;
     private float animationStart;
     private PlayerSubscriber eventSubscriber;
+    private Sound shootSound;//shoot sound
 
     public MegaMan(World  world , Playscreen screen)
     {
@@ -39,6 +41,8 @@ public class MegaMan extends Entity {
         animationSetup();
         define();
         setBounds(0,0,32/ MegamanGame.PPM,40/ MegamanGame.PPM);
+
+        shootSound = Gdx.audio.newSound(Gdx.files.internal("audio/sounds/bullet_whizzing_by-Mike_Koenig-2005433595.wav"));
     }
 
     @Override
@@ -62,6 +66,7 @@ public class MegaMan extends Entity {
             introAnimationPlayed = false;
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
         {
+            shootSound.play();
             if (b2body.getLinearVelocity().x != 0)
             {
                 animationStart = timer;
@@ -74,6 +79,7 @@ public class MegaMan extends Entity {
                 isAnimationPlaying = true;
                 currentState = State.SHOOTING;
             }
+
         }
         if (isAnimationPlaying)
         {
