@@ -68,7 +68,7 @@ public class Playscreen extends screen{
         hud=new Hud(game.batch);
         //Load our map and setup our map renderer
         mapLoader=new TmxMapLoader();
-         map =mapLoader.load("Mega_Level1.tmx");
+         map =mapLoader.load("level5.tmx");
         renderer=new OrthogonalTiledMapRenderer(map,1/ MegamanGame.PPM);
         //initially set our gamcam to be centered correctly at the start of map
         gamecam.position.set(gameport.getWorldWidth()/2, gameport.getWorldHeight()/ 2,0);

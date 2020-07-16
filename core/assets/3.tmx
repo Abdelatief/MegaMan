@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="350" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="25">
+ <tileset firstgid="1" source="SNES - Mega Man X3 - Blizzard Buffalo Tileset.tsx"/>
+ <layer id="1" name="background" width="350" height="13">
+  <data encoding="base64" compression="zlib">
+   eJzt20VjVlcUhtEvhrtLCNTdi9XdCwnurgHqbrRY3b2Q4O4udfdidfdCEty9iz9xB/fcwRo/k3ewJzstlUqlk0EmWZSiNGUoSznKU4GKVKIyVahKNapTg5rUojZ1qEs96pNNA3JIS7qRdFvQklzyaEVr2tCWdrSnAx3pRGe60JVudKcHPelFb/rQl370ZwADyWdQ0o2sG9qe49INbaehdUczhgIKGcs4xjOBiUxiMlOYyjSmM4OZzGI2c5jLPOazgIUsYjFLWMqypBtZN7Q9x6Ub2k5D665jPUUUU8IGNrKJzWxhK9vYzg52sovd7GEv+9jPAQ5yiMOHQBrpZJBJVlrSjaob2p7j0g1tp6F1G9OEpjSjOedwLudxPhdwIRdxMZdwKZdxOVdwJVdxNddwLddxPS1oSS55tEq6kXVD23NcuqHtNLTuMIYzgpGM4mEe4VEe43Ge4Eme4mme4Vme43le4EVe4mVe4VVeYzRjKKCQsUk3sm5oe45LN7SdhtZdySpWs4a1fM03fMt3fM8P/MhP/Mwv/Mpv/M4f/Mlf/M0//Mt/rGM9RRRTknQj64a257h0Q9tpaN3s9FSqATk0pBFHcCRHcTTHcCzHcTwncCIncTKncCqncTpncCZncTaNaUJTmtE8PelG1Q1tz3HphrbT0LoDyWcQgxnCDdzITdzMLdzKbdzOHdzJXdzNPdzLfdzPAwzlQR5iGMMZwUhGJd3IuqHtOS7d0HYaWncJS1nGclbwOm/wJm/xNu/wLu/xPh/wIR/xMZ/wKZ/xOV/wJV+xklWsZg1rk25k3dD2HJduaDsNrZuRkUplkkUpSlOGspSjPBWoSCUqU4WqVKM6NahJLWpTh7rUoz7ZNCCHhjTKSLpRdUPbc1y6oe00tG4uebSiNW1oSzva04GOdKIzXehKN7rTg570ojd96Es/+jOAgeQziMEMSbqRdUPbc1y6oe00tG4BhYxlHOOZwEQmMZkpTGUa05nBTGYxmznMZR7zWcBCFrGYJSxlGctZkXQj64a257h0Q9tpaN0iiilhAxvZxGa2sJVtbGcHO9nFbvawl33s5wAHOcThJ/U00skgkyxKUToz6UbVDW3Pcen+D9biq9Q=
+  </data>
+ </layer>
+ <layer id="2" name="graphics" width="350" height="13">
+  <data encoding="base64" compression="zlib">
+   eJzt2UkKwkAQBdA+QQ4Z5/H+SwtEyCLRDGh3x/fgo6iBSoVIWaYEAAAAAAAAAECp2ialTWQb2UX2kUPk2Mx/j6d3PTpFzpFL5Bq5Re6dvjK9f93PDz0HANajlHm0r441+tZMVcus9qpz6WOOmkvvLQDU6tPuas5usEZ957nktRx1/1ruOa1d+R56zJ441zWY8r0w9p4ZOh6Aui35n3nKMf+w1yxZrbP0HEvnoDX+lsphbG9rmzuH6p1yHg+hqIYV
+  </data>
+ </layer>
+ <objectgroup id="3" name="ground">
+  <object id="2" x="0.666667" y="192" width="481.333" height="16"/>
+  <object id="3" x="5329.33" y="192" width="269.333" height="16.6667"/>
+  <object id="6" x="4847.33" y="160.667" width="433.333" height="15.3333"/>
+  <object id="7" x="4464.67" y="190.667" width="335.333" height="17.3333"/>
+  <object id="8" x="4224" y="159.333" width="193.333" height="18"/>
+  <object id="9" x="4128" y="127.333" width="49.3333" height="15.3333"/>
+  <object id="10" x="3744" y="94.6667" width="336.667" height="17.3333"/>
+  <object id="11" x="3408.67" y="128" width="288" height="15.3333"/>
+  <object id="12" x="3327.33" y="160.667" width="49.3333" height="16"/>
+  <object id="13" x="2896" y="192" width="384.667" height="16.6667"/>
+  <object id="14" x="2816.67" y="159.333" width="48" height="17.3333"/>
+  <object id="15" x="2736" y="128" width="48" height="16"/>
+  <object id="16" x="2464" y="94.6667" width="240" height="18"/>
+  <object id="17" x="2384.67" y="128" width="48" height="16"/>
+  <object id="18" x="2321.33" y="160" width="48" height="16.6667"/>
+  <object id="19" x="1952.67" y="193.333" width="318.667" height="14.6667"/>
+  <object id="20" x="1584.67" y="159.333" width="320.667" height="17.3333"/>
+  <object id="21" x="1456" y="127.333" width="81.3333" height="16"/>
+  <object id="22" x="1072" y="96.6667" width="338" height="16"/>
+  <object id="23" x="912" y="128" width="112.667" height="16.6667"/>
+  <object id="24" x="528" y="158.667" width="337.333" height="17.3333"/>
+ </objectgroup>
+ <objectgroup id="4" name="forks"/>
+ <objectgroup id="5" name="ladder"/>
+</map>
