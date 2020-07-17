@@ -12,7 +12,7 @@ public abstract class  interactiveTileobject {
     protected TiledMapTile tile;
     protected Rectangle bounds;
     protected Body body;
-
+    protected Fixture fixture;
     public interactiveTileobject(World world, TiledMap map, Rectangle bounds) {
         this.world = world;
         this.map =  map;
@@ -26,7 +26,8 @@ public abstract class  interactiveTileobject {
         body=world.createBody(bdef);
         shape.setAsBox((bounds.getWidth()/2)/ MegamanGame.PPM,(bounds.getHeight()/2)/ MegamanGame.PPM);
         fdef.shape=shape;
-        body.createFixture(fdef);
+        fixture = body.createFixture(fdef);
 
     }
+    public abstract void onLegHit();
 }

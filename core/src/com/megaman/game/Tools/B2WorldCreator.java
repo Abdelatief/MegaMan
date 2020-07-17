@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
 import com.megaman.game.MegamanGame;
 import com.megaman.game.Sprites.forks;
-import com.megaman.game.Sprites.ladder;
 
 public class B2WorldCreator {
 public B2WorldCreator(World world, TiledMap map)
@@ -41,12 +40,6 @@ public B2WorldCreator(World world, TiledMap map)
         Rectangle rect =((RectangleMapObject)object).getRectangle();
         new forks(world, map, rect);
     }
-    // create ladder bodies,fixtures
-    for(MapObject object: map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class))
-    {
-        //create rectangle object itself
-        Rectangle rect =((RectangleMapObject)object).getRectangle();
-        new ladder(world, map, rect);
-    }
+
 }
 }

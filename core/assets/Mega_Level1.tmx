@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="240" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="39">
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="240" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="52">
  <tileset firstgid="1" source="shhhhhhhhhhhh.tsx"/>
  <layer id="4" name="background" width="240" height="13">
   <data encoding="base64" compression="zlib">
@@ -8,7 +8,7 @@
  </layer>
  <layer id="5" name="graphics" width="240" height="13">
   <data encoding="base64" compression="zlib">
-   eJzt2TsOgkAURuHb3GYqNqPr8e0O1LUg+H4sAd2ZWvl3xsKC8ZUh50tOoBkgITdhghkAAAAAAACApskzs7kqsufzUi3UUq3UWm3UVu3UXh3UUfXdbKCGaqTGHn+t2HUAAADAK61g1g58awIpmmh2p2oW/v0kAOqqNLcndWZ+geRcNLdXdWN+0RCxe8GOm3X9cex53Pr8jX8f7GM/r847//V7S/W+33zuOxNeoZY=
+   eJzt2UsOgjAURuE7uXOWWFF0TzxUfLFN/xlxYuJVJG3Ol5zApNCkaVKCGQAAAAAAAIDStJVZp/rq9X5QR3VSZzWqi7qqm7qrh5rU1s12qlF7dfD4s6LjAAAAgHd0pkycNYE8aa+mtecAIGZg/wLZ6tm/KEj0WzC52cbna+2x8e0X/z74jv29T9b83+uW63uXnPcT/F+eew==
   </data>
  </layer>
  <objectgroup id="6" name="ground">
@@ -21,22 +21,21 @@
   <object id="11" x="3505.33" y="190.667" width="335.333" height="17.3333"/>
   <object id="26" x="1297.33" y="80" width="225.333" height="17.3333"/>
   <object id="27" x="1601.33" y="78.6667" width="446.667" height="14.6667"/>
-  <object id="32" x="302.667" y="190.667" width="178.667" height="18.6667"/>
   <object id="33" x="1248" y="78.6667" width="48" height="20"/>
   <object id="34" x="2113.33" y="190.667" width="110.667" height="16"/>
+  <object id="42" x="960" y="128" width="16" height="64"/>
+  <object id="47" x="304.25" y="192.25" width="176.75" height="15.5"/>
  </objectgroup>
  <objectgroup id="8" name="forks">
-  <object id="14" x="482.667" y="191.333" width="28" height="17.3333"/>
   <object id="20" x="2226" y="190.667" width="58.6667" height="18"/>
   <object id="21" x="2740.67" y="191.333" width="25.3333" height="17.3333"/>
   <object id="22" x="3219.33" y="190.667" width="26.6667" height="18"/>
-  <object id="23" x="3474" y="188.667" width="30" height="18"/>
   <object id="28" x="1524" y="76" width="77.3333" height="20"/>
-  <object id="35" x="226.667" y="189.333" width="73.3333" height="21.3333"/>
   <object id="36" x="-154.667" y="-185.333"/>
   <object id="37" x="-21.3333" y="764" width="365.333" height="26.6667"/>
- </objectgroup>
- <objectgroup id="7" name="ladder">
-  <object id="12" x="944.667" y="126.667" width="31.3333" height="65.3333"/>
+  <object id="44" x="224.25" y="192.25" width="78.5" height="15.5"/>
+  <object id="48" x="481.25" y="192" width="30.25" height="16.25"/>
+  <object id="49" x="511" y="222.25"/>
+  <object id="51" x="3474.25" y="189.75" width="30.5" height="18"/>
  </objectgroup>
 </map>

@@ -19,6 +19,7 @@ import com.megaman.game.Scenes.Hud;
 import com.megaman.game.Sprites.Bullet;
 import com.megaman.game.Sprites.MegaMan;
 import com.megaman.game.Tools.B2WorldCreator;
+import com.megaman.game.Tools.WorldContactListener;
 
 
 import java.util.ArrayList;
@@ -83,7 +84,7 @@ public class Playscreen extends screen{
         bullets = new ArrayList<Bullet>();          //arraylist allocation
         //Music
         jumpSound = Gdx.audio.newSound(Gdx.files.internal("audio/sounds/Jump-SoundBible.com-1007297584.mp3"));;//jump sound
-
+        world.setContactListener(new WorldContactListener());
     }
     public void handelInput(float dt)
     {

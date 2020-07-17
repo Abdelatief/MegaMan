@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.megaman.game.Observer.PlayerSubscriber;
@@ -54,9 +55,14 @@ public class MegaMan extends Entity {
         b2body = world.createBody(bdef);
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
-        shape.setRadius(1 / MegamanGame.PPM );
+        shape.setRadius(2 / MegamanGame.PPM );
         fdef.shape=shape;
         b2body.createFixture(fdef);
+        EdgeShape leg = new EdgeShape();
+        leg.set(new Vector2(-2 / MegamanGame.PPM,-2/ MegamanGame.PPM),new Vector2(2 / MegamanGame.PPM,-2/ MegamanGame.PPM));//line between 2 different points from -2 to 2 of y = -2
+        fdef.shape = leg;
+        fdef.isSensor = true;
+        b2body.createFixture(fdef).setUserData("leg");
     }
 
     public void update(float dt)

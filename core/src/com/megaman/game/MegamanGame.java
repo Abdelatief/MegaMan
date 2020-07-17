@@ -15,12 +15,11 @@ public class MegamanGame extends Game {
 	public static final int V_WIDTH=2000;
 	public static final int V_HEIGHT=1000;
 	public static final float PPM=150;
-	public static AssetManager manager;//for sound
 	private Sound mp3Sound;
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		/*mp3Sound = Gdx.audio.newSound(Gdx.files.internal("audio/music/MM1.17 Wily Stages 1-2.mp3"));
+		/*mp3Sound = Gdx.audio.newSound(Gdx.files.internal("audio/music/MM1.03 Boss Attack (PS).mp3"));
 		mp3Sound.setLooping(mp3Sound.loop(),true);
 		mp3Sound.play();*/
 		setScreen(new MainMenuScreen(this));
