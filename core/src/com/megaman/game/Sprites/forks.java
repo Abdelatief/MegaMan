@@ -5,6 +5,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
+import com.megaman.game.Scenes.Hud;
 
 public class forks extends interactiveTileobject {
     public forks(World world, TiledMap map, Rectangle bounds)
@@ -16,5 +17,6 @@ public class forks extends interactiveTileobject {
     @Override
     public void onLegHit() {
         Gdx.app.log("Forks", "Collision");
+        Hud.decreaseMegaManEnergy(200);
     }
 }

@@ -68,8 +68,7 @@ public class Playscreen extends screen{
         gamecam = new OrthographicCamera();
         //create a Fitviewport to maintain virtual aspect ratio despite screen
         gameport = new FitViewport(400 / MegamanGame.PPM, 208 / MegamanGame.PPM, gamecam);
-        //create our game HUD for scores /timers/level info
-        hud = new Hud(game.batch);
+
         //Load our map and setup our map renderer
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("Mega_Level1.tmx");
@@ -85,6 +84,8 @@ public class Playscreen extends screen{
         player = new MegaMan(world, this);
         enemy = new RedCarEnemy(world, this, "megaman7_megaman_sheet", 100);
         bullets = new ArrayList<Bullet>();          //arraylist allocation
+        //create our game HUD for scores /timers/level info
+        hud = new Hud(game.batch,player);
         //Music
         jumpSound = Gdx.audio.newSound(Gdx.files.internal("audio/sounds/Jump-SoundBible.com-1007297584.mp3"));;//jump sound
         world.setContactListener(new WorldContactListener());
@@ -94,7 +95,7 @@ public class Playscreen extends screen{
         if(Gdx.input.isKeyJustPressed(Input.Keys.W)||Gdx.input.isKeyJustPressed(Input.Keys.UP))
         {
             //impulse->media change
-            jumpSound.play();
+            //jumpSound.play();
             player.b2body.applyLinearImpulse(new Vector2(0,4f),player.b2body.getWorldCenter(),true);
         }
         if((Gdx.input.isKeyPressed(Input.Keys.D)||Gdx.input.isKeyPressed(Input.Keys.RIGHT))&&(player.b2body.getLinearVelocity() .x<= 2))
@@ -126,6 +127,10 @@ public class Playscreen extends screen{
         world.step(1/60f,6,2);
         player.update(dt);
         enemy.update(dt);
+        if(player.getCurrentHealth()==0||player.getCurrentHealth()<0) {
+            //this.dispose();
+            game.setScreen(new GameOverScreen(game));
+        }
         gamecam.position.x=player.b2body.getPosition().x;
         //update cam with correct coordinate after changes
         gamecam.update();

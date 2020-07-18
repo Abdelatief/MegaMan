@@ -29,6 +29,12 @@ public abstract class Entity extends Sprite
         this.currentHealth = maxHealth;
     }
 
+    public int getCurrentHealth() {
+        return currentHealth;
+    }
+    public void setCurrentHealth(int currentHealth) {
+        this.currentHealth = currentHealth;
+    }
     public abstract void define();
 
     public abstract void update(float dt);
