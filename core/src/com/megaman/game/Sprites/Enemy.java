@@ -40,7 +40,7 @@ public class Enemy extends Entity
 
     }
 
-    @Override
+
     public Array<TextureRegion> GetArrayFromSheet()
     {
         return null;

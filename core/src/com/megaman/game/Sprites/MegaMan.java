@@ -100,11 +100,13 @@ public class MegaMan extends Entity {
                 isAnimationPlaying = false;
             }
         }
-        System.out.println((b2body.getLinearVelocity().x > 0));
-        System.out.println("Is animation playing: " + isAnimationPlaying);
-        System.out.println("Start time for animation: " + animationStart);
-        System.out.println("Timer: " + timer);
-        System.out.println("Current State: " + currentState);
+        // print statements for debugging
+//        System.out.println((b2body.getLinearVelocity().x > 0));
+//        System.out.println("Is animation playing: " + isAnimationPlaying);
+//        System.out.println("Start time for animation: " + animationStart);
+//        System.out.println("Timer: " + timer);
+//        System.out.println("Current State: " + currentState);
+
         setPosition(b2body.getPosition().x-getWidth()/2,b2body.getPosition().y-getHeight()/8);
         setRegion(getFrame(dt));
     }

@@ -18,6 +18,7 @@ import com.megaman.game.MegamanGame;
 import com.megaman.game.Scenes.Hud;
 import com.megaman.game.Sprites.Bullet;
 import com.megaman.game.Sprites.MegaMan;
+import com.megaman.game.Sprites.RedCarEnemy;
 import com.megaman.game.Tools.B2WorldCreator;
 import com.megaman.game.Tools.WorldContactListener;
 
@@ -47,6 +48,7 @@ public class Playscreen extends screen{
     private World world;
     private Box2DDebugRenderer b2dr;                //Gives graphical representation of fixtures and body inside box2d world
     private MegaMan player;
+    private RedCarEnemy enemy;
 
     private ArrayList<Bullet> bullets;              //This arraylist will contain all the bullets in the screen
 
@@ -81,6 +83,7 @@ public class Playscreen extends screen{
         new B2WorldCreator(world, map);
         //create megaman in game
         player = new MegaMan(world, this);
+        enemy = new RedCarEnemy(world, this, "megaman7_megaman_sheet", 100);
         bullets = new ArrayList<Bullet>();          //arraylist allocation
         //Music
         jumpSound = Gdx.audio.newSound(Gdx.files.internal("audio/sounds/Jump-SoundBible.com-1007297584.mp3"));;//jump sound
@@ -122,6 +125,7 @@ public class Playscreen extends screen{
         handelInput(dt);
         world.step(1/60f,6,2);
         player.update(dt);
+        enemy.update(dt);
         gamecam.position.x=player.b2body.getPosition().x;
         //update cam with correct coordinate after changes
         gamecam.update();

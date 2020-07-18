@@ -39,9 +39,38 @@ public abstract class Entity extends Sprite
 
     protected abstract void animationSetup();
 
-    public Array<TextureRegion> GetArrayFromSheet()
+//    public Array<TextureRegion> GetArrayFromSheet()
+//    {
+//        return null;
+//    }
+
+    private Array<TextureRegion> GetArrayFromSheet(int x,
+                                                   int y,
+                                                   float width,
+                                                   float height,
+                                                   float spritesheetWidth,
+                           
+                                                   float spritesheetHeight,
+                                                   int numberOfSprites, boolean continuous)
     {
-        return null;
+        Array<TextureRegion> array = new Array<TextureRegion>();
+        for (int i=0; i<numberOfSprites; i++)
+        {
+            if (x + width > spritesheetWidth)
+            {
+                x = 0;
+                y += width;
+            }
+            array.add(new TextureRegion(getTexture(), x, y, width, height));
+            x += width;
+        }
+        if (continuous) {
+            for (int i = array.size - 2; i > 4; i--)
+            {
+                array.add(array.get(i));
+            }
+        }
+        return array;
     }
 
     public void applyDamage()
