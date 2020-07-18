@@ -27,6 +27,7 @@ import java.util.ArrayList;
 
 public class Playscreen extends screen{
     private TextureAtlas atlas;
+
     private Hud hud;
     private OrthographicCamera gamecam;
     private Viewport gameport;
@@ -54,7 +55,7 @@ public class Playscreen extends screen{
 
     private Sound jumpSound;//jump sound
     public  Playscreen(MegamanGame game) {
-        atlas = new TextureAtlas("mega_man.pack");
+        atlas = new TextureAtlas("MegaMan_Enemies.pack");
         this.game = game;
         pause = false;
         //pause,continue button
@@ -82,7 +83,7 @@ public class Playscreen extends screen{
         new B2WorldCreator(world, map);
         //create megaman in game
         player = new MegaMan(world, this);
-        enemy = new RedCarEnemy(world, this, "megaman7_megaman_sheet", 100);
+        enemy = new RedCarEnemy(world, this, "SNES - Mega Man X - Enemies 1", 100);
         bullets = new ArrayList<Bullet>();          //arraylist allocation
         //create our game HUD for scores /timers/level info
         hud = new Hud(game.batch,player);
@@ -127,7 +128,8 @@ public class Playscreen extends screen{
         world.step(1/60f,6,2);
         player.update(dt);
         enemy.update(dt);
-        if(player.getCurrentHealth()==0||player.getCurrentHealth()<0) {
+        System.out.println(player.getY());
+        if(player.getCurrentHealth()==0||player.getCurrentHealth()<0||player.getY()<0) {
             //this.dispose();
             game.setScreen(new GameOverScreen(game));
         }

@@ -18,7 +18,7 @@ public class RedCarEnemy extends Enemy {
         stateTimer = 0;
         runningRight = true;
         define();
-        enemyTextureRegion = new TextureRegion(getTexture(), 58, 200, 30, 45);
+        enemyTextureRegion = new TextureRegion(getTexture(), 1024, 650, 70, 45);
         //animationSetup();
 
         setBounds(0,0,32/MegamanGame.PPM,40/MegamanGame.PPM);

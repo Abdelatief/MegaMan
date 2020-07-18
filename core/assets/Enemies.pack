@@ -1,0 +1,19 @@
+Enemies.png
+size: 886, 1288
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+SNES - Mega Man X - Enemies 1
+  rotate: false
+  xy: 0, 0
+  size: 446, 1288
+  orig: 446, 1288
+  offset: 0, 0
+  index: -1
+SNES - Mega Man X - Enemies 2
+  rotate: false
+  xy: 446, 0
+  size: 440, 1188
+  orig: 440, 1188
+  offset: 0, 0
+  index: -1
