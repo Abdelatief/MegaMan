@@ -88,6 +88,11 @@ public class Hud implements Disposable {
         player.setCurrentHealth(Energy);
 
     }
+
+    public Integer getScore() {
+        return score;
+    }
+
     @Override
     public void dispose() {
         stage.dispose();

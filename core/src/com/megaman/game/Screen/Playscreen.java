@@ -132,7 +132,7 @@ public class Playscreen extends screen{
         //System.out.println(player.getY());
         if(player.getCurrentHealth()==0||player.getCurrentHealth()<0||player.getY()<0) {
             //this.dispose();
-            game.setScreen(new GameOverScreen(game));
+            game.setScreen(new GameOverScreen(game,hud.getScore()));
         }
         gamecam.position.x=player.b2body.getPosition().x;
         //update cam with correct coordinate after changes
