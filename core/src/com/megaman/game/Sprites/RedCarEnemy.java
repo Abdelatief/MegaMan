@@ -17,9 +17,11 @@ public class RedCarEnemy extends Enemy {
         previousState = State.IDLE;
         stateTimer = 0;
         runningRight = true;
-        enemyTextureRegion = new TextureRegion(getTexture(), 0, 0, 16, 16);
-        //animationSetup();
         define();
+        enemyTextureRegion = new TextureRegion(getTexture(), 58, 200, 30, 45);
+        //animationSetup();
+
+        setBounds(0,0,32/MegamanGame.PPM,40/MegamanGame.PPM);
         setRegion(enemyTextureRegion);
     }
 
@@ -37,6 +39,7 @@ public class RedCarEnemy extends Enemy {
         b2body.createFixture(fdef);
         // Edge shape will be defined here for collision
     }
+
 
     public void update(float dt)
     {

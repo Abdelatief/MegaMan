@@ -172,6 +172,7 @@ public class Playscreen extends screen{
         game.batch.setProjectionMatrix(gamecam.combined);
         game.batch.begin();
         player.draw(game.batch);
+        enemy.draw(game.batch);
         for (Bullet bullet: bullets)
             bullet.render(game.batch);
         game.batch.end();
