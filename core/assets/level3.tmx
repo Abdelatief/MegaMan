@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="350" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="24">
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="350" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="28">
  <tileset firstgid="1" source="SNES - Mega Man X - Boomer Kuwanger Stage.tsx"/>
  <layer id="1" name="background" width="350" height="13">
   <data encoding="base64" compression="zlib">
@@ -8,12 +8,11 @@
  </layer>
  <layer id="2" name="graphics" width="350" height="13">
   <data encoding="base64" compression="zlib">
-   eJzt2UsOgjAUBdDuQkUNO2Do372w/1V4xw6NlALnJHfUSds8eC9pKQAAAAAAAAAAsF67vpR9cki65JicknPf1hoArJV+ux2XoZRrckvuySN5Jq/kPUy/vjZqGYB/SN8YzVu/29JZl8qM2Z6tfzc56zj3Hqjru96Buo4z/ndb73mt72/JzKB1eFtoU7eAeVd9TK/2HX8A/6VW3g==
+   eJzt2UsOgjAYReF/Fypo2AFDhYrOfa4Bd9KluTTvQIcmxFAp7fmSM+AxAAItATMAAAAAAAAAAAAAAAAgXYvKbKlWqlClWqtNFdc2AABSxXybj21ttlONapVTe9WpQx1+e2q4lwEAY9C80fO+9buczhUYS+7Pjc61n/oYACAn5YTjbuxzXuzHN2ehv3O6hz1b1Sj37rN8Opqd1UVd1U3d1ZD13/aJFf8W4lTM4H2X+yMMjVNe45XXuOX/fY1f3kJjug==
   </data>
  </layer>
  <objectgroup id="3" name="ground">
   <object id="6" x="0.666667" y="192.667" width="383.333" height="14.6667"/>
-  <object id="7" x="432.667" y="161.333" width="384" height="14"/>
   <object id="8" x="864.667" y="127.333" width="513.333" height="18"/>
   <object id="9" x="1438" y="190" width="563" height="18"/>
   <object id="10" x="2047" y="160" width="115" height="17"/>
@@ -25,9 +24,12 @@
   <object id="18" x="4207" y="176" width="113" height="17"/>
   <object id="19" x="4352" y="144" width="115" height="15"/>
   <object id="20" x="4496" y="113" width="562" height="15"/>
-  <object id="21" x="5074" y="162" width="63" height="15"/>
   <object id="22" x="5152" y="192" width="450" height="17"/>
   <object id="23" x="3073" y="145" width="13" height="62"/>
+  <object id="24" x="495.333" y="191.333" width="335.333" height="16.6667"/>
+  <object id="27" x="5103.67" y="192" width="48.3333" height="16"/>
  </objectgroup>
- <objectgroup id="4" name="forks"/>
+ <objectgroup id="4" name="forks">
+  <object id="26" x="384" y="192" width="110.667" height="16"/>
+ </objectgroup>
 </map>

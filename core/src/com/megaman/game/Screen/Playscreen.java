@@ -128,7 +128,8 @@ public class Playscreen extends screen{
         world.step(1/60f,6,2);
         player.update(dt);
         enemy.update(dt);
-        System.out.println(player.getY());
+        //GAME OVER
+        //System.out.println(player.getY());
         if(player.getCurrentHealth()==0||player.getCurrentHealth()<0||player.getY()<0) {
             //this.dispose();
             game.setScreen(new GameOverScreen(game));
