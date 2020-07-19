@@ -23,7 +23,7 @@ public abstract class Entity extends Sprite
     private boolean setToDestroy;
     private boolean destroyed;
 
-    public Entity(World world, Playscreen screen, String spriteSheet, int maxHealth)
+    public Entity(World world, Playscreen screen, String spriteSheet, int maxHealth, float x, float y)
     {
         super(screen.getAtlas().findRegion(spriteSheet));
         this.world = world;
@@ -32,6 +32,8 @@ public abstract class Entity extends Sprite
         this.currentHealth = maxHealth;
         this.setToDestroy = false;
         this.destroyed = false;
+        setPosition(x,y);
+
     }
 
     public int getCurrentHealth() {
@@ -53,14 +55,7 @@ public abstract class Entity extends Sprite
 //        return null;
 //    }
 
-    private Array<TextureRegion> GetArrayFromSheet(int x,
-                                                   int y,
-                                                   float width,
-                                                   float height,
-                                                   float spritesheetWidth,
-                           
-                                                   float spritesheetHeight,
-                                                   int numberOfSprites, boolean continuous)
+    private Array<TextureRegion> GetArrayFromSheet(int x, int y, float width, float height, float spritesheetWidth, float spritesheetHeight, int numberOfSprites, boolean continuous)
     {
         Array<TextureRegion> array = new Array<TextureRegion>();
         for (int i=0; i<numberOfSprites; i++)

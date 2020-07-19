@@ -20,10 +20,10 @@ public class Hud implements Disposable {
 
     private Integer worldTimer;
     private float timecount;
-    private  Integer score;
+    private static Integer score;
     private static Integer Energy;
     private Label countdownLabel;
-    private Label ScoreLabel;
+    private static Label ScoreLabel;
     private Label levelabel;
     private Label worldLabel;
     private Label timeLabel;
@@ -88,7 +88,13 @@ public class Hud implements Disposable {
         player.setCurrentHealth(Energy);
 
     }
+    public static void  IncreaseScore(int value)
+    {
+        score+=value;
+        ScoreLabel.setText((String.format("%04d",score)));
 
+
+    }
     public Integer getScore() {
         return score;
     }
