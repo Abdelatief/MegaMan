@@ -108,7 +108,7 @@ public class Playscreen extends screen{
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE))        //Shooting
         {
-            bullets.add(new Bullet(player.b2body.getPosition().x, player.b2body.getPosition().y, player.runningRight));
+            bullets.add(new Bullet(player.b2body.getPosition().x, player.b2body.getPosition().y, player.runningRight, world));
         }
     }
 
