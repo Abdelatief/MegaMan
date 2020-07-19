@@ -26,7 +26,7 @@ public class RedCarEnemy extends Enemy {
         for(int i =4; i>0; i--) {
             frames.add(new TextureRegion(screen.getAtlas().findRegion("SNES - Mega Man X - Enemies 1"), i*90, 650, 80, 45));
 
-        }walkAnimation = new Animation(0.4f, frames);
+        }walkAnimation = new Animation(0.2f, frames);
         stateTimer = 0;
         setBounds(getX(), getY(), 70 / MegamanGame.PPM, 45 / MegamanGame.PPM);
 
@@ -56,6 +56,12 @@ public class RedCarEnemy extends Enemy {
             b2body.setLinearVelocity(velocity);
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight()/3 );
             setRegion(walkAnimation.getKeyFrame(stateTimer, true));
+            //To make enemy reverses its movement direction.
+            if(this.getX()<0)
+                velocity.x = 1;
+            else if(this.getX()>1.15f)
+                velocity.x = -1;
+
 
         }
     }

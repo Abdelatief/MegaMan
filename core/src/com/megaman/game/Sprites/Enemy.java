@@ -27,6 +27,7 @@ public class Enemy extends Entity
     @Override
     public void update(float dt) {
         super.update(dt);
+
     }
 
     @Override
@@ -44,13 +45,7 @@ public class Enemy extends Entity
 
     }
 
-    public void reverseVelovity(boolean x ,boolean y)
-    {
-        if(x)
-            velocity.x = -velocity.x;
-        if(y)
-            velocity.y = -velocity.y;
-    }
+
     public Array<TextureRegion> GetArrayFromSheet()
     {
         return null;
