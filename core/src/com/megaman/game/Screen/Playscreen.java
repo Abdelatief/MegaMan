@@ -84,7 +84,7 @@ public class Playscreen extends screen{
         new B2WorldCreator(world, map);
         //create megaman in game
         player = new MegaMan(world, this);
-        enemies.add(new RedCarEnemy(world, this, "SNES - Mega Man X - Enemies 1", 100,.32f,.32f));
+        enemies.add(new RedCarEnemy(world, this, "SNES - Mega Man X - Enemies 1", 100,2,.16f));
         bullets = new ArrayList<Bullet>();          //arraylist allocation
         //create our game HUD for scores /timers/level info
         hud = new Hud(game.batch,player);

@@ -112,4 +112,5 @@ public abstract class Entity extends Sprite
     {
         return destroyed;
     }
+
 }

@@ -50,7 +50,7 @@ public class MegaMan extends Entity {
     public void define()
     {
         BodyDef bdef=new BodyDef();
-        bdef.position.set(32/ MegamanGame.PPM,100/ MegamanGame.PPM);
+        bdef.position.set(getX(),getY());
         bdef.type=BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
         FixtureDef fdef = new FixtureDef();

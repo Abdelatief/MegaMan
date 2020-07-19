@@ -22,11 +22,13 @@ public class RedCarEnemy extends Enemy {
         previousState = State.IDLE;
         frames = new Array<TextureRegion>();
         runningRight = true;
-        for(int i = 5; i>0; i--)
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("SNES - Mega Man X - Enemies 1"), i*70+50 , 650, 60, 45));
-        walkAnimation = new Animation(0.4f, frames);
+
+        for(int i =4; i>0; i--) {
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("SNES - Mega Man X - Enemies 1"), i*90, 650, 80, 45));
+
+        }walkAnimation = new Animation(0.4f, frames);
         stateTimer = 0;
-        setBounds(getX(), getY(), 55 / MegamanGame.PPM, 45 / MegamanGame.PPM);
+        setBounds(getX(), getY(), 70 / MegamanGame.PPM, 45 / MegamanGame.PPM);
 
     }
 
@@ -35,7 +37,7 @@ public class RedCarEnemy extends Enemy {
     {
 
         BodyDef bdef = new BodyDef();
-        bdef.position.set(100 / MegamanGame.PPM, 100 / MegamanGame.PPM);
+        bdef.position.set(getX(), getX());
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
         FixtureDef fdef = new FixtureDef();
@@ -47,11 +49,14 @@ public class RedCarEnemy extends Enemy {
 
     public void update(float dt) {
 
-        super.update(dt);
+       super.update(dt);
         stateTimer += dt;
+
         if (!getSetToDestroy() && !getDestroyed()) {
+            b2body.setLinearVelocity(velocity);
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight()/3 );
             setRegion(walkAnimation.getKeyFrame(stateTimer, true));
+
         }
     }
 
