@@ -12,12 +12,14 @@ import com.megaman.game.Screen.Playscreen;
 
 
 public class RedCarEnemy extends Enemy {
-    TextureRegion enemyTextureRegion;
+
     private Array<TextureRegion> frames;
     private Animation<TextureRegion> walkAnimation;
-
+    private float x,y;
     public RedCarEnemy(World world, Playscreen screen, String spriteSheet, int maxHealth, float x, float y) {
         super(world, screen, spriteSheet, maxHealth,x,y);
+        this.x=x;
+        this.y=y;
         currentState = State.IDLE;
         previousState = State.IDLE;
         frames = new Array<TextureRegion>();
@@ -57,9 +59,12 @@ public class RedCarEnemy extends Enemy {
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight()/3 );
             setRegion(walkAnimation.getKeyFrame(stateTimer, true));
             //To make enemy reverses its movement direction.
-            if(this.getX()<0)
+            //for debug
+            //System.out.println(getX());
+            //System.out.println(x);
+            if(this.getX() < x-2)
                 velocity.x = 1;
-            else if(this.getX()>1.15f)
+           else if(this.getX() > x-1)
                 velocity.x = -1;
 
 

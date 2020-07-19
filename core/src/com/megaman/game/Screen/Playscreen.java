@@ -189,10 +189,11 @@ public class Playscreen extends screen{
         game.batch.setProjectionMatrix(gamecam.combined);
         game.batch.begin();
         player.draw(game.batch);
-        for (Enemy enemy: enemies)
-            enemy.draw(game.batch);
         for (Bullet bullet: bullets)
             bullet.render(game.batch);
+        for (Enemy enemy: enemies)
+            enemy.draw(game.batch);
+
         game.batch.end();
         //set batch to draw what hud camera sees
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
