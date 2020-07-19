@@ -30,7 +30,7 @@ public class MegaMan extends Entity {
 
     public MegaMan(World  world , Playscreen screen)
     {
-        super(world, screen, "megaman7_megaman_sheet", 1000);
+        super(world, screen, "mega_man", 1000);
         // register it to the publisher later, when the classes are implemented properly
         currentState = State.STANDING;
         previousState = State.STANDING;
