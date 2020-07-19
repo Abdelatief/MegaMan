@@ -22,7 +22,7 @@ public class Enemy extends Entity
 
     @Override
     public void update(float dt) {
-
+        super.update(dt);
     }
 
     @Override

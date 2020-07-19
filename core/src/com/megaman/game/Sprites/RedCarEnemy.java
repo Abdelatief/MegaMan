@@ -1,5 +1,4 @@
 package com.megaman.game.Sprites;
-
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.*;
@@ -8,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.megaman.game.MegamanGame;
 import com.megaman.game.Screen.Playscreen;
+
 
 public class RedCarEnemy extends Enemy {
     TextureRegion enemyTextureRegion;
@@ -36,15 +36,17 @@ public class RedCarEnemy extends Enemy {
         CircleShape shape = new CircleShape();
         shape.setRadius(10 / MegamanGame.PPM);
         fdef.shape = shape;
-        b2body.createFixture(fdef);
-        // Edge shape will be defined here for collision
+        b2body.createFixture(fdef).setUserData(this);
     }
-
 
     public void update(float dt)
     {
-        setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight()/2);
-        setRegion(enemyTextureRegion);
+        super.update(dt);
+        if (!getSetToDestroy() && !getDestroyed())
+        {
+            setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
+            setRegion(enemyTextureRegion);
+        }
     }
 
     private Array<TextureRegion> GetArrayFromSheet(int x, int y, int numberOfSprites, boolean continuous)

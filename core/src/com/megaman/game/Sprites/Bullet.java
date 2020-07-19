@@ -11,6 +11,7 @@ import com.megaman.game.MegamanGame;
 public class Bullet
 {
     public float SPEED = 0.7f;
+    public int damage = 10;
     private static Texture texture;
     private static TextureRegion textureRegion;
     private float x, y;
@@ -60,7 +61,7 @@ public class Bullet
         shape.setRadius(3 / MegamanGame.PPM);
         fdef.shape = shape;
         fdef.isSensor = true;
-        b2body.createFixture(fdef);
+        b2body.createFixture(fdef).setUserData(this);
     }
 
     public void update(float dt)
@@ -76,5 +77,10 @@ public class Bullet
     public void render(SpriteBatch batch)
     {
         batch.draw(textureRegion, x+offset, y+0.04f, 0.1f, 0.1f);
+    }
+
+    public int getDamage()
+    {
+        return damage;
     }
 }

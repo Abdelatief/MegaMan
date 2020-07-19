@@ -1,5 +1,6 @@
 package com.megaman.game.Sprites;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -19,6 +20,8 @@ public abstract class Entity extends Sprite
     public Body b2body;
     public float stateTimer;
     public boolean runningRight;
+    private boolean setToDestroy;
+    private boolean destroyed;
 
     public Entity(World world, Playscreen screen, String spriteSheet, int maxHealth)
     {
@@ -27,6 +30,8 @@ public abstract class Entity extends Sprite
         this.screen = screen;
         this.maxHealth = maxHealth;
         this.currentHealth = maxHealth;
+        this.setToDestroy = false;
+        this.destroyed = false;
     }
 
     public int getCurrentHealth() {
@@ -36,8 +41,6 @@ public abstract class Entity extends Sprite
         this.currentHealth = currentHealth;
     }
     public abstract void define();
-
-    public abstract void update(float dt);
 
     public abstract TextureRegion getFrame(float dt);
 
@@ -79,13 +82,39 @@ public abstract class Entity extends Sprite
         return array;
     }
 
-    public void applyDamage()
+    public void update(float dt)
     {
+        if (setToDestroy) {
+            world.destroyBody(b2body);
+            destroyed = true;
+        }
+    }
 
+    public void applyDamage(int damage)
+    {
+        currentHealth -= damage;
+        if (currentHealth <= 0)
+            die();
     }
 
     public void die()
     {
+        setToDestroy = true;
+    }
 
+    public void draw(Batch batch)
+    {
+        if (!setToDestroy)
+            super.draw(batch);
+    }
+
+    public boolean getSetToDestroy()
+    {
+        return setToDestroy;
+    }
+
+    public boolean getDestroyed()
+    {
+        return destroyed;
     }
 }

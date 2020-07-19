@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.viewport.*;
 import com.megaman.game.MegamanGame;
 import com.megaman.game.Scenes.Hud;
 import com.megaman.game.Sprites.Bullet;
+import com.megaman.game.Sprites.Enemy;
 import com.megaman.game.Sprites.MegaMan;
 import com.megaman.game.Sprites.RedCarEnemy;
 import com.megaman.game.Tools.B2WorldCreator;
@@ -49,7 +50,7 @@ public class Playscreen extends screen{
     private World world;
     private Box2DDebugRenderer b2dr;                //Gives graphical representation of fixtures and body inside box2d world
     private MegaMan player;
-    private RedCarEnemy enemy;
+    private ArrayList<Enemy> enemies = new ArrayList<>();
 
     private ArrayList<Bullet> bullets;              //This arraylist will contain all the bullets in the screen
 
@@ -83,7 +84,7 @@ public class Playscreen extends screen{
         new B2WorldCreator(world, map);
         //create megaman in game
         player = new MegaMan(world, this);
-        enemy = new RedCarEnemy(world, this, "SNES - Mega Man X - Enemies 1", 100);
+        enemies.add(new RedCarEnemy(world, this, "SNES - Mega Man X - Enemies 1", 100));
         bullets = new ArrayList<Bullet>();          //arraylist allocation
         //create our game HUD for scores /timers/level info
         hud = new Hud(game.batch,player);
@@ -127,7 +128,20 @@ public class Playscreen extends screen{
         handelInput(dt);
         world.step(1/60f,6,2);
         player.update(dt);
-        enemy.update(dt);
+        // update enemies in the playscreen
+        ArrayList<Enemy> removeEnemies = new ArrayList<Enemy>();
+        for (Enemy enemy: enemies) {
+            if (enemy.getDestroyed())
+                removeEnemies.add(enemy);
+            else
+                enemy.update(dt);
+        }
+        // remove destroyed enemies
+        for (Enemy enemy: removeEnemies)
+        {
+            enemies.remove(enemy);
+        }
+        removeEnemies.clear();
         //GAME OVER
         //System.out.println(player.getY());
         if(player.getCurrentHealth()==0||player.getCurrentHealth()<0||player.getY()<0) {
@@ -175,7 +189,8 @@ public class Playscreen extends screen{
         game.batch.setProjectionMatrix(gamecam.combined);
         game.batch.begin();
         player.draw(game.batch);
-        enemy.draw(game.batch);
+        for (Enemy enemy: enemies)
+            enemy.draw(game.batch);
         for (Bullet bullet: bullets)
             bullet.render(game.batch);
         game.batch.end();

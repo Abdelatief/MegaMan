@@ -100,7 +100,7 @@ public class MegaMan extends Entity {
                 isAnimationPlaying = false;
             }
         }
-        // print statements for debugging
+//        //print statements for debugging
 //        System.out.println((b2body.getLinearVelocity().x > 0));
 //        System.out.println("Is animation playing: " + isAnimationPlaying);
 //        System.out.println("Start time for animation: " + animationStart);
