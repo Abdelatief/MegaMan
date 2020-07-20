@@ -101,31 +101,43 @@ public class Playscreen extends screen{
         if(Gdx.input.isKeyJustPressed(Input.Keys.W)||Gdx.input.isKeyJustPressed(Input.Keys.UP))
         {
             //impulse->media change
-            //jumpSound.play();
-            player.b2body.applyLinearImpulse(new Vector2(0,3.5f),player.b2body.getWorldCenter(),true);
+
+            if((!AtBossPosition)&&!(player.getX() <=0.5&&player.getX() >=0.01)) {
+                //jumpSound.play();
+                player.b2body.applyLinearImpulse(new Vector2(0, 3.5f), player.b2body.getWorldCenter(), true);
+            }
         }
         if((Gdx.input.isKeyPressed(Input.Keys.D)||Gdx.input.isKeyPressed(Input.Keys.RIGHT))&&(player.b2body.getLinearVelocity() .x<= 2))
         {
-            if(player.getX() <= (map.getProperties().get("width", Integer.class) / 10f)+1)
-                player.b2body.applyLinearImpulse(new Vector2(0.1f,0),player.b2body.getWorldCenter(),true);
+            //If condition to make mega man can't go out from boss position
+            if(AtBossPosition) {
+                if (player.getX() >= (map.getProperties().get("width", Integer.class) / 10f) + 0.8f && player.getX() <= (map.getProperties().get("width", Integer.class) / 10f) + 1.5f)
+                    player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
+                else
+                    player.b2body.applyLinearImpulse(new Vector2(0.05f, 0), player.b2body.getWorldCenter(), true);
+            }
             else
-                player.b2body.applyLinearImpulse(new Vector2(-0.1f,0),player.b2body.getWorldCenter(),true);
+                player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
         }
         if((Gdx.input.isKeyPressed(Input.Keys.A)||Gdx.input.isKeyPressed(Input.Keys.LEFT))&&(player.b2body.getLinearVelocity() .x>= -2))
         {
             //To make mega man can't go out from boss position and start game
-          /* if(!((AtBossPosition&&player.getX()<(map.getProperties().get("width", Integer.class) / 10f)-1.3f)||player.getX()<0.1f))
-               player.b2body.applyLinearImpulse(new Vector2(-0.1f,0),player.b2body.getWorldCenter(),true);
-           else
-               player.b2body.applyLinearImpulse(new Vector2(1f,0),player.b2body.getWorldCenter(),true);*/
-           if(AtBossPosition&&player.getX()<=(map.getProperties().get("width", Integer.class) / 10f)-1.3f)
-           {
-               player.b2body.applyLinearImpulse(new Vector2(0.1f,0),player.b2body.getWorldCenter(),true);
-           }
-           else if(player.getX()<0.1f)
-               player.b2body.applyLinearImpulse(new Vector2(0.1f,0),player.b2body.getWorldCenter(),true);
-           else
-               player.b2body.applyLinearImpulse(new Vector2(-0.1f,0),player.b2body.getWorldCenter(),true);
+            if(AtBossPosition)
+            {
+                if(player.getX()<=(map.getProperties().get("width", Integer.class) / 10f)-1&&player.getX()>=(map.getProperties().get("width", Integer.class) / 10f)-1.5f)
+                {
+                    player.b2body.applyLinearImpulse(new Vector2(0.1f,0),player.b2body.getWorldCenter(),true);
+                }
+                else
+                    player.b2body.applyLinearImpulse(new Vector2(-0.05f,0),player.b2body.getWorldCenter(),true);
+            }
+
+
+            else if(player.getX() <=0.5&&player.getX() >=-0.3)
+                player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
+            else
+                player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
+
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE))        //Shooting
         {
