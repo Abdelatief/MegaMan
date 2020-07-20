@@ -62,11 +62,22 @@ public class RedCarEnemy extends Enemy {
             //for debug
             //System.out.println(getX());
             //System.out.println(x);
-            if(this.getX() < x-2)
+            if(this.getX() < x-2) {
                 velocity.x = 1;
-           else if(this.getX() > x-1)
+                for(int i = 0;i < frames.size;i++)
+                    frames.get(i).flip(true,false);
+
+            }
+           else if(this.getX() > x-1) {
                 velocity.x = -1;
 
+                for(int i = 0;i < frames.size;i++)
+                {
+                    if(frames.get(i).isFlipX())
+                        frames.get(i).flip(true,false);
+                }
+
+            }
 
         }
     }
