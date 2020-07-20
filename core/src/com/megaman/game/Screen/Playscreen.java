@@ -16,10 +16,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.viewport.*;
 import com.megaman.game.MegamanGame;
 import com.megaman.game.Scenes.Hud;
-import com.megaman.game.Sprites.Bullet;
-import com.megaman.game.Sprites.Enemy;
-import com.megaman.game.Sprites.MegaMan;
-import com.megaman.game.Sprites.RedCarEnemy;
+import com.megaman.game.Sprites.*;
 import com.megaman.game.Tools.B2WorldCreator;
 import com.megaman.game.Tools.WorldContactListener;
 
@@ -55,10 +52,12 @@ public class Playscreen extends screen{
     private ArrayList<Bullet> bullets;              //This arraylist will contain all the bullets in the screen
 
     private Sound jumpSound;//jump sound
+    private boolean AtBossPosition;
     public  Playscreen(MegamanGame game) {
         atlas = new TextureAtlas("MegaMan_Enemies.pack");
         this.game = game;
         pause = false;
+        AtBossPosition=false;
         //pause,continue button
         inactive_pause_button = new Texture("inactive_pause_button.jpg");
         active_pause_button = new Texture("active_pause_button.jpg");
@@ -85,6 +84,11 @@ public class Playscreen extends screen{
         //create megaman in game
         player = new MegaMan(world, this);
         enemies.add(new RedCarEnemy(world, this, "SNES - Mega Man X - Enemies 1", 100,2,.16f));
+        enemies.add(new GreenEnemy(world, this, "SNES - Mega Man X - Enemies 2", 50,6,.16f));
+        enemies.add(new TallGreenEnemy(world, this, "SNES - Mega Man X - Enemies 2", 150,10.5f,.16f));
+        enemies.add(new BlueManEnemy(world, this, "SNES - Mega Man X - Enemies 2", 200,12.5f,.16f));
+        enemies.add(new BlueBirdEnemy(world, this, "SNES - Mega Man X - Enemies 2", 250,13,.16f));
+        enemies.add(new WhiteEnemy(world, this, "SNES - Mega Man X - Enemies 1", 300,14,.16f));
         bullets = new ArrayList<Bullet>();          //arraylist allocation
         //create our game HUD for scores /timers/level info
         hud = new Hud(game.batch,player);
@@ -98,15 +102,30 @@ public class Playscreen extends screen{
         {
             //impulse->media change
             //jumpSound.play();
-            player.b2body.applyLinearImpulse(new Vector2(0,4f),player.b2body.getWorldCenter(),true);
+            player.b2body.applyLinearImpulse(new Vector2(0,3.5f),player.b2body.getWorldCenter(),true);
         }
         if((Gdx.input.isKeyPressed(Input.Keys.D)||Gdx.input.isKeyPressed(Input.Keys.RIGHT))&&(player.b2body.getLinearVelocity() .x<= 2))
         {
-            player.b2body.applyLinearImpulse(new Vector2(0.1f,0),player.b2body.getWorldCenter(),true);
+            if(player.getX() <= (map.getProperties().get("width", Integer.class) / 10f)+1)
+                player.b2body.applyLinearImpulse(new Vector2(0.1f,0),player.b2body.getWorldCenter(),true);
+            else
+                player.b2body.applyLinearImpulse(new Vector2(-0.1f,0),player.b2body.getWorldCenter(),true);
         }
-        if((Gdx.input.isKeyPressed(Input.Keys.A)||Gdx.input.isKeyPressed(Input.Keys.LEFT))&&(player.b2body.getLinearVelocity() .x>=- 2))
+        if((Gdx.input.isKeyPressed(Input.Keys.A)||Gdx.input.isKeyPressed(Input.Keys.LEFT))&&(player.b2body.getLinearVelocity() .x>= -2))
         {
-            player.b2body.applyLinearImpulse(new Vector2(-0.1f,0),player.b2body.getWorldCenter(),true);
+            //To make mega man can't go out from boss position and start game
+          /* if(!((AtBossPosition&&player.getX()<(map.getProperties().get("width", Integer.class) / 10f)-1.3f)||player.getX()<0.1f))
+               player.b2body.applyLinearImpulse(new Vector2(-0.1f,0),player.b2body.getWorldCenter(),true);
+           else
+               player.b2body.applyLinearImpulse(new Vector2(1f,0),player.b2body.getWorldCenter(),true);*/
+           if(AtBossPosition&&player.getX()<=(map.getProperties().get("width", Integer.class) / 10f)-1.3f)
+           {
+               player.b2body.applyLinearImpulse(new Vector2(0.1f,0),player.b2body.getWorldCenter(),true);
+           }
+           else if(player.getX()<0.1f)
+               player.b2body.applyLinearImpulse(new Vector2(0.1f,0),player.b2body.getWorldCenter(),true);
+           else
+               player.b2body.applyLinearImpulse(new Vector2(-0.1f,0),player.b2body.getWorldCenter(),true);
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE))        //Shooting
         {
@@ -148,6 +167,19 @@ public class Playscreen extends screen{
             //this.dispose();
             game.setScreen(new GameOverScreen(game,hud.getScore()));
         }
+        //for debug
+        /*System.out.println(player.b2body.getPosition().x);
+        System.out.println(map.getProperties().get("width",Integer.class)/10f);*/
+        System.out.println(player.getX());
+        System.out.println((map.getProperties().get("width", Integer.class) / 10f)-3.6f);
+        //To make Game Camera stop at boss position
+       if(map.getProperties().get("width",Integer.class)/10f<player.b2body.getPosition().x) {
+           gamecam.position.x = map.getProperties().get("width", Integer.class) / 10f;
+           AtBossPosition=true;
+
+       }
+       //If the mega man isn't at the boss position the game camera is moving with it.
+       else if(!AtBossPosition)
         gamecam.position.x=player.b2body.getPosition().x;
         //update cam with correct coordinate after changes
         gamecam.update();

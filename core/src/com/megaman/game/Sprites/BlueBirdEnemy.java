@@ -1,8 +1,9 @@
 package com.megaman.game.Sprites;
+
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
@@ -10,23 +11,22 @@ import com.megaman.game.MegamanGame;
 import com.megaman.game.Scenes.Hud;
 import com.megaman.game.Screen.Playscreen;
 
-
-public class RedCarEnemy extends Enemy {
+public class BlueBirdEnemy extends Enemy {
 
     private Array<TextureRegion> frames;
     private Animation<TextureRegion> walkAnimation;
     private float x,y;
-    public RedCarEnemy(World world, Playscreen screen, String spriteSheet, int maxHealth, float x, float y) {
+    public BlueBirdEnemy(World world, Playscreen screen, String spriteSheet, int maxHealth, float x, float y) {
         super(world, screen, spriteSheet, maxHealth,x,y);
         this.x=x;
         this.y=y;
-        currentState = State.IDLE;
-        previousState = State.IDLE;
+        currentState = Entity.State.IDLE;
+        previousState = Entity.State.IDLE;
         frames = new Array<TextureRegion>();
         runningRight = true;
 
-        for(int i =4; i>0; i--) {
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("SNES - Mega Man X - Enemies 1"), i*90, 650, 80, 45));
+        for(int i =6; i>0; i--) {
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("SNES - Mega Man X - Enemies 2"), i*50, 195, 40, 55));
 
         }walkAnimation = new Animation(0.2f, frames);
         stateTimer = 0;
@@ -51,7 +51,7 @@ public class RedCarEnemy extends Enemy {
 
     public void update(float dt) {
 
-       super.update(dt);
+        super.update(dt);
         stateTimer += dt;
 
         if (!getSetToDestroy() && !getDestroyed()) {
@@ -68,7 +68,7 @@ public class RedCarEnemy extends Enemy {
                     frames.get(i).flip(true,false);
 
             }
-           else if(this.getX() > x-1) {
+            else if(this.getX() > x-1) {
                 velocity.x = -1;
 
                 for(int i = 0;i < frames.size;i++)//Makes enemy looks to left
@@ -85,28 +85,8 @@ public class RedCarEnemy extends Enemy {
     @Override
     public void die() {
         super.die();
-        Hud.IncreaseScore(200);
+        Hud.IncreaseScore(500);
     }
 
-    private Array<TextureRegion> GetArrayFromSheet(int x, int y, int numberOfSprites, boolean continuous)
-    {
-        Array<TextureRegion> array = new Array<TextureRegion>();
-        for (int i=0; i<numberOfSprites; i++)
-        {
-            if (x > 358)
-            {
-                x = 8;
-                y += 50;
-            }
-            array.add(new TextureRegion(getTexture(), x, y, 40, 45));
-            x += 50;
-        }
-        if (continuous) {
-            for (int i = array.size - 2; i > 4; i--)
-            {
-                array.add(array.get(i));
-            }
-        }
-        return array;
-    }
+
 }
