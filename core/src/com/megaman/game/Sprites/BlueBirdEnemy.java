@@ -24,7 +24,6 @@ public class BlueBirdEnemy extends Enemy {
         previousState = Entity.State.IDLE;
         frames = new Array<TextureRegion>();
         runningRight = true;
-
         for(int i =6; i>0; i--) {
             frames.add(new TextureRegion(screen.getAtlas().findRegion("SNES - Mega Man X - Enemies 2"), i*50, 195, 40, 55));
 
@@ -56,6 +55,7 @@ public class BlueBirdEnemy extends Enemy {
 
         if (!getSetToDestroy() && !getDestroyed()) {
             b2body.setLinearVelocity(velocity);
+
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight()/3 );
             setRegion(walkAnimation.getKeyFrame(stateTimer, true));
             //To make enemy reverses its movement direction.

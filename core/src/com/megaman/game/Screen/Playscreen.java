@@ -102,10 +102,9 @@ public class Playscreen extends screen{
         {
             //impulse->media change
 
-            if((!AtBossPosition)&&!(player.getX() <=0.5&&player.getX() >=0.01)) {
-                //jumpSound.play();
                 player.b2body.applyLinearImpulse(new Vector2(0, 3.5f), player.b2body.getWorldCenter(), true);
-            }
+
+            //jumpSound.play();
         }
         if((Gdx.input.isKeyPressed(Input.Keys.D)||Gdx.input.isKeyPressed(Input.Keys.RIGHT))&&(player.b2body.getLinearVelocity() .x<= 2))
         {
@@ -137,6 +136,7 @@ public class Playscreen extends screen{
                 player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
             else
                 player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
+
 
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE))        //Shooting
