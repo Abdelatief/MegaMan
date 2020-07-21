@@ -18,6 +18,7 @@ public abstract class Enemy extends Entity
     private Animation<TextureRegion> walkAnimation;
     private float x;
     private int ValueToIncreaseScore;
+
     public Enemy(World world, Playscreen screen, String spriteSheet, int maxHealth, float x, float y, int NumberOfAnimation,int XPositionInSpriteSheet,int YPositionInSpriteSheet,int width,int height,int ValueToIncreaseScore) {
         super(world, screen, spriteSheet, maxHealth,x,y);
         velocity = new Vector2(-1.2f,-4);
@@ -35,7 +36,6 @@ public abstract class Enemy extends Entity
         setB2body(define());
         setBounds(getX(), getY(), 70 / MegamanGame.PPM, 45 / MegamanGame.PPM);
         this.publisher = new Publisher();
-
     }
 
     @Override
