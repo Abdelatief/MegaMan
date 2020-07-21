@@ -41,7 +41,7 @@ public class MegaMan extends Entity {
 
         animationSetup();
         define();
-        setBounds(-20,10,32/ MegamanGame.PPM,40/ MegamanGame.PPM);
+        setBounds(0,0,32/ MegamanGame.PPM,40/ MegamanGame.PPM);
 
         shootSound = Gdx.audio.newSound(Gdx.files.internal("audio/sounds/bullet_whizzing_by-Mike_Koenig-2005433595.wav"));
     }
