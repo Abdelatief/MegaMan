@@ -222,7 +222,7 @@ public class Playscreen extends screen{
         // update the bullets and remove them after 3 seconds
         ArrayList<Bullet> removeBullets = new ArrayList<Bullet>();
         for (Bullet bullet: bullets) {
-            if (bullet.remove)
+            if (bullet.isSetToDestroy())
                 removeBullets.add(bullet);
             bullet.update(dt);
         }
@@ -255,7 +255,7 @@ public class Playscreen extends screen{
         game.batch.begin();
         player.draw(game.batch);
         for (Bullet bullet: bullets)
-            bullet.render(game.batch);
+            bullet.draw(game.batch);
         for (Enemy enemy: enemies)
             enemy.draw(game.batch);
 

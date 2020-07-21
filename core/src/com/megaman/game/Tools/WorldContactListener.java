@@ -33,9 +33,9 @@ public class WorldContactListener implements ContactListener {
                 Enemy enemyObject = (Enemy)object.getUserData();
                 enemyObject.applyDamage(bulletObject.getDamage());
                 Gdx.app.log("Enemy Health", String.valueOf(enemyObject.getCurrentHealth()));
+                bulletObject.setSetToDestroy(true);
             }
         }
-
     }
 
     @Override
@@ -45,7 +45,6 @@ public class WorldContactListener implements ContactListener {
 
     @Override
     public void preSolve(Contact contact, Manifold oldManifold) {
-
     }
 
     @Override
