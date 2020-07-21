@@ -45,13 +45,13 @@ public class Hud implements Disposable {
         Table table=new Table();
         table.top();
         table.setFillParent(true);
-        countdownLabel= new Label(String.format("%03d",worldTimer),new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        //countdownLabel= new Label(String.format("%03d",worldTimer),new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         ScoreLabel=new Label(String.format("%06d",score),new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         EnergyLabel=new Label(String.format("%04d",Energy),new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         levelabel=new Label("1",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         worldLabel=new Label("LEVEL",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         MegamanLabel=new Label("MEGA MAN Score",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        timeLabel=new Label("Time",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        //timeLabel=new Label("Time",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         MegaManEnergyLabel = new Label(" Mega Man Energy",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         //change Font Size
         MegaManEnergyLabel.setFontScaleX(1.5f);
@@ -62,23 +62,17 @@ public class Hud implements Disposable {
         MegamanLabel.setFontScaleY(1.5f);
         ScoreLabel.setFontScaleX(1.5f);
         ScoreLabel.setFontScaleY(1.5f);
-        timeLabel.setFontScaleX(1.5f);
-        timeLabel.setFontScaleY(1.5f);
         worldLabel.setFontScaleX(1.5f);
         worldLabel.setFontScaleY(1.5f);
-        countdownLabel.setFontScaleX(1.5f);
-        countdownLabel.setFontScaleY(1.5f);
         levelabel.setFontScaleX(1.5f);
         levelabel.setFontScaleY(1.5f);
         table.add(MegaManEnergyLabel).expandX().padTop(10);
         table.add(MegamanLabel).expandX().padTop(10);
         table.add(worldLabel).expandX().padTop(10);
-        table.add(timeLabel).expandX().padTop(10);
         table.row();
         table.add(EnergyLabel).expandX();
         table.add(ScoreLabel).expandX();
         table.add(levelabel).expandX();
-        table.add(countdownLabel).expandX();
         stage.addActor(table);
     }
     public static void  decreaseMegaManEnergy(int value)
@@ -92,8 +86,6 @@ public class Hud implements Disposable {
     {
         score+=value;
         ScoreLabel.setText((String.format("%04d",score)));
-
-
     }
     public Integer getScore() {
         return score;
