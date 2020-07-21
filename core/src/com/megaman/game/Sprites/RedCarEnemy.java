@@ -35,28 +35,28 @@ public class RedCarEnemy extends Enemy {
     }
 
     @Override
-    public void define()
+    public Body define()
     {
-
         BodyDef bdef = new BodyDef();
         bdef.position.set(getX(), getX());
         bdef.type = BodyDef.BodyType.DynamicBody;
-        b2body = world.createBody(bdef);
+        Body b2body = getWorld().createBody(bdef);
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(10 / MegamanGame.PPM);
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
+        return b2body;
     }
 
     public void update(float dt) {
 
-       super.update(dt);
+        super.update(dt);
         stateTimer += dt;
 
-        if (!getSetToDestroy() && !getDestroyed()) {
-            b2body.setLinearVelocity(velocity);
-            setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight()/3 );
+        if (!isSetToDestroy() && !isDestroyed()) {
+            getB2body().setLinearVelocity(velocity);
+            setPosition(getB2body().getPosition().x - getWidth() / 2, getB2body().getPosition().y - getHeight()/3 );
             setRegion(walkAnimation.getKeyFrame(stateTimer, true));
             //To make enemy reverses its movement direction.
             //for debug

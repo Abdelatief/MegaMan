@@ -119,46 +119,46 @@ public class Playscreen extends screen{
             // impulse->media change  ?
             if((!AtBossPosition) && !(player.getX() <= 0.5 && player.getX() >= 0.01)) {
                 //jumpSound.play();
-                player.b2body.applyLinearImpulse(new Vector2(0, 3.5f), player.b2body.getWorldCenter(), true);
+                player.getB2body().applyLinearImpulse(new Vector2(0, 3.5f), player.getB2body().getWorldCenter(), true);
             }
         }
 
-        if((Gdx.input.isKeyPressed(Input.Keys.D)||Gdx.input.isKeyPressed(Input.Keys.RIGHT))&&(player.b2body.getLinearVelocity().x<= 2))
+        if((Gdx.input.isKeyPressed(Input.Keys.D)||Gdx.input.isKeyPressed(Input.Keys.RIGHT))&&(player.getB2body().getLinearVelocity().x<= 2))
         {
             //If condition to make mega man can't go out from boss position
             if(AtBossPosition) {
                 if (player.getX() >= (map.getProperties().get("width", Integer.class) / 10f) + 0.8f && player.getX() <= (map.getProperties().get("width", Integer.class) / 10f) + 1.5f)
-                    player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
+                    player.getB2body().applyLinearImpulse(new Vector2(-0.1f, 0), player.getB2body().getWorldCenter(), true);
                 else
-                    player.b2body.applyLinearImpulse(new Vector2(0.05f, 0), player.b2body.getWorldCenter(), true);
+                    player.getB2body().applyLinearImpulse(new Vector2(0.05f, 0), player.getB2body().getWorldCenter(), true);
             }
             else
-                player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
+                player.getB2body().applyLinearImpulse(new Vector2(0.1f, 0), player.getB2body().getWorldCenter(), true);
         }
 
-        if((Gdx.input.isKeyPressed(Input.Keys.A)||Gdx.input.isKeyPressed(Input.Keys.LEFT))&&(player.b2body.getLinearVelocity() .x>= -2))
+        if((Gdx.input.isKeyPressed(Input.Keys.A)||Gdx.input.isKeyPressed(Input.Keys.LEFT))&&(player.getB2body().getLinearVelocity() .x>= -2))
         {
             //To make mega man can't go out from boss position and start game
             if(AtBossPosition)
             {
                 if(player.getX()<=(map.getProperties().get("width", Integer.class) / 10f)-1&&player.getX()>=(map.getProperties().get("width", Integer.class) / 10f)-1.5f)
                 {
-                    player.b2body.applyLinearImpulse(new Vector2(0.1f,0),player.b2body.getWorldCenter(),true);
+                    player.getB2body().applyLinearImpulse(new Vector2(0.1f,0),player.getB2body().getWorldCenter(),true);
                 }
                 else
-                    player.b2body.applyLinearImpulse(new Vector2(-0.05f,0),player.b2body.getWorldCenter(),true);
+                    player.getB2body().applyLinearImpulse(new Vector2(-0.05f,0),player.getB2body().getWorldCenter(),true);
             }
 
             else if(player.getX() <=0.5&&player.getX() >=-0.3)
-                player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
+                player.getB2body().applyLinearImpulse(new Vector2(0.1f, 0), player.getB2body().getWorldCenter(), true);
             else
-                player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
+                player.getB2body().applyLinearImpulse(new Vector2(-0.1f, 0), player.getB2body().getWorldCenter(), true);
 
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE))        //Shooting
         {
-            bullets.add(new Bullet(player.b2body.getPosition().x, player.b2body.getPosition().y, player.runningRight, world));
+            bullets.add(new Bullet(player.getB2body().getPosition().x, player.getB2body().getPosition().y, player.runningRight, world));
         }
     }
 
@@ -183,7 +183,7 @@ public class Playscreen extends screen{
         ArrayList<Enemy> removeEnemies = new ArrayList<Enemy>();
         for (Enemy enemy: enemies)
         {
-            if (enemy.getDestroyed())
+            if (enemy.isDestroyed())
                 removeEnemies.add(enemy);
             else
                 enemy.update(dt);
@@ -209,12 +209,12 @@ public class Playscreen extends screen{
         System.out.println((map.getProperties().get("width", Integer.class) / 10f)-3.6f);
         //To make Game Camera stop at boss position
 
-        if(map.getProperties().get("width",Integer.class)/10f<player.b2body.getPosition().x) {
+        if(map.getProperties().get("width",Integer.class)/10f<player.getB2body().getPosition().x) {
            gamecam.position.x = map.getProperties().get("width", Integer.class) / 10f;
            AtBossPosition=true;
         }
         else if(!AtBossPosition)    // If the mega man isn't at the boss position the game camera is moving with it.
-            gamecam.position.x=player.b2body.getPosition().x;
+            gamecam.position.x=player.getB2body().getPosition().x;
         //update cam with correct coordinate after changes
         gamecam.update();
         //tell our render to draw what our camera sees

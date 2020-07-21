@@ -3,37 +3,33 @@ package com.megaman.game.Sprites;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.megaman.game.Screen.Playscreen;
+import com.megaman.game.Tools.GameObject;
 
-public abstract class Entity extends Sprite
+public abstract class Entity extends GameObject
 {
     enum State{FALLING, JUMPING, STANDING, RUNNING, IDLE, INTRO, RUNANDSHOOT, SHOOTING};
     private int maxHealth;
     private int currentHealth;
     public State currentState;
     public State previousState;
-    public World world;
     public Playscreen screen;
-    public Body b2body;
     public float stateTimer;
     public boolean runningRight;
-    private boolean setToDestroy;
-    private boolean destroyed;
 
     public Entity(World world, Playscreen screen, String spriteSheet, int maxHealth, float x, float y)
     {
-        super(screen.getAtlas().findRegion(spriteSheet));
-        this.world = world;
+//        super(screen.getAtlas().findRegion(spriteSheet));
+        super(new Vector2(x, y), world, screen.getAtlas().findRegion(spriteSheet));
+        setB2body(define());
         this.screen = screen;
         this.maxHealth = maxHealth;
         this.currentHealth = maxHealth;
-        this.setToDestroy = false;
-        this.destroyed = false;
-        setPosition(x,y);
-
+        setPosition(x, y);
     }
 
     public int getCurrentHealth() {
@@ -42,7 +38,7 @@ public abstract class Entity extends Sprite
     public void setCurrentHealth(int currentHealth) {
         this.currentHealth = currentHealth;
     }
-    public abstract void define();
+    public abstract Body define();
 
     public abstract TextureRegion getFrame(float dt);
 
@@ -77,13 +73,19 @@ public abstract class Entity extends Sprite
         return array;
     }
 
-    public void update(float dt)
-    {
-        if (setToDestroy) {
-            world.destroyBody(b2body);
-            destroyed = true;
-        }
-    }
+//    public void update(float dt)
+//    {
+//        if (setToDestroy) {
+//            world.destroyBody(b2body);
+//            destroyed = true;
+//        }
+//    }
+
+//    public void draw(Batch batch)
+//    {
+//        if (!setToDestroy)
+//            super.draw(batch);
+//    }
 
     public void applyDamage(int damage)
     {
@@ -94,23 +96,7 @@ public abstract class Entity extends Sprite
 
     public void die()
     {
-        setToDestroy = true;
-    }
-
-    public void draw(Batch batch)
-    {
-        if (!setToDestroy)
-            super.draw(batch);
-    }
-
-    public boolean getSetToDestroy()
-    {
-        return setToDestroy;
-    }
-
-    public boolean getDestroyed()
-    {
-        return destroyed;
+        setSetToDestroy(true);
     }
 
 }

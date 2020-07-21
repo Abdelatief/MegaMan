@@ -2,6 +2,7 @@ package com.megaman.game.Tools;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
@@ -33,6 +34,13 @@ public class GameObject extends Sprite
     public GameObject(Vector2 position, World world)
     {
         this(position, null, world, false, false);
+    }
+
+    public GameObject(Vector2 position, World world, TextureRegion textureRegion)
+    {
+        super(textureRegion);
+        this.position = position;
+        this.world = world;
     }
 
     public void update(float dt)
