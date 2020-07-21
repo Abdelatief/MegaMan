@@ -2,20 +2,22 @@ package com.megaman.game.Sprites;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.*;
 import com.megaman.game.MegamanGame;
 
-public class Bullet
+
+public class Bullet extends Sprite
 {
     public float SPEED = 0.7f;
     public int damage = 10;
     private static Texture texture;
     private static TextureRegion textureRegion;
     private float x, y;
-    private World world;
+    private final World world;
     private Body b2body;
     private float direction;
     private float offset;
@@ -48,6 +50,7 @@ public class Bullet
                 textureRegion.flip(true, false);
         }
         define();
+        setBounds(x/MegamanGame.PPM, y/MegamanGame.PPM, 15/MegamanGame.PPM, 15/MegamanGame.PPM);
     }
 
     public void define()
@@ -62,6 +65,7 @@ public class Bullet
         fdef.shape = shape;
         fdef.isSensor = true;
         b2body.createFixture(fdef).setUserData(this);
+        b2body.setGravityScale(0);
     }
 
     public void update(float dt)
@@ -70,17 +74,25 @@ public class Bullet
         x += SPEED * dt * direction;
         if (timer > 3)
             remove = true;
-
+        float transformX = x + offset + 0.02f * direction;
+        float transformY = y + 0.04f;
+        setPosition(transformX, transformY);
+        setRegion(textureRegion);
         b2body.setTransform(x+offset+0.02f, y+0.09f, b2body.getAngle());    //added numbers to adjust the b2body to the sprite
     }
 
-    public void render(SpriteBatch batch)
+    public void draw(Batch batch)
     {
-        batch.draw(textureRegion, x+offset, y+0.04f, 0.1f, 0.1f);
+        super.draw(batch);
     }
 
     public int getDamage()
     {
         return damage;
+    }
+
+    @Override
+    public float getX() {
+        return b2body.getPosition().x;
     }
 }
