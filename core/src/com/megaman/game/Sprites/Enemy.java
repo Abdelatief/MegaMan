@@ -1,23 +1,41 @@
 package com.megaman.game.Sprites;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.megaman.game.MegamanGame;
 import com.megaman.game.Observer.Publisher;
+import com.megaman.game.Scenes.Hud;
 import com.megaman.game.Screen.Playscreen;
 
 public abstract class Enemy extends Entity
 {
     Publisher publisher;
-    public Vector2 velocity;
-
-    public Enemy(World world, Playscreen screen, String spriteSheet, int maxHealth, float x, float y) {
+    private Vector2 velocity;
+    private Array<TextureRegion> frames;
+    private Animation<TextureRegion> walkAnimation;
+    private float x;
+    private int ValueToIncreaseScore;
+    public Enemy(World world, Playscreen screen, String spriteSheet, int maxHealth, float x, float y, int NumberOfAnimation,int XPositionInSpriteSheet,int YPositionInSpriteSheet,int width,int height,int ValueToIncreaseScore) {
         super(world, screen, spriteSheet, maxHealth,x,y);
-        setB2body(define());
-        this.publisher = new Publisher();
         velocity = new Vector2(-1.2f,-4);
+        this.x=x;
+        currentState = State.IDLE;
+        previousState = State.IDLE;
+        frames = new Array<TextureRegion>();
+        runningRight = true;
+        this.ValueToIncreaseScore=ValueToIncreaseScore;
+        for(int i =NumberOfAnimation; i>0; i--) {
+            frames.add(new TextureRegion(screen.getAtlas().findRegion(spriteSheet), i*XPositionInSpriteSheet, YPositionInSpriteSheet, width, height));
+
+        }walkAnimation = new Animation(0.2f, frames);
+        stateTimer = 0;
+        setB2body(define());
+        setBounds(getX(), getY(), 70 / MegamanGame.PPM, 45 / MegamanGame.PPM);
+        this.publisher = new Publisher();
+
     }
 
     @Override
@@ -38,6 +56,31 @@ public abstract class Enemy extends Entity
     @Override
     public void update(float dt) {
         super.update(dt);
+        stateTimer += dt;
+
+        if (!isSetToDestroy() && !isDestroyed()) {
+            getB2body().setLinearVelocity(velocity);
+            setPosition(getB2body().getPosition().x - getWidth() / 2, getB2body().getPosition().y - getHeight()/3 );
+            setRegion(walkAnimation.getKeyFrame(stateTimer, true));
+            //To make enemy reverses its movement direction.
+            if(this.getX() < x-2) {
+                velocity.x = 1;
+                for(int i = 0;i < frames.size;i++)//Makes enemy looks to right
+                    frames.get(i).flip(true,false);
+
+            }
+            else if(this.getX() > x-1) {
+                velocity.x = -1;
+
+                for(int i = 0;i < frames.size;i++)//Makes enemy looks to left
+                {
+                    if(frames.get(i).isFlipX())
+                        frames.get(i).flip(true,false);
+                }
+
+            }
+
+        }
     }
 
     @Override
@@ -54,10 +97,14 @@ public abstract class Enemy extends Entity
     protected void animationSetup() {
 
     }
+    @Override
+    public void die() {
+        super.die();
+        Hud.IncreaseScore(ValueToIncreaseScore);
+    }
 
-
-    public Array<TextureRegion> GetArrayFromSheet()
+   /* public Array<TextureRegion> GetArrayFromSheet()
     {
         return null;
-    }
+    }*/
 }

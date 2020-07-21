@@ -38,7 +38,6 @@ public class MegaMan extends Entity {
         timer = 0;
         runningRight = true;
         introAnimationPlayed = true;
-
         animationSetup();
         setBounds(0,0,32/ MegamanGame.PPM,40/ MegamanGame.PPM);
         setPosition(getB2body().getPosition().x - getWidth() / 2, getB2body().getPosition().y - getHeight()/3 );

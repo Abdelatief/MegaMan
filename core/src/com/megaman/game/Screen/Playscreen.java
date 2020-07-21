@@ -117,10 +117,10 @@ public class Playscreen extends screen{
         if(Gdx.input.isKeyJustPressed(Input.Keys.W)||Gdx.input.isKeyJustPressed(Input.Keys.UP))
         {
             // impulse->media change  ?
-            if((!AtBossPosition) && !(player.getX() <= 0.5 && player.getX() >= 0.01)) {
+
                 //jumpSound.play();
                 player.getB2body().applyLinearImpulse(new Vector2(0, 3.5f), player.getB2body().getWorldCenter(), true);
-            }
+
         }
 
         if((Gdx.input.isKeyPressed(Input.Keys.D)||Gdx.input.isKeyPressed(Input.Keys.RIGHT))&&(player.getB2body().getLinearVelocity().x<= 2))
