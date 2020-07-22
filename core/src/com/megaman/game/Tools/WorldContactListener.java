@@ -2,6 +2,7 @@ package com.megaman.game.Tools;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.*;
+import com.megaman.game.MegamanGame;
 import com.megaman.game.Sprites.*;
 
 public class WorldContactListener implements ContactListener {
@@ -46,6 +47,19 @@ public class WorldContactListener implements ContactListener {
                 Gdx.app.log("Mega Health", String.valueOf(MegaObject.getCurrentHealth()));
 //                MegaObject.decreaseEn();
                 MegaObject.applyDamage(100);
+            }
+        }
+
+        if (fixA.getUserData() instanceof MegaMan || fixB.getUserData() instanceof MegaMan) // Manage Megaman and enemies collision
+        {
+            Fixture megaman = fixA.getUserData() instanceof MegaMan ? fixA : fixB;
+            Fixture object = megaman == fixA ? fixB : fixA;
+            Gdx.app.log("Megaman", "Megaman Collision");
+            MegaMan player = (MegaMan)megaman.getUserData();
+            if (object.getUserData() instanceof Enemy)
+            {
+                Gdx.app.log("Collision", "Megaman - Enemy");
+                player.applyDamage(100);
             }
         }
     }

@@ -58,6 +58,7 @@ public class Boss extends Enemy {
         Bbullets = new ArrayList<BossBullet>();
         Timer = 0;
         animstart = 1.8f;
+        getB2body().setTransform(x, y, getB2body().getAngle());
     }
 
     public Boss(World world, Playscreen screen, String spriteSheet, int maxHealth, int x, int y) {
