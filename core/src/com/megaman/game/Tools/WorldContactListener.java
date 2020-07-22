@@ -2,9 +2,7 @@ package com.megaman.game.Tools;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.*;
-import com.megaman.game.Sprites.Bullet;
-import com.megaman.game.Sprites.Enemy;
-import com.megaman.game.Sprites.interactiveTileobject;
+import com.megaman.game.Sprites.*;
 
 public class WorldContactListener implements ContactListener {
     @Override
@@ -33,9 +31,26 @@ public class WorldContactListener implements ContactListener {
                 Enemy enemyObject = (Enemy)object.getUserData();
                 enemyObject.applyDamage(bulletObject.getDamage());
                 Gdx.app.log("Enemy Health", String.valueOf(enemyObject.getCurrentHealth()));
+                bulletObject.remove = true;
             }
         }
 
+        if (fixA.getUserData() instanceof BossBullet || fixB.getUserData() instanceof BossBullet) // Manage Boss bullets collision
+        {
+            Fixture bullet = fixA.getUserData() instanceof BossBullet ? fixA : fixB;
+            Fixture object = bullet == fixA ? fixB : fixA;
+            Gdx.app.log("collision", "Bullet collision detected");
+            BossBullet bulletObject = (BossBullet)bullet.getUserData();
+            if (object.getUserData() instanceof MegaMan ||object.getUserData() instanceof Entity)
+            {
+                Gdx.app.log("collision", "Mega is hit");
+                MegaMan MegaObject = (MegaMan) object.getUserData();
+                MegaObject.applyDamage(bulletObject.getDamage());
+                Gdx.app.log("Mega Health", String.valueOf(MegaObject.getCurrentHealth()));
+//                MegaObject.decreaseEn();
+                MegaObject.applyDamage(100);
+            }
+        }
     }
 
     @Override
@@ -50,6 +65,5 @@ public class WorldContactListener implements ContactListener {
 
     @Override
     public void postSolve(Contact contact, ContactImpulse impulse) {
-
     }
 }

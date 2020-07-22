@@ -25,6 +25,7 @@ import java.util.ArrayList;
 
 public class Playscreen extends screen{
     private TextureAtlas atlas;
+    private TextureAtlas atlas2;
 
     private Hud hud;
     private OrthographicCamera gamecam;
@@ -50,12 +51,14 @@ public class Playscreen extends screen{
     private ArrayList<Enemy> enemies = new ArrayList<>();
 
     private ArrayList<Bullet> bullets;              //This arraylist will contain all the bullets in the screen
+    private ArrayList<BossBullet> Bbullets;
 
     private Sound jumpSound;//jump sound
     private boolean AtBossPosition;
     public  Playscreen(MegamanGame game) {
-        atlas = new TextureAtlas("MegaMan_Enemies.pack");
         this.game = game;
+        atlas = new TextureAtlas("MegaMan_Enemies.pack");
+        atlas2=new TextureAtlas("BM.pack");
         pause = false;
         AtBossPosition=false;
         //pause,continue button
@@ -89,7 +92,10 @@ public class Playscreen extends screen{
         enemies.add(new BlueManEnemy(world, this, "SNES - Mega Man X - Enemies 2", 200,12.5f,.16f));
         enemies.add(new BlueBirdEnemy(world, this, "SNES - Mega Man X - Enemies 2", 250,13,.16f));
         enemies.add(new WhiteEnemy(world, this, "SNES - Mega Man X - Enemies 1", 300,14,.16f));
+        enemies.add(new Boss(world,this,"SNES - Mega Man X - Enemies 1",350,18,.16f));
+
         bullets = new ArrayList<Bullet>();          //arraylist allocation
+        Bbullets=new ArrayList<BossBullet>();
         //create our game HUD for scores /timers/level info
         hud = new Hud(game.batch,player);
         //Music
@@ -238,6 +244,12 @@ public class Playscreen extends screen{
         for (Enemy enemy: enemies)
             enemy.draw(game.batch);
 
+        for (Enemy enemy: enemies)
+        {
+            if (enemy instanceof Boss)
+                ((Boss)enemy).BulletRender(game);
+        }
+
         game.batch.end();
         //set batch to draw what hud camera sees
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
@@ -290,6 +302,11 @@ public class Playscreen extends screen{
     public TextureAtlas getAtlas()
     {
         return atlas;
+    }
+
+    public TextureAtlas getAtlas2()
+    {
+        return atlas2;
     }
 
     @Override

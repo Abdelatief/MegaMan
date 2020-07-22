@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.megaman.game.Observer.PlayerSubscriber;
+import com.megaman.game.Scenes.Hud;
 import com.megaman.game.Screen.Playscreen;
 import com.megaman.game.MegamanGame;
 
@@ -212,5 +213,11 @@ public class MegaMan extends Entity {
             }
         }
         return array;
+    }
+
+    @Override
+    public void applyDamage(int damage) {
+        super.applyDamage(damage);
+        Hud.decreaseMegaManEnergy(damage);
     }
 }
