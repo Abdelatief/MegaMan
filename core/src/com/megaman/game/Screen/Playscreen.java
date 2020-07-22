@@ -24,67 +24,83 @@ import com.megaman.game.Tools.WorldContactListener;
 import java.util.ArrayList;
 
 public class Playscreen extends screen{
-    private TextureAtlas atlas;
-    private TextureAtlas atlas2;
 
-    private Hud hud;
-    private OrthographicCamera gamecam;
+    // Screen and camera
+    private final TextureAtlas atlas;
+    private final TextureAtlas atlas2;
+    private final Hud hud;
+    private final OrthographicCamera gamecam;
+
     private Viewport gameport;
-    private Texture inactive_pause_button;
-    private Texture active_pause_button;
-    private Texture inactive_continue_button;
-    private Texture active_continue_button;
-    private Texture inactive_Main_Menu;
-    private Texture active_Main_Menu;
-    private int Button_Width=100;
-    private int Button_Height=100;
-    private boolean pause;
-    //Tiled map variables
-    private TmxMapLoader mapLoader;                 //this is going to load all maps into game
-    private TiledMap map;                           //this is reference to map itself
-    private OrthogonalTiledMapRenderer renderer;    //this is render map to screen
 
-    //Box2d variables
-    private World world;
-    private Box2DDebugRenderer b2dr;                //Gives graphical representation of fixtures and body inside box2d world
-    private MegaMan player;
+    // Button textures
+    private final Texture inactive_pause_button;
+    private final Texture active_pause_button;
+    private final Texture inactive_continue_button;
+    private final Texture active_continue_button;
+    private final Texture inactive_Main_Menu;
+    private final Texture active_Main_Menu;
+    private final int Button_Width=100;                     // * can be local variable
+    private final int Button_Height=100;                    // * can be local variable
+
+    // Tiled map variables
+    private TmxMapLoader mapLoader;                         // this is going to load all maps into game
+    private TiledMap map;                                   // this is reference to map itself
+    private OrthogonalTiledMapRenderer renderer;            // this is render map to screen
+
+    // Box2d variables
+    private final World world;
+    private final Box2DDebugRenderer b2dr;                  // Gives graphical representation of fixtures and body inside box2d world
+    private final MegaMan player;
     private ArrayList<Enemy> enemies = new ArrayList<>();
+    private ArrayList<Bullet> bullets = new ArrayList<Bullet>();
+    private ArrayList<BossBullet> bBullets = new ArrayList<BossBullet>();
 
-    private ArrayList<Bullet> bullets;              //This arraylist will contain all the bullets in the screen
-    private ArrayList<BossBullet> Bbullets;
-
-    private Sound jumpSound;//jump sound
+    // Utility booleans
     private boolean AtBossPosition;
+    private boolean pause;
+    private Sound jumpSound;
+
+    /**
+     * Create a new Playscreen instance, setup attributes and load buttons textures and enemies addition
+     * @param game MegamanGame instance that will be rendered on the Playscreen
+     */
     public  Playscreen(MegamanGame game) {
         this.game = game;
         atlas = new TextureAtlas("MegaMan_Enemies.pack");
         atlas2=new TextureAtlas("BM.pack");
+
         pause = false;
         AtBossPosition=false;
-        //pause,continue button
+
+        // Buttons textures => pause,continue button
         inactive_pause_button = new Texture("inactive_pause_button.jpg");
         active_pause_button = new Texture("active_pause_button.jpg");
         active_continue_button = new Texture("active_continue_button.jpg");
         inactive_continue_button = new Texture("inactive_continue_button.jpg");
-        //Main Menu button
+        // Main Menu button
         active_Main_Menu = new Texture("active_Main_Menu.jpg");
         inactive_Main_Menu = new Texture("inactive_Main_Menu.jpg");
+
+        // Create a Fitviewport to maintain virtual aspect ratio despite screen
         gamecam = new OrthographicCamera();
-        //create a Fitviewport to maintain virtual aspect ratio despite screen
         gameport = new FitViewport(400 / MegamanGame.PPM, 208 / MegamanGame.PPM, gamecam);
 
-        //Load our map and setup our map renderer
+        // Load our map and setup our map renderer
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("Mega_Level1.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1 / MegamanGame.PPM);
-        //initially set our gamcam to be centered correctly at the start of map
+
+        // Initially set our gamcam to be centered correctly at the start of map
         gamecam.position.set(gameport.getWorldWidth() / 2, gameport.getWorldHeight() / 2, 0);
-        //vector2 this is for gravity(0,0) no gravity now
-        //do sleep:true bec:box2d doesn't want to be calculated inside its  physics simulation "body rest"
+
+        // Vector2 this is for gravity(0,0) no gravity now
+        // Do sleep:true bec:box2d doesn't want to be calculated inside its  physics simulation "body rest"
         world = new World(new Vector2(0, -10), true);
         b2dr = new Box2DDebugRenderer();
         new B2WorldCreator(world, map);
-        //create megaman in game
+
+        // Create megaman in game and adding enemies
         player = new MegaMan(world, this);
         enemies.add(new RedCarEnemy(world, this, "SNES - Mega Man X - Enemies 1", 100,2,.16f));
         enemies.add(new GreenEnemy(world, this, "SNES - Mega Man X - Enemies 2", 50,6,.16f));
@@ -94,65 +110,68 @@ public class Playscreen extends screen{
         enemies.add(new WhiteEnemy(world, this, "SNES - Mega Man X - Enemies 1", 300,14,.16f));
         enemies.add(new Boss(world,this,"SNES - Mega Man X - Enemies 1",350,18,.16f));
 
-        bullets = new ArrayList<Bullet>();          //arraylist allocation
-        Bbullets=new ArrayList<BossBullet>();
+
         //create our game HUD for scores /timers/level info
         hud = new Hud(game.batch,player);
+
         //Music
-        jumpSound = Gdx.audio.newSound(Gdx.files.internal("audio/sounds/Jump-SoundBible.com-1007297584.mp3"));;//jump sound
+        jumpSound = Gdx.audio.newSound(Gdx.files.internal("audio/sounds/Jump-SoundBible.com-1007297584.mp3"));
         world.setContactListener(new WorldContactListener());
     }
-    public void handelInput(float dt)
+    public void handelInput(float dt)  // * Not refactored yet
     {
         if(Gdx.input.isKeyJustPressed(Input.Keys.W)||Gdx.input.isKeyJustPressed(Input.Keys.UP))
         {
-            //impulse->media change
+            // impulse->media change  ?
+                //jumpSound.play();
+                player.getB2body().applyLinearImpulse(new Vector2(0, 3.5f), player.getB2body().getWorldCenter(), true);
 
-                player.b2body.applyLinearImpulse(new Vector2(0, 3.5f), player.b2body.getWorldCenter(), true);
 
-            //jumpSound.play();
         }
-        if((Gdx.input.isKeyPressed(Input.Keys.D)||Gdx.input.isKeyPressed(Input.Keys.RIGHT))&&(player.b2body.getLinearVelocity() .x<= 2))
+
+        if((Gdx.input.isKeyPressed(Input.Keys.D)||Gdx.input.isKeyPressed(Input.Keys.RIGHT))&&(player.getB2body().getLinearVelocity().x<= 2))
         {
             //If condition to make mega man can't go out from boss position
             if(AtBossPosition) {
                 if (player.getX() >= (map.getProperties().get("width", Integer.class) / 10f) + 0.8f && player.getX() <= (map.getProperties().get("width", Integer.class) / 10f) + 1.5f)
-                    player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
+                    player.getB2body().applyLinearImpulse(new Vector2(-0.1f, 0), player.getB2body().getWorldCenter(), true);
                 else
-                    player.b2body.applyLinearImpulse(new Vector2(0.05f, 0), player.b2body.getWorldCenter(), true);
+                    player.getB2body().applyLinearImpulse(new Vector2(0.05f, 0), player.getB2body().getWorldCenter(), true);
             }
             else
-                player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
+                player.getB2body().applyLinearImpulse(new Vector2(0.1f, 0), player.getB2body().getWorldCenter(), true);
         }
-        if((Gdx.input.isKeyPressed(Input.Keys.A)||Gdx.input.isKeyPressed(Input.Keys.LEFT))&&(player.b2body.getLinearVelocity() .x>= -2))
+
+        if((Gdx.input.isKeyPressed(Input.Keys.A)||Gdx.input.isKeyPressed(Input.Keys.LEFT))&&(player.getB2body().getLinearVelocity() .x>= -2))
         {
             //To make mega man can't go out from boss position and start game
             if(AtBossPosition)
             {
                 if(player.getX()<=(map.getProperties().get("width", Integer.class) / 10f)-1&&player.getX()>=(map.getProperties().get("width", Integer.class) / 10f)-1.5f)
                 {
-                    player.b2body.applyLinearImpulse(new Vector2(0.1f,0),player.b2body.getWorldCenter(),true);
+                    player.getB2body().applyLinearImpulse(new Vector2(0.1f,0),player.getB2body().getWorldCenter(),true);
                 }
                 else
-                    player.b2body.applyLinearImpulse(new Vector2(-0.05f,0),player.b2body.getWorldCenter(),true);
+                    player.getB2body().applyLinearImpulse(new Vector2(-0.05f,0),player.getB2body().getWorldCenter(),true);
             }
 
-
             else if(player.getX() <=0.5&&player.getX() >=-0.3)
-                player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
+                player.getB2body().applyLinearImpulse(new Vector2(0.1f, 0), player.getB2body().getWorldCenter(), true);
             else
-                player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
+                player.getB2body().applyLinearImpulse(new Vector2(-0.1f, 0), player.getB2body().getWorldCenter(), true);
 
 
         }
+
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE))        //Shooting
         {
-            bullets.add(new Bullet(player.b2body.getPosition().x, player.b2body.getPosition().y, player.runningRight, world));
+            bullets.add(new Bullet(player.getB2body().getPosition().x, player.getB2body().getPosition().y, player.runningRight, world));
         }
     }
 
     public void update(float dt)
     {
+        // Pause
         if(Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             pause = true;
             try {
@@ -161,14 +180,17 @@ public class Playscreen extends screen{
                 e.printStackTrace();
             }
         }
-        //first handel user input
+
+        // First handel user input
         handelInput(dt);
         world.step(1/60f,6,2);
         player.update(dt);
-        // update enemies in the playscreen
+
+        // Update enemies in the playscreen
         ArrayList<Enemy> removeEnemies = new ArrayList<Enemy>();
-        for (Enemy enemy: enemies) {
-            if (enemy.getDestroyed())
+        for (Enemy enemy: enemies)
+        {
+            if (enemy.isDestroyed())
                 removeEnemies.add(enemy);
             else
                 enemy.update(dt);
@@ -179,26 +201,27 @@ public class Playscreen extends screen{
             enemies.remove(enemy);
         }
         removeEnemies.clear();
+
         //GAME OVER
         //System.out.println(player.getY());
-        if(player.getCurrentHealth()==0||player.getCurrentHealth()<0||player.getY()<0) {
+        if(player.getCurrentHealth()==0||player.getCurrentHealth()<0||player.getY()<-50/MegamanGame.PPM) {
             //this.dispose();
             game.setScreen(new GameOverScreen(game,hud.getScore()));
         }
+
         //for debug
         /*System.out.println(player.b2body.getPosition().x);
         System.out.println(map.getProperties().get("width",Integer.class)/10f);*/
         System.out.println(player.getX());
         System.out.println((map.getProperties().get("width", Integer.class) / 10f)-3.6f);
         //To make Game Camera stop at boss position
-       if(map.getProperties().get("width",Integer.class)/10f<player.b2body.getPosition().x) {
+
+        if(map.getProperties().get("width",Integer.class)/10f<player.getB2body().getPosition().x) {
            gamecam.position.x = map.getProperties().get("width", Integer.class) / 10f;
            AtBossPosition=true;
-
-       }
-       //If the mega man isn't at the boss position the game camera is moving with it.
-       else if(!AtBossPosition)
-        gamecam.position.x=player.b2body.getPosition().x;
+        }
+        else if(!AtBossPosition)    // If the mega man isn't at the boss position the game camera is moving with it.
+            gamecam.position.x=player.getB2body().getPosition().x;
         //update cam with correct coordinate after changes
         gamecam.update();
         //tell our render to draw what our camera sees
@@ -206,7 +229,7 @@ public class Playscreen extends screen{
         // update the bullets and remove them after 3 seconds
         ArrayList<Bullet> removeBullets = new ArrayList<Bullet>();
         for (Bullet bullet: bullets) {
-            if (bullet.remove)
+            if (bullet.isSetToDestroy())
                 removeBullets.add(bullet);
             bullet.update(dt);
         }
@@ -227,7 +250,6 @@ public class Playscreen extends screen{
 
         } else {
             update(delta);
-
         }
         //clear screen with black
         Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -240,7 +262,7 @@ public class Playscreen extends screen{
         game.batch.begin();
         player.draw(game.batch);
         for (Bullet bullet: bullets)
-            bullet.render(game.batch);
+            bullet.draw(game.batch);
         for (Enemy enemy: enemies)
             enemy.draw(game.batch);
 
@@ -262,7 +284,7 @@ public class Playscreen extends screen{
                 game.batch.draw(active_pause_button, 1890, 900, Button_Width, Button_Height);
                 if (Gdx.input.isTouched()) {
                     pause = true;
-                   try {
+                    try {
                         Thread.sleep(500);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -286,8 +308,9 @@ public class Playscreen extends screen{
             else
             game.batch.draw(inactive_continue_button, 1890, 900, Button_Width, Button_Height);
         }
-    //Draw MainMenu button
-      if(  Gdx.input.getX() >= 1825 && Gdx.input.getX() <= (1825 + Button_Width) && Gdx.input.getY() <= 200 && Gdx.input.getY() >= 200 - Button_Height) {
+        //  Draw MainMenu button
+        if(  Gdx.input.getX() >= 1825 && Gdx.input.getX() <= (1825 + Button_Width) && Gdx.input.getY() <= 200 && Gdx.input.getY() >= 200 - Button_Height)
+        {
             game.batch.draw(active_Main_Menu, 1890, 800, Button_Width, Button_Height);
             if(Gdx.input.isTouched())
             {
@@ -295,6 +318,7 @@ public class Playscreen extends screen{
                 game.setScreen(new MainMenuScreen(game));
             }
         }
+        // * The curly braces in this if condition
         else
             game.batch.draw(inactive_Main_Menu,1890,800,Button_Width,Button_Height);
             game.batch.end();
@@ -313,8 +337,6 @@ public class Playscreen extends screen{
     public void resize(int width, int height) {
         gameport.update(width,height);
     }
-
-
 
     @Override
     public void dispose() {

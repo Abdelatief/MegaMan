@@ -13,12 +13,16 @@
 
 package com.megaman.game.Sprites;
 
+//<<<<<<< HEAD
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+//=======
+import com.badlogic.gdx.physics.box2d.Body;
+//>>>>>>> refactoring
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.megaman.game.MegamanGame;
@@ -28,11 +32,13 @@ import com.megaman.game.Screen.Playscreen;
 import java.util.ArrayList;
 
 public class Boss extends Enemy {
+    //<<<<<<< HEAD
     private Array<TextureRegion> frames;
     private Animation<TextureRegion> walkAnimation;
     private float x, y;
     private float Timer;
     private float animstart;
+    private Vector2 velocity = new Vector2(-1.2f,-4);
     private ArrayList<BossBullet> Bbullets;
 
     public Boss(World world, Playscreen screen, String spriteSheet, int maxHealth, float x, float y) {
@@ -58,27 +64,28 @@ public class Boss extends Enemy {
         super(world, screen, spriteSheet, maxHealth, x, y);
     }
 
-    @Override
-    public void define() {
-        BodyDef bdef = new BodyDef();
-        bdef.position.set(getX(), getX());
-        bdef.type = BodyDef.BodyType.DynamicBody;
-        b2body = world.createBody(bdef);
-        FixtureDef fdef = new FixtureDef();
-        CircleShape shape = new CircleShape();
-        shape.setRadius(10 / MegamanGame.PPM);
-        fdef.shape = shape;
-        b2body.createFixture(fdef).setUserData(this);
-    }
+//    @Override
+//    public Body define() {
+//        BodyDef bdef = new BodyDef();
+//        bdef.position.set(getX(), getX());
+//        bdef.type = BodyDef.BodyType.DynamicBody;
+//        Body b2body = getWorld().createBody(bdef);
+//        FixtureDef fdef = new FixtureDef();
+//        CircleShape shape = new CircleShape();
+//        shape.setRadius(10 / MegamanGame.PPM);
+//        fdef.shape = shape;
+//        b2body.createFixture(fdef).setUserData(this);
+//        return b2body;
+//    }
 
     public void update(float dt) {
-        super.update(dt);
+//        super.update(dt);
         stateTimer += dt;
         //System.out.println("StatTimer  "+stateTimer);
         //System.out.println("DT  "+dt);
-        if (!getSetToDestroy() && !getDestroyed()) {
-            b2body.setLinearVelocity(velocity);
-            setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 3);
+        if (!isSetToDestroy() && !isDestroyed()) {
+            getB2body().setLinearVelocity(velocity);
+            setPosition(getB2body().getPosition().x - getWidth() / 2, getB2body().getPosition().y - getHeight() / 3);
             setRegion(walkAnimation.getKeyFrame(stateTimer, true));
             if (this.getX() < x - 2) {
                 velocity.x = 1;
@@ -96,7 +103,7 @@ public class Boss extends Enemy {
                 runningRight = false;
             }
             if (stateTimer >= animstart) {
-                Bbullets.add(new BossBullet(this.b2body.getPosition().x, this.b2body.getPosition().y, this.runningRight, world, screen));
+                Bbullets.add(new BossBullet(getB2body().getPosition().x, getB2body().getPosition().y, this.runningRight, getWorld(), screen));
                 animstart += 1.8f;
             }
             ArrayList<BossBullet> removeBBullets = new ArrayList<BossBullet>();

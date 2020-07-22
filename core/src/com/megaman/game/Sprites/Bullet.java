@@ -2,32 +2,31 @@ package com.megaman.game.Sprites;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.megaman.game.MegamanGame;
+import com.megaman.game.Tools.GameObject;
 
-public class Bullet
+
+public class Bullet extends GameObject
 {
-    public float SPEED = 0.7f;
+    public final float SPEED = 0.7f;
     public int damage = 10;
     private static Texture texture;
     private static TextureRegion textureRegion;
     private float x, y;
-    private World world;
-    private Body b2body;
-    private float direction;
-    private float offset;
+    private final float direction;
+    private final float offset;
     private float timer;
-    public boolean remove;
 
 
     public Bullet(float x, float y, boolean rightDirection, World world)
     {
+        super(new Vector2(x, y), world);
+        setB2body(define());
         this.x = x;
         this.y = y;
-        this.world = world;
         timer = 0;
         if (texture == null)
             texture = new Texture("Buster.gif");
@@ -47,36 +46,40 @@ public class Bullet
             if (!textureRegion.isFlipX())
                 textureRegion.flip(true, false);
         }
-        define();
+
+        setBounds(x/MegamanGame.PPM, y/MegamanGame.PPM, 15/MegamanGame.PPM, 15/MegamanGame.PPM);
     }
 
-    public void define()
+    public Body define()
     {
         BodyDef bdef = new BodyDef();
         bdef.position.set(x, y);
         bdef.type = BodyDef.BodyType.DynamicBody;
-        b2body = world.createBody(bdef);
+        Body b2body = getWorld().createBody(bdef);
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(3 / MegamanGame.PPM);
         fdef.shape = shape;
         fdef.isSensor = true;
         b2body.createFixture(fdef).setUserData(this);
+        b2body.setGravityScale(0);
+        return b2body;
     }
 
     public void update(float dt)
     {
-        timer += dt;
-        x += SPEED * dt * direction;
-        if (timer > 3)
-            remove = true;
-
-        b2body.setTransform(x+offset+0.02f, y+0.09f, b2body.getAngle());    //added numbers to adjust the b2body to the sprite
-    }
-
-    public void render(SpriteBatch batch)
-    {
-        batch.draw(textureRegion, x+offset, y+0.04f, 0.1f, 0.1f);
+        super.update(dt);
+        if (!isSetToDestroy()) {
+            timer += dt;
+            x += SPEED * dt * direction;
+            if (timer > 3)
+                setSetToDestroy(true);
+            float transformX = x + offset + 0.02f * direction;
+            float transformY = y + 0.04f;
+            setPosition(transformX, transformY);
+            setRegion(textureRegion);
+            getB2body().setTransform(x + offset + 0.02f, y + 0.09f, getB2body().getAngle());    //added numbers to adjust the b2body to the sprite
+        }
     }
 
     public int getDamage()
