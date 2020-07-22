@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="300" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="33">
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="300" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="42">
  <tileset firstgid="1" source="level.tsx"/>
  <layer id="1" name="background" width="300" height="13">
   <data encoding="base64" compression="zlib">
@@ -8,16 +8,11 @@
  </layer>
  <layer id="2" name="graphics" width="300" height="13">
   <data encoding="base64" compression="zlib">
-   eJzt1k0KwjAQBtBsAj2b9RCu/L2UR3VcCLUgNJo2at+DD2ZRStI0w6QEAAAAAAAAAAAAAOu16eYP8N/u97yPbLvX9SGndIyc8rTnH3XrfS2Vb7Tk/qd8l7WfB3VEf9m1XsMvi/txbb0GKFUydwzrfX6eX86RSy5/T0k91OtXHxn3q3dngvE/YK6oo9VsWeM858wN+/Resw==
+   eJzt10sOgkAQBUA2k3A24RBG/Hspj2onuFAWRpARlKrkBcIGAkxPd1EAAAAAAAAAAAAAwHKtynzZpDZNZBvZpfZ6FanLvOdxvE79bmEp3lmbh1j/x8ipZx1Ygmqm9Srn/tBnH2nu+eZ9+V9RX9ZTP8Mvq2dar+CVofPEPj33L+fIJeWdYx5V6tVHuvPg0J6g+w/oK8YxVW85xvfMmRuPemL9
   </data>
  </layer>
  <objectgroup id="4" name="ground">
   <object id="5" x="736" y="174" width="17" height="33"/>
-  <object id="6" x="1152" y="143" width="401" height="17"/>
-  <object id="7" x="1601" y="159" width="430" height="17"/>
-  <object id="8" x="2014" y="176" width="18" height="31"/>
-  <object id="10" x="2622" y="161" width="532" height="16"/>
-  <object id="11" x="3199" y="159" width="434" height="18"/>
   <object id="13" x="4226" y="193" width="574" height="15"/>
   <object id="15" x="-0.333333" y="192" width="224.333" height="15.6667"/>
   <object id="16" x="319.667" y="192.333" width="369" height="16"/>
@@ -26,6 +21,11 @@
   <object id="23" x="2079.5" y="191.5" width="224.5" height="15.5"/>
   <object id="25" x="2367.5" y="191.5" width="210" height="16"/>
   <object id="31" x="3680" y="191.333" width="480" height="16.6667"/>
+  <object id="33" x="1152" y="142.667" width="368.667" height="16.6667"/>
+  <object id="34" x="1599.33" y="143.333" width="432" height="15.3333"/>
+  <object id="36" x="2015.33" y="143.333" width="14" height="63.3333"/>
+  <object id="40" x="3199.33" y="160" width="433" height="15.6667"/>
+  <object id="41" x="2624" y="159.333" width="528.667" height="16.6667"/>
  </objectgroup>
  <objectgroup id="6" name="forks">
   <object id="14" x="4911" y="314" height="1"/>
@@ -33,5 +33,7 @@
   <object id="22" x="880" y="160" width="47" height="16"/>
   <object id="28" x="2304.36" y="191.636" width="62.9091" height="16"/>
   <object id="32" x="4160.25" y="191.5" width="65" height="16.75"/>
+  <object id="37" x="1521.33" y="142.667" width="76" height="16"/>
+  <object id="39" x="3153.67" y="160" width="45" height="16"/>
  </objectgroup>
 </map>

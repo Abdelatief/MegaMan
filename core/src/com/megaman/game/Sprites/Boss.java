@@ -120,7 +120,7 @@ public class Boss extends Enemy {
     @Override
     public void die() {
         super.die();
-        Hud.IncreaseScore(500);
+        Hud.IncreaseScore(1000);
     }
 
     public void BulletRender(MegamanGame game) {

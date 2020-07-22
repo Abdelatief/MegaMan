@@ -23,7 +23,7 @@ import com.megaman.game.Tools.WorldContactListener;
 
 import java.util.ArrayList;
 
-public class Playscreen extends screen{
+public abstract class Playscreen extends screen{
 
     // Screen and camera
     private final TextureAtlas atlas;
@@ -65,7 +65,7 @@ public class Playscreen extends screen{
      * Create a new Playscreen instance, setup attributes and load buttons textures and enemies addition
      * @param game MegamanGame instance that will be rendered on the Playscreen
      */
-    public  Playscreen(MegamanGame game) {
+    public  Playscreen(MegamanGame game,String Map) {
         this.game = game;
         atlas = new TextureAtlas("MegaMan_Enemies.pack");
         atlas2=new TextureAtlas("BM.pack");
@@ -88,7 +88,7 @@ public class Playscreen extends screen{
 
         // Load our map and setup our map renderer
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load("Mega_Level1.tmx");
+        map = mapLoader.load(Map);
         renderer = new OrthogonalTiledMapRenderer(map, 1 / MegamanGame.PPM);
 
         // Initially set our gamcam to be centered correctly at the start of map
@@ -102,13 +102,13 @@ public class Playscreen extends screen{
 
         // Create megaman in game and adding enemies
         player = new MegaMan(world, this);
-        enemies.add(new RedCarEnemy(world, this, "SNES - Mega Man X - Enemies 1", 100,2,.16f));
+       /* enemies.add(new RedCarEnemy(world, this, "SNES - Mega Man X - Enemies 1", 100,2,.16f));
         enemies.add(new GreenEnemy(world, this, "SNES - Mega Man X - Enemies 2", 50,6,.16f));
         enemies.add(new TallGreenEnemy(world, this, "SNES - Mega Man X - Enemies 2", 150,10.5f,.16f));
         enemies.add(new BlueManEnemy(world, this, "SNES - Mega Man X - Enemies 2", 200,12.5f,.16f));
         enemies.add(new BlueBirdEnemy(world, this, "SNES - Mega Man X - Enemies 2", 250,13,.16f));
         enemies.add(new WhiteEnemy(world, this, "SNES - Mega Man X - Enemies 1", 300,14,.16f));
-        enemies.add(new Boss(world,this,"SNES - Mega Man X - Enemies 1",350,18,.16f));
+        enemies.add(new Boss(world,this,"SNES - Mega Man X - Enemies 1",350,18,.16f));*/
 
 
         //create our game HUD for scores /timers/level info
@@ -117,6 +117,7 @@ public class Playscreen extends screen{
         //Music
         jumpSound = Gdx.audio.newSound(Gdx.files.internal("audio/sounds/Jump-SoundBible.com-1007297584.mp3"));
         world.setContactListener(new WorldContactListener());
+        setEnemies();
     }
     public void handelInput(float dt)  // * Not refactored yet
     {
@@ -345,5 +346,14 @@ public class Playscreen extends screen{
             world.dispose();
             b2dr.dispose();
             hud.dispose();
+    }
+    public World getWorld() {
+        return world;
+    }
+
+    public abstract void setEnemies() ;
+
+    public ArrayList<Enemy> getEnemies() {
+        return enemies;
     }
 }

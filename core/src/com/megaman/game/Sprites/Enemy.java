@@ -32,7 +32,10 @@ public abstract class Enemy extends Entity
         }walkAnimation = new Animation(0.2f, frames);
         stateTimer = 0;
         setB2body(define());
-        setBounds(getX(), getY(), 70 / MegamanGame.PPM, 45 / MegamanGame.PPM);
+        if(this instanceof BlueBoss)
+            setBounds(getX(), getY(), 100 / MegamanGame.PPM, 150 / MegamanGame.PPM);
+        else
+            setBounds(x, getY(), 70 / MegamanGame.PPM, 45 / MegamanGame.PPM);
     }
 
     public Enemy(World world, Playscreen screen, String spriteSheet, int maxHealth, float x, float y)
@@ -65,20 +68,41 @@ public abstract class Enemy extends Entity
             setPosition(getB2body().getPosition().x - getWidth() / 2, getB2body().getPosition().y - getHeight()/3 );
             setRegion(walkAnimation.getKeyFrame(stateTimer, true));
             //To make enemy reverses its movement direction.
-            if(this.getX() < x-2) {
-                velocity.x = 1;
-                for(int i = 0;i < frames.size;i++)//Makes enemy looks to right
-                    frames.get(i).flip(true,false);
-
-            }
-            else if(this.getX() > x-1) {
-                velocity.x = -1;
-
-                for(int i = 0;i < frames.size;i++)//Makes enemy looks to left
-                {
-                    if(frames.get(i).isFlipX())
+            if(this instanceof BlueBoss)
+            {
+                if(this.getX() < x-2.4f) {
+                    velocity.x = 1;
+                    for(int i = 0;i < frames.size;i++)//Makes enemy looks to right
                         frames.get(i).flip(true,false);
+
                 }
+                else if(this.getX() > x-1) {
+                    velocity.x = -1;
+
+                    for(int i = 0;i < frames.size;i++)//Makes enemy looks to left
+                    {
+                        if(frames.get(i).isFlipX())
+                            frames.get(i).flip(true,false);
+                    }
+                }
+            }else
+            {
+                if(this.getX() < x-2) {
+                    velocity.x = 1;
+                    for(int i = 0;i < frames.size;i++)//Makes enemy looks to right
+                        frames.get(i).flip(true,false);
+
+                }
+                else if(this.getX() > x-1) {
+                    velocity.x = -1;
+
+                    for(int i = 0;i < frames.size;i++)//Makes enemy looks to left
+                    {
+                        if(frames.get(i).isFlipX())
+                            frames.get(i).flip(true,false);
+                    }
+            }
+
 
             }
 

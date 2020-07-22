@@ -1,35 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="350" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="28">
- <tileset firstgid="1" source="SNES - Mega Man X - Boomer Kuwanger Stage.tsx"/>
- <layer id="1" name="background" width="350" height="13">
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="400" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="40">
+ <tileset firstgid="1" source="SNES - Mega Man X - Boomer Kuwanger Stage2.tsx"/>
+ <layer id="1" name="background" width="400" height="13">
   <data encoding="base64" compression="zlib">
-   eJzt0ElfjWEAQPEnooWEsBDK8HXMYWEqw0JkyMKQigVCdeveqzRYXBTl6ygSLagMWUSmLAznEzy/992fxX93VqfQEcJDPMJjDGIIT/AUwxhBIWH3zNZftra20XZdJoQKrMcGbEQlqrAJm7Elk7zbausvW1vbaJtDHvfQjR7cRy/60I+BFN0DW3/Z2tpG22WdIZRiOcqwAiuxCuVYjTWdybu1tv6ytbWNtjdwE7fQitu4g7toQzs6UnQZW3/Z2tpG2z/4i38IXSEUYREWoxhLsLQreVdi6y9bW9toexGXcBlX0IiraEIzWnAtRXfd1l+2trbRdg5f8BXz+Ibv+IGf+IWFFN1vW3/Z2tpG25PZEOpwCqdRjzM4i3M4j4Zs8u6Crb9sbW2j7Vu8wxSmMYP3+ICP+ITZFN1nW3/Z2tpG2wO5EA7iEA7jCGpQi6M4huO55N0JW3/Z2tpG2+cYxRhe4CXG8QoTeI03KbpJW3/Z2tpG2235ELZjB3ZiF3ZjD6qxF/vyybv9tv6ytbWNtv8BzPbprw==
+   eJzt2sk6gnEcQOE/qudJZLhIZGoTZdqYChdJA7UxVWyUnKW+K/gtzuLs3ks4xVxKy1SiFVqlMq3ROm3QJhV1Op1Op/vnLumKrumGbqlJLbqje3rQ6XQ6nS7jfmhCU/qlGaV8Sgu0SEuUy+t0Op1ON+9qdETHVKcGndApndE5Xeh0Op1Ol3Gv9Ebv9EGfNKQRjemLvnU6nU6ny7itQkrbtEMV2qU92qcDOqRqQafT6XS6efdIT9SmDnWpR8/0Qn0a6HQ6nU6XcdH/MJ1Op9PFdNH/MJ1Op9PFdNH/MJ1Op9PFdNH/MJ1Op9PFdNH/MJ1Op9PFdNH/MJ1Op9PFdH96dNt/
   </data>
  </layer>
- <layer id="2" name="graphics" width="350" height="13">
+ <layer id="2" name="graphics" width="400" height="13">
   <data encoding="base64" compression="zlib">
-   eJzt2UsOgjAYReF/Fypo2AFDhYrOfa4Bd9KluTTvQIcmxFAp7fmSM+AxAAItATMAAAAAAAAAAAAAAAAgXYvKbKlWqlClWqtNFdc2AABSxXybj21ttlONapVTe9WpQx1+e2q4lwEAY9C80fO+9buczhUYS+7Pjc61n/oYACAn5YTjbuxzXuzHN2ehv3O6hz1b1Sj37rN8Opqd1UVd1U3d1ZD13/aJFf8W4lTM4H2X+yMMjVNe45XXuOX/fY1f3kJjug==
+   eJzt2LtKA0EUxvFTiNFWvLRi9D32FWLUenwCwcoiN23FaCtG2UfxOUTDlj6BGG38RNIsYhLHzMzi/wcfITPZXIblTM6YAQAAAAAAAAAAAJMddy177VjeVRaVi7blq8pNy/ItJfRc7PUAAExn1LFMyXtKTemrlq8pA9XyuhJ6LvZ6AACmozqevamOnypLyqVq+bpyq1q+rYSei70eqJ6UemjfcXpzVMlmw+xd9+qZsqxc6X7dUO50v+4ooedirweqJ6Ue2nec3hxVct2I/Q0AP6qvlkoP7TtOb/5/6L+7U/11K7vmzpWFprm28qIc7Zl7Vg73zT0ozYOvzHLN8MTun5Tx46NSvt73ecr7R3ltJq2d73zs34vf0X/0ZHpo33F6cwAIp9+O/Q0AAD56HStqiup5oZ6gGLSsqCvzHtcY8KNZz4rm9frY64Aw5n1WNu17fHeGGeo8j/O+9Gn/dNpHnfZTp33VaS912mfdSPnruc/xYeleHF8T4vN95j4AvV+vgg==
   </data>
  </layer>
  <objectgroup id="3" name="ground">
-  <object id="6" x="0.666667" y="192.667" width="383.333" height="14.6667"/>
-  <object id="8" x="864.667" y="127.333" width="513.333" height="18"/>
-  <object id="9" x="1438" y="190" width="563" height="18"/>
-  <object id="10" x="2047" y="160" width="115" height="17"/>
-  <object id="11" x="2209" y="126" width="112" height="19"/>
-  <object id="14" x="2369" y="95" width="670" height="17"/>
-  <object id="15" x="3074" y="145" width="446" height="15"/>
-  <object id="16" x="3568" y="176" width="114" height="17"/>
-  <object id="17" x="3729" y="193" width="449" height="17"/>
-  <object id="18" x="4207" y="176" width="113" height="17"/>
-  <object id="19" x="4352" y="144" width="115" height="15"/>
-  <object id="20" x="4496" y="113" width="562" height="15"/>
-  <object id="22" x="5152" y="192" width="450" height="17"/>
-  <object id="23" x="3073" y="145" width="13" height="62"/>
-  <object id="24" x="495.333" y="191.333" width="335.333" height="16.6667"/>
-  <object id="27" x="5103.67" y="192" width="48.3333" height="16"/>
+  <object id="2" x="1" y="193" width="545" height="16"/>
+  <object id="4" x="1376" y="63" width="575" height="56"/>
+  <object id="6" x="2001" y="143" width="446" height="17"/>
+  <object id="13" x="3728" y="175" width="494" height="16"/>
+  <object id="14" x="4208" y="96" width="933" height="52"/>
+  <object id="19" x="1376" y="63" width="15.6667" height="97.3333"/>
+  <object id="20" x="4208" y="96.3333" width="15.3333" height="95"/>
+  <object id="21" x="591.5" y="144" width="384.5" height="16.5"/>
+  <object id="22" x="1056" y="143.5" width="335" height="17.5"/>
+  <object id="24" x="2496" y="191.5" width="544" height="17"/>
+  <object id="25" x="3119.5" y="191.5" width="544.5" height="16.5"/>
+  <object id="35" x="5216" y="191.333" width="447.333" height="16.6667"/>
+  <object id="36" x="5727.33" y="192" width="672" height="17.3333"/>
  </objectgroup>
  <objectgroup id="4" name="forks">
-  <object id="26" x="384" y="192" width="110.667" height="16"/>
+  <object id="23" x="976" y="143.5" width="79" height="17.5"/>
+  <object id="34" x="3040.5" y="191" width="78.5" height="17.5"/>
+  <object id="39" x="5664" y="191.333" width="62.6667" height="16.6667"/>
  </objectgroup>
 </map>
