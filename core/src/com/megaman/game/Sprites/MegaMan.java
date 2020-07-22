@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
-import com.megaman.game.Observer.PlayerSubscriber;
 import com.megaman.game.Scenes.Hud;
 import com.megaman.game.Screen.Playscreen;
 import com.megaman.game.MegamanGame;
@@ -26,7 +25,6 @@ public class MegaMan extends Entity {
     private boolean introAnimationPlayed;
     private boolean isAnimationPlaying;
     private float animationStart;
-    private PlayerSubscriber eventSubscriber;
     private Sound shootSound;//shoot sound
 
     public MegaMan(World  world , Playscreen screen)

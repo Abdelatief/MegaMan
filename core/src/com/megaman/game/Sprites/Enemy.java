@@ -6,13 +6,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.megaman.game.MegamanGame;
-import com.megaman.game.Observer.Publisher;
 import com.megaman.game.Scenes.Hud;
 import com.megaman.game.Screen.Playscreen;
 
 public abstract class Enemy extends Entity
 {
-    Publisher publisher;
     private Vector2 velocity = new Vector2(-1.2f,-4);;
     private Array<TextureRegion> frames;
     private Animation<TextureRegion> walkAnimation;
@@ -35,7 +33,6 @@ public abstract class Enemy extends Entity
         stateTimer = 0;
         setB2body(define());
         setBounds(getX(), getY(), 70 / MegamanGame.PPM, 45 / MegamanGame.PPM);
-        this.publisher = new Publisher();
     }
 
     public Enemy(World world, Playscreen screen, String spriteSheet, int maxHealth, float x, float y)
