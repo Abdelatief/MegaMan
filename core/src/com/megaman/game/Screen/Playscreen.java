@@ -214,7 +214,7 @@ public abstract class Playscreen extends screen{
 
         for (Enemy enemy: enemies)
         {
-            if (enemy instanceof Boss||enemy instanceof BlueBoss||enemy instanceof VioletBoss)
+            if (enemy instanceof Boss||enemy instanceof Bosses)
                 if ( enemy.getCurrentHealth() == 0) {
                     if(Level_Number=="1")
                         game.setScreen(new Level2(game));

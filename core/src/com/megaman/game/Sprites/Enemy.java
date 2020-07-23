@@ -35,7 +35,7 @@ public abstract class Enemy extends Entity
         }walkAnimation = new Animation(0.2f, frames);
         stateTimer = 0;
         setB2body(define());
-        if(this instanceof BlueBoss||this instanceof VioletBoss)
+        if(this instanceof Bosses)
             setBounds(getX(), getY(), 100 / MegamanGame.PPM, 150 / MegamanGame.PPM);
         else
             setBounds(getX(), getY(), 70 / MegamanGame.PPM, 45 / MegamanGame.PPM);
@@ -117,7 +117,7 @@ public abstract class Enemy extends Entity
                 }
                 runningRight = false;
             }
-            if (!(this instanceof Boss)&&!(this instanceof VioletBoss)&& !(this instanceof BlueBoss))
+            if (!(this instanceof Boss)&&!(this instanceof Bosses))
             {
                 if (stateTimer >= animstart) {
                     Bbullets.add(new EnemyBullet(this.getB2body().getPosition().x, this.getB2body().getPosition().y, this.runningRight, getWorld(), screen));
