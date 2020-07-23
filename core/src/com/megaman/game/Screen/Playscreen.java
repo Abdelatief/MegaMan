@@ -1,8 +1,6 @@
 package com.megaman.game.Screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import  com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -14,6 +12,8 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.viewport.*;
+import com.megaman.game.Levels.Level1;
+import com.megaman.game.Levels.Level2;
 import com.megaman.game.MegamanGame;
 import com.megaman.game.Scenes.Hud;
 import com.megaman.game.Sprites.*;
@@ -60,6 +60,7 @@ public abstract class Playscreen extends screen{
     private boolean AtBossPosition;
     private boolean pause;
     private Sound jumpSound;
+    private String Level_Number;
 
     /**
      * Create a new Playscreen instance, setup attributes and load buttons textures and enemies addition
@@ -73,6 +74,12 @@ public abstract class Playscreen extends screen{
         pause = false;
         AtBossPosition=false;
 
+        if(this instanceof Level1)
+           Level_Number="1";
+        else  if(this instanceof Level2)
+            Level_Number="2";
+        else
+            Level_Number="3";
         // Buttons textures => pause,continue button
         inactive_pause_button = new Texture("inactive_pause_button.jpg");
         active_pause_button = new Texture("active_pause_button.jpg");
@@ -112,7 +119,8 @@ public abstract class Playscreen extends screen{
 
 
         //create our game HUD for scores /timers/level info
-        hud = new Hud(game.batch,player);
+
+            hud = new Hud(game.batch,player,Level_Number);
 
         //Music
         jumpSound = Gdx.audio.newSound(Gdx.files.internal("audio/sounds/Jump-SoundBible.com-1007297584.mp3"));
@@ -209,7 +217,7 @@ public abstract class Playscreen extends screen{
         //System.out.println(player.getY());
         if(player.getCurrentHealth()==0||player.getCurrentHealth()<0||player.getY()<-50/MegamanGame.PPM) {
             //this.dispose();
-            game.setScreen(new GameOverScreen(game,hud.getScore()));
+            game.setScreen(new GameOverScreen(game,hud.getScore(),Level_Number));
         }
 
         //for debug

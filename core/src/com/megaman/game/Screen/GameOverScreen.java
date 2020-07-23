@@ -18,10 +18,14 @@ public class GameOverScreen extends screen {
     private Texture inactive_exit_button;
     private int Button_Width = 600;
     private  int Button_Height = 100;
-    private int score,highscore;
+    private int score;
+    private int highscore;
+    private int Highscore_Level1;
+    private int Highscore_Level2;
+    private int Highscore_Level3;
     private BitmapFont  scoreFont;
 
-    public GameOverScreen(MegamanGame game,int score) {
+    public GameOverScreen(MegamanGame game,int score,String Level) {
         this.score=score;
         this.game = game;
         background = new Texture("GameOver.jpg");
@@ -33,14 +37,38 @@ public class GameOverScreen extends screen {
         //Get highscore from save file
         Preferences prefs = Gdx.app.getPreferences("megamangame");
 
-        this.highscore = prefs.getInteger("High score", 0);
+        this.Highscore_Level1 = prefs.getInteger("High score Level1", 0);
+        this.Highscore_Level2 = prefs.getInteger("High score Level2", 0);
+        this.Highscore_Level3 = prefs.getInteger("High score Level3", 0);
         		//Check if score beats highscore
-            if (this.score > highscore) {
+        if(Level=="1") {
+            if (this.score > Highscore_Level1) {
 
-       			prefs.putInteger("High score", this.score);
+                prefs.putInteger("High score Level1", this.score);
                 prefs.flush();
-                this.highscore=this.score;
-        	}
+                this.Highscore_Level1 = this.score;
+            }
+            this.highscore=this.Highscore_Level1;
+        }
+        else if (Level=="2")
+        {
+            if (this.score > Highscore_Level2) {
+
+                prefs.putInteger("High score Level2", this.score);
+                prefs.flush();
+                this.Highscore_Level2 = this.score;
+            }
+            this.highscore=this.Highscore_Level2;
+        }
+        else {
+            if (this.score > Highscore_Level3) {
+
+                prefs.putInteger("High score Level3", this.score);
+                prefs.flush();
+                this.Highscore_Level3 = this.score;
+            }
+            this.highscore=this.Highscore_Level3;
+        }
 
     }
 

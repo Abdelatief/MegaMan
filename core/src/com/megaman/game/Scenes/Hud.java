@@ -31,7 +31,7 @@ public class Hud implements Disposable {
     private Label MegaManEnergyLabel;
     private static Label  EnergyLabel;
     private static MegaMan player;
-    public  Hud(SpriteBatch sb,MegaMan player)
+    public  Hud(SpriteBatch sb,MegaMan player, String NumberOfLevel)
     {
 
         worldTimer=300;
@@ -48,7 +48,7 @@ public class Hud implements Disposable {
         //countdownLabel= new Label(String.format("%03d",worldTimer),new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         ScoreLabel=new Label(String.format("%06d",score),new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         EnergyLabel=new Label(String.format("%04d",Energy),new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        levelabel=new Label("1",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        levelabel=new Label(NumberOfLevel,new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         worldLabel=new Label("LEVEL",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         MegamanLabel=new Label("MEGA MAN Score",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         //timeLabel=new Label("Time",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
