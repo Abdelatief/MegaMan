@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.megaman.game.MegamanGame;
+import com.megaman.game.Sprites.MegaMan;
 
 public class MainMenuScreen extends screen {
 
@@ -25,6 +26,7 @@ public class MainMenuScreen extends screen {
         active_newgame_button = new Texture("active_newgame_button.jpg");
         inactive_exit_button = new Texture("inactive_Exit_button.jpg");
         active_exit_button = new Texture("active_Exit_button.jpg");
+        MegaMan.setScore(0);
     }
 
 

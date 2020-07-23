@@ -20,7 +20,7 @@ public class Hud implements Disposable {
 
     private Integer worldTimer;
     private float timecount;
-    private static Integer score;
+   // private static Integer score;
     private static Integer Energy;
     private Label countdownLabel;
     private static Label ScoreLabel;
@@ -36,7 +36,7 @@ public class Hud implements Disposable {
 
         worldTimer=300;
         timecount=0;
-        score=0;
+       // score=0;
         this.player=player;
         Energy = this.player.getCurrentHealth();
         viewport=new FitViewport(MegamanGame.V_WIDTH, MegamanGame.V_HEIGHT,new OrthographicCamera());
@@ -46,7 +46,7 @@ public class Hud implements Disposable {
         table.top();
         table.setFillParent(true);
         //countdownLabel= new Label(String.format("%03d",worldTimer),new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        ScoreLabel=new Label(String.format("%06d",score),new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        ScoreLabel=new Label(String.format("%06d",player.getScore()),new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         EnergyLabel=new Label(String.format("%04d",Energy),new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         levelabel=new Label(NumberOfLevel,new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         worldLabel=new Label("LEVEL",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
@@ -84,13 +84,14 @@ public class Hud implements Disposable {
     }
     public static void  IncreaseScore(int value)
     {
-        score+=value;
-        ScoreLabel.setText((String.format("%04d",score)));
+        player.setScore(player.getScore()+value);
+
+        ScoreLabel.setText((String.format("%04d",player.getScore())));
     }
-    public Integer getScore() {
+   /* public Integer getScore() {
         return score;
     }
-
+*/
     @Override
     public void dispose() {
         stage.dispose();

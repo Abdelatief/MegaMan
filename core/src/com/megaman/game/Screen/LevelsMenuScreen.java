@@ -7,6 +7,7 @@ import com.megaman.game.Levels.Level1;
 import com.megaman.game.Levels.Level2;
 import com.megaman.game.Levels.Level3;
 import com.megaman.game.MegamanGame;
+import com.megaman.game.Sprites.MegaMan;
 
 public class LevelsMenuScreen extends screen {
 
@@ -35,6 +36,7 @@ public class LevelsMenuScreen extends screen {
         active_Level3_button= new Texture("active_level3_button.jpg");
         inactive_Back_button=new Texture("inactive_Back_button.jpg");
         active_Back_button= new Texture("active_Back_button.jpg");
+        MegaMan.setScore(0);
     }
 
 

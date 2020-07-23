@@ -27,6 +27,7 @@ public class MegaMan extends Entity {
     private float animationStart;
     private Sound shootSound;//shoot sound
     private int jumps = 0;
+    private static int Score;
 
     public MegaMan(World  world , Playscreen screen)
     {
@@ -232,5 +233,13 @@ public class MegaMan extends Entity {
     public void incrementJumps()
     {
         jumps += 1;
+    }
+
+    public static int getScore() {
+        return Score;
+    }
+
+    public static void setScore(int score) {
+        Score = score;
     }
 }

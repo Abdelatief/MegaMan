@@ -14,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.viewport.*;
 import com.megaman.game.Levels.Level1;
 import com.megaman.game.Levels.Level2;
+import com.megaman.game.Levels.Level3;
 import com.megaman.game.MegamanGame;
 import com.megaman.game.Scenes.Hud;
 import com.megaman.game.Sprites.*;
@@ -217,8 +218,18 @@ public abstract class Playscreen extends screen{
         //System.out.println(player.getY());
         if(player.getCurrentHealth()==0||player.getCurrentHealth()<0||player.getY()<-50/MegamanGame.PPM) {
             //this.dispose();
-            game.setScreen(new GameOverScreen(game,hud.getScore(),Level_Number));
+            game.setScreen(new GameOverScreen(game,player.getScore(),Level_Number));
         }
+
+            if(enemies.get(enemies.size()-1).getCurrentHealth()==0)
+            {
+                if(Level_Number=="1")
+                game.setScreen(new Level2(game));
+                else if (Level_Number=="2")
+                    game.setScreen(new Level3(game));
+                else
+                    game.setScreen(new WinScreen(game, player.getScore(), Level_Number));
+            }
 
         //for debug
         /*System.out.println(player.b2body.getPosition().x);
