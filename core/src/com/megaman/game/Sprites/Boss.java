@@ -1,10 +1,8 @@
 package com.megaman.game.Sprites;
 
-//<<<<<<< HEAD
+
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-//=======
-//>>>>>>> refactoring
 import com.badlogic.gdx.physics.box2d.World;
 import com.megaman.game.MegamanGame;
 import com.megaman.game.Screen.Playscreen;
@@ -12,7 +10,6 @@ import com.megaman.game.Screen.Playscreen;
 import java.util.ArrayList;
 
 public class Boss extends Enemy {
-    //<<<<<<< HEAD
     private float animstart;
     private ArrayList<BossBullet> Bbullets;
 

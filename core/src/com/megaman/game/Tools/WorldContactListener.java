@@ -11,14 +11,6 @@ public class WorldContactListener implements ContactListener {
         Fixture fixA = contact.getFixtureA();
         Fixture fixB = contact.getFixtureB();
 
-        if (fixA.getUserData() == "leg" || fixB.getUserData() == "leg") {
-            Fixture leg = fixA.getUserData() == "leg" ? fixA : fixB;
-            Fixture object = leg == fixA ? fixB : fixA;
-
-            if (object.getUserData() != null && interactiveTileobject.class.isAssignableFrom(object.getUserData().getClass()))
-                ((interactiveTileobject) object.getUserData()).onLegHit();
-        }
-
         if (fixA.getUserData() instanceof Bullet || fixB.getUserData() instanceof Bullet) //manage the bullet collision
         {
             Fixture bullet = fixA.getUserData() instanceof Bullet ? fixA : fixB;
@@ -34,22 +26,6 @@ public class WorldContactListener implements ContactListener {
             }
         }
 
-        if (fixA.getUserData() instanceof BossBullet || fixB.getUserData() instanceof BossBullet) // Manage Boss bullets collision
-        {
-            Fixture bullet = fixA.getUserData() instanceof BossBullet ? fixA : fixB;
-            Fixture object = bullet == fixA ? fixB : fixA;
-            Gdx.app.log("collision", "Bullet collision detected");
-            BossBullet bulletObject = (BossBullet) bullet.getUserData();
-            if (object.getUserData() instanceof MegaMan) {
-                Gdx.app.log("collision", "Mega is hit");
-                MegaMan MegaObject = (MegaMan) object.getUserData();
-                MegaObject.applyDamage(bulletObject.getDamage());
-                Gdx.app.log("Mega Health", String.valueOf(MegaObject.getCurrentHealth()));
-//                MegaObject.decreaseEn();
-                MegaObject.applyDamage(100);
-            }
-        }
-
         if (fixA.getUserData() instanceof MegaMan || fixB.getUserData() instanceof MegaMan) // Manage Megaman and enemies collision
         {
             Fixture megaman = fixA.getUserData() instanceof MegaMan ? fixA : fixB;
@@ -61,6 +37,21 @@ public class WorldContactListener implements ContactListener {
                 Gdx.app.log("Collision", "Megaman - Enemy");
                 player.applyDamage(100);
             }
+            else if (object.getUserData() instanceof forks)
+            {
+                player.applyDamage(100);
+            }
+            else if (object.getUserData() instanceof BossBullet)
+            {
+                BossBullet bullet = (BossBullet)object.getUserData();
+                player.applyDamage(bullet.getDamage());
+                bullet.remove = true;
+            }
+            else if (object.getUserData() instanceof EnemyBullet)
+            {
+                player.applyDamage(((EnemyBullet)object.getUserData()).getDamage());
+            }
+            Gdx.app.log("Megaman Helath:", String.valueOf(player.getCurrentHealth()));
         }
     }
 

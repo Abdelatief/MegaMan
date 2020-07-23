@@ -9,6 +9,8 @@ import com.megaman.game.MegamanGame;
 import com.megaman.game.Scenes.Hud;
 import com.megaman.game.Screen.Playscreen;
 
+import java.util.ArrayList;
+
 public abstract class Enemy extends Entity
 {
     private Vector2 velocity = new Vector2(-1.2f,-4);;
@@ -16,6 +18,8 @@ public abstract class Enemy extends Entity
     private Animation<TextureRegion> walkAnimation;
     private float x;
     private int ValueToIncreaseScore;
+    private float animstart = 1;
+    private ArrayList<EnemyBullet> Bbullets = new ArrayList<EnemyBullet>();
 
     public Enemy(World world, Playscreen screen, String spriteSheet, int maxHealth, float x, float y, int NumberOfAnimation,int XPositionInSpriteSheet,int YPositionInSpriteSheet,int width,int height,int ValueToIncreaseScore) {
         super(world, screen, spriteSheet, maxHealth,x,y);
@@ -111,12 +115,30 @@ public abstract class Enemy extends Entity
                             frames.get(i).flip(true,false);
                     }
                     runningRight = false;
-            }
-
+                }
+                if (!(this instanceof Boss))
+                {
+                    if (stateTimer >= animstart) {
+                        Bbullets.add(new EnemyBullet(this.getB2body().getPosition().x, this.getB2body().getPosition().y, this.runningRight, getWorld(), screen));
+                        animstart += 1;
+                    }
+                    ArrayList<EnemyBullet> removeBBullets = new ArrayList<EnemyBullet>();
+                    for (EnemyBullet bullet : Bbullets) {
+                        if (bullet.remove)
+                            removeBBullets.add(bullet);
+                        bullet.update(dt);
+                    }
+                    Bbullets.removeAll(removeBBullets);
+                }
 
             }
 
         }
+    }
+
+    public void BulletRender(MegamanGame game) {
+        for (EnemyBullet bullet : Bbullets)
+            bullet.render(game.batch);
     }
 
     @Override

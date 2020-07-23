@@ -264,13 +264,17 @@ public abstract class Playscreen extends screen{
         player.draw(game.batch);
         for (Bullet bullet: bullets)
             bullet.draw(game.batch);
-        for (Enemy enemy: enemies)
+        for (Enemy enemy: enemies) {
             enemy.draw(game.batch);
+        }
+
 
         for (Enemy enemy: enemies)
         {
             if (enemy instanceof Boss)
                 ((Boss)enemy).BulletRender(game);
+            else
+                enemy.BulletRender(game);
         }
 
         game.batch.end();

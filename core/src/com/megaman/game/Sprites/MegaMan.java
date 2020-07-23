@@ -53,9 +53,10 @@ public class MegaMan extends Entity {
         Body b2body = getWorld().createBody(bdef);
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
-        shape.setRadius(2 / MegamanGame.PPM );
+        shape.setPosition(new Vector2(getX(), getY()+5/MegamanGame.PPM));
+        shape.setRadius(8 / MegamanGame.PPM );
         fdef.shape=shape;
-        b2body.createFixture(fdef);
+        b2body.createFixture(fdef).setUserData(this);
         EdgeShape leg = new EdgeShape();
         leg.set(new Vector2(-2 / MegamanGame.PPM,-2/ MegamanGame.PPM),new Vector2(2 / MegamanGame.PPM,-2/ MegamanGame.PPM));//line between 2 different points from -2 to 2 of y = -2
         fdef.shape = leg;
