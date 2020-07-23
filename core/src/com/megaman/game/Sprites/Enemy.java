@@ -80,58 +80,59 @@ public abstract class Enemy extends Entity
             setPosition(getB2body().getPosition().x - getWidth() / 2, getB2body().getPosition().y - getHeight()/3 );
             setRegion(walkAnimation.getKeyFrame(stateTimer, true));
             //To make enemy reverses its movement direction.
-            if(this instanceof BlueBoss)
-            {
-                if(this.getX() < x-2.4f) {
-                    velocity.x = 1;
-                    for(int i = 0;i < frames.size;i++)//Makes enemy looks to right
-                        frames.get(i).flip(true,false);
-
-                }
-                else if(this.getX() > x-1) {
-                    velocity.x = -1;
-
-                    for(int i = 0;i < frames.size;i++)//Makes enemy looks to left
-                    {
-                        if(frames.get(i).isFlipX())
-                            frames.get(i).flip(true,false);
-                    }
-                }
-            }else
-            {
-                if(this.getX() < x-2) {
-                    velocity.x = 1;
-                    for(int i = 0;i < frames.size;i++)//Makes enemy looks to right
-                        frames.get(i).flip(true,false);
-                    runningRight = true;
-
-                }
-                else if(this.getX() > x-1) {
-                    velocity.x = -1;
-
-                    for(int i = 0;i < frames.size;i++)//Makes enemy looks to left
-                    {
-                        if(frames.get(i).isFlipX())
-                            frames.get(i).flip(true,false);
-                    }
-                    runningRight = false;
-                }
-                if (!(this instanceof Boss))
-                {
-                    if (stateTimer >= animstart) {
-                        Bbullets.add(new EnemyBullet(this.getB2body().getPosition().x, this.getB2body().getPosition().y, this.runningRight, getWorld(), screen));
-                        animstart += 1;
-                    }
-                    ArrayList<EnemyBullet> removeBBullets = new ArrayList<EnemyBullet>();
-                    for (EnemyBullet bullet : Bbullets) {
-                        if (bullet.remove)
-                            removeBBullets.add(bullet);
-                        bullet.update(dt);
-                    }
-                    Bbullets.removeAll(removeBBullets);
-                }
+//            if(this instanceof BlueBoss)
+//            {
+//                if(this.getX() < x-2.4f) {
+//                    velocity.x = 1;
+//                    for(int i = 0;i < frames.size;i++)//Makes enemy looks to right
+//                        frames.get(i).flip(true,false);
+//
+//                }
+//                else if(this.getX() > x-1) {
+//                    velocity.x = -1;
+//
+//                    for(int i = 0;i < frames.size;i++)//Makes enemy looks to left
+//                    {
+//                        if(frames.get(i).isFlipX())
+//                            frames.get(i).flip(true,false);
+//                    }
+//                }
+//
+//            }else
+//            {
+            if(this.getX() < x-2) {
+                velocity.x = 1;
+                for(int i = 0;i < frames.size;i++)//Makes enemy looks to right
+                    frames.get(i).flip(true,false);
+                runningRight = true;
 
             }
+            else if(this.getX() > x-1) {
+                velocity.x = -1;
+
+                for(int i = 0;i < frames.size;i++)//Makes enemy looks to left
+                {
+                    if(frames.get(i).isFlipX())
+                        frames.get(i).flip(true,false);
+                }
+                runningRight = false;
+            }
+            if (!(this instanceof Boss)&&!(this instanceof VioletBoss)&& !(this instanceof BlueBoss))
+            {
+                if (stateTimer >= animstart) {
+                    Bbullets.add(new EnemyBullet(this.getB2body().getPosition().x, this.getB2body().getPosition().y, this.runningRight, getWorld(), screen));
+                    animstart += 1;
+                }
+                ArrayList<EnemyBullet> removeBBullets = new ArrayList<EnemyBullet>();
+                for (EnemyBullet bullet : Bbullets) {
+                    if (bullet.remove)
+                        removeBBullets.add(bullet);
+                    bullet.update(dt);
+                }
+                Bbullets.removeAll(removeBBullets);
+            }
+
+
 
         }
     }
