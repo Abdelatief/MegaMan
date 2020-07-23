@@ -110,13 +110,6 @@ public abstract class Playscreen extends screen{
 
         // Create megaman in game and adding enemies
         player = new MegaMan(world, this);
-       /* enemies.add(new RedCarEnemy(world, this, "SNES - Mega Man X - Enemies 1", 100,2,.16f));
-        enemies.add(new GreenEnemy(world, this, "SNES - Mega Man X - Enemies 2", 50,6,.16f));
-        enemies.add(new TallGreenEnemy(world, this, "SNES - Mega Man X - Enemies 2", 150,10.5f,.16f));
-        enemies.add(new BlueManEnemy(world, this, "SNES - Mega Man X - Enemies 2", 200,12.5f,.16f));
-        enemies.add(new BlueBirdEnemy(world, this, "SNES - Mega Man X - Enemies 2", 250,13,.16f));
-        enemies.add(new WhiteEnemy(world, this, "SNES - Mega Man X - Enemies 1", 300,14,.16f));
-        enemies.add(new Boss(world,this,"SNES - Mega Man X - Enemies 1",350,18,.16f));*/
 
 
         //create our game HUD for scores /timers/level info
@@ -221,15 +214,20 @@ public abstract class Playscreen extends screen{
             game.setScreen(new GameOverScreen(game,player.getScore(),Level_Number));
         }
 
-            if(enemies.get(enemies.size()-1).getCurrentHealth()==0)
-            {
-                if(Level_Number=="1")
-                game.setScreen(new Level2(game));
-                else if (Level_Number=="2")
-                    game.setScreen(new Level3(game));
-                else
-                    game.setScreen(new WinScreen(game, player.getScore(), Level_Number));
-            }
+        for (Enemy enemy: enemies)
+        {
+            if (enemy instanceof Boss||enemy instanceof BlueBoss)
+                if ( enemy.getCurrentHealth() == 0) {
+                    if(Level_Number=="1")
+                        game.setScreen(new Level2(game));
+                    else if (Level_Number=="2")
+                        game.setScreen(new Level3(game));
+                    else
+                        game.setScreen(new WinScreen(game, player.getScore(), Level_Number));
+                }
+
+        }
+
 
         //for debug
         /*System.out.println(player.b2body.getPosition().x);
