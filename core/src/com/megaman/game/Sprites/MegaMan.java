@@ -74,7 +74,7 @@ public class MegaMan extends Entity {
             introAnimationPlayed = false;
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
         {
-            //shootSound.play();
+            shootSound.play();
             if (getB2body().getLinearVelocity().x != 0)
             {
                 animationStart = timer;

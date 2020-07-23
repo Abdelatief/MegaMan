@@ -19,9 +19,9 @@ public class MegamanGame extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		/*mp3Sound = Gdx.audio.newSound(Gdx.files.internal("audio/music/MM1.03 Boss Attack (PS).mp3"));
+		mp3Sound = Gdx.audio.newSound(Gdx.files.internal("audio/music/MM1.03 Boss Attack (PS).mp3"));
 		mp3Sound.setLooping(mp3Sound.loop(),true);
-		mp3Sound.play();*/
+		mp3Sound.play();
 		setScreen(new MainMenuScreen(this));
 
 	}

@@ -121,12 +121,12 @@ public abstract class Playscreen extends screen{
         world.setContactListener(new WorldContactListener());
         setEnemies();
     }
-    public void handelInput(float dt)  // * Not refactored yet
+    public void handelInput(float dt)
     {
         if(Gdx.input.isKeyJustPressed(Input.Keys.W)||Gdx.input.isKeyJustPressed(Input.Keys.UP))
         {
-            // impulse->media change  ?
-                //jumpSound.play();
+
+                jumpSound.play();
             if (player.canJump()) {
                 player.getB2body().applyLinearImpulse(new Vector2(0, 3.5f), player.getB2body().getWorldCenter(), true);
                 player.incrementJumps();
@@ -208,9 +208,7 @@ public abstract class Playscreen extends screen{
         removeEnemies.clear();
 
         //GAME OVER
-        //System.out.println(player.getY());
         if(player.getCurrentHealth()==0||player.getCurrentHealth()<0||player.getY()<-50/MegamanGame.PPM) {
-            //this.dispose();
             game.setScreen(new GameOverScreen(game,player.getScore(),Level_Number));
         }
 
@@ -229,11 +227,7 @@ public abstract class Playscreen extends screen{
         }
 
 
-        //for debug
-        /*System.out.println(player.b2body.getPosition().x);
-        System.out.println(map.getProperties().get("width",Integer.class)/10f);*/
-        System.out.println(player.getX());
-        System.out.println((map.getProperties().get("width", Integer.class) / 10f)-3.6f);
+
         //To make Game Camera stop at boss position
 
         if(map.getProperties().get("width",Integer.class)/10f-1.5f<player.getB2body().getPosition().x) {
