@@ -15,13 +15,13 @@ public class Level2 extends Playscreen {
 
     @Override
     public void setEnemies() {
-        getEnemies().add(new WhiteEnemy(getWorld(), this, "SNES - Mega Man X - Enemies 1", 100,4,.16f));
-        getEnemies().add(new TallGreenEnemy(getWorld(), this, "SNES - Mega Man X - Enemies 2", 75,13,.16f));
-        getEnemies().add(new WhiteEnemy(getWorld(), this, "SNES - Mega Man X - Enemies 1", 100,18f,.16f));
-        getEnemies().add(new WhiteEnemy(getWorld(), this, "SNES - Mega Man X - Enemies 1", 100,20.5f,.16f));
-        getEnemies().add(new TallGreenEnemy(getWorld(), this, "SNES - Mega Man X - Enemies 2", 75,23.5f,.16f));
-        getEnemies().add(new TallGreenEnemy(getWorld(), this, "SNES - Mega Man X - Enemies 2", 75,28,.16f));
-        getEnemies().add(new Boss(getWorld(),this,"SNES - Mega Man X - Enemies 1",250,31.5f,.16f,1000));
+        getEnemies().add(new WhiteEnemy(getWorld(), this, "SNES - Mega Man X - Enemies 1", 100,4,.16f,200));
+        getEnemies().add(new TallGreenEnemy(getWorld(), this, "SNES - Mega Man X - Enemies 2", 150,13,.16f,300));
+        getEnemies().add(new WhiteEnemy(getWorld(), this, "SNES - Mega Man X - Enemies 1", 150,18f,.16f,250));
+        getEnemies().add(new WhiteEnemy(getWorld(), this, "SNES - Mega Man X - Enemies 1", 100,20.5f,.16f,200));
+        getEnemies().add(new TallGreenEnemy(getWorld(), this, "SNES - Mega Man X - Enemies 2", 175,23.5f,.16f,350));
+        getEnemies().add(new TallGreenEnemy(getWorld(), this, "SNES - Mega Man X - Enemies 2", 150,28,.16f,300));
+        getEnemies().add(new Boss(getWorld(),this,"SNES - Mega Man X - Enemies 1",400,31.5f,.16f,2000));
     }
 }
 
