@@ -142,7 +142,7 @@ public abstract class Playscreen extends screen{
                     player.getB2body().applyLinearImpulse(new Vector2(0.05f, 0), player.getB2body().getWorldCenter(), true);
             }
             else
-                player.getB2body().applyLinearImpulse(new Vector2(0.1f, 0), player.getB2body().getWorldCenter(), true);
+                player.getB2body().applyLinearImpulse(new Vector2(0.055f, 0), player.getB2body().getWorldCenter(), true);
         }
 
         if((Gdx.input.isKeyPressed(Input.Keys.A)||Gdx.input.isKeyPressed(Input.Keys.LEFT))&&(player.getB2body().getLinearVelocity() .x>= -2))
@@ -161,7 +161,7 @@ public abstract class Playscreen extends screen{
             else if(player.getX() <=0.5&&player.getX() >=-0.3)
                 player.getB2body().applyLinearImpulse(new Vector2(0.1f, 0), player.getB2body().getWorldCenter(), true);
             else
-                player.getB2body().applyLinearImpulse(new Vector2(-0.1f, 0), player.getB2body().getWorldCenter(), true);
+                player.getB2body().applyLinearImpulse(new Vector2(-0.055f, 0), player.getB2body().getWorldCenter(), true);
 
 
         }

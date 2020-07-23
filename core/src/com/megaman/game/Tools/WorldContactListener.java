@@ -49,7 +49,9 @@ public class WorldContactListener implements ContactListener {
             }
             else if (object.getUserData() instanceof EnemyBullet)
             {
-                player.applyDamage(((EnemyBullet)object.getUserData()).getDamage());
+                EnemyBullet bullet = (EnemyBullet)object.getUserData();
+                player.applyDamage(bullet.getDamage());
+                bullet.remove = true;
             }
             Gdx.app.log("Megaman Helath:", String.valueOf(player.getCurrentHealth()));
         }
