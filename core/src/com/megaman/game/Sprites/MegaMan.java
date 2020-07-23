@@ -26,6 +26,7 @@ public class MegaMan extends Entity {
     private boolean isAnimationPlaying;
     private float animationStart;
     private Sound shootSound;//shoot sound
+    private int jumps = 0;
 
     public MegaMan(World  world , Playscreen screen)
     {
@@ -109,6 +110,9 @@ public class MegaMan extends Entity {
 
         setPosition(getB2body().getPosition().x-getWidth()/2,getB2body().getPosition().y-getHeight()/8);
         setRegion(getFrame(dt));
+
+        if (getState() != State.JUMPING && getState() != State.FALLING)
+            jumps = 0;
     }
 
     public TextureRegion getFrame(float dt)
@@ -218,5 +222,15 @@ public class MegaMan extends Entity {
     public void applyDamage(int damage) {
         super.applyDamage(damage);
         Hud.decreaseMegaManEnergy(damage);
+    }
+
+    public boolean canJump()
+    {
+        return jumps <2;
+    }
+
+    public void incrementJumps()
+    {
+        jumps += 1;
     }
 }

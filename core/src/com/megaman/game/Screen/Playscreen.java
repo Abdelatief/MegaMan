@@ -125,8 +125,10 @@ public abstract class Playscreen extends screen{
         {
             // impulse->media change  ?
                 //jumpSound.play();
+            if (player.canJump()) {
                 player.getB2body().applyLinearImpulse(new Vector2(0, 3.5f), player.getB2body().getWorldCenter(), true);
-
+                player.incrementJumps();
+            }
 
         }
 
