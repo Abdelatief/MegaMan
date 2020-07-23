@@ -21,7 +21,7 @@ public class Level2 extends Playscreen {
         getEnemies().add(new WhiteEnemy(getWorld(), this, "SNES - Mega Man X - Enemies 1", 100,20.5f,.16f));
         getEnemies().add(new TallGreenEnemy(getWorld(), this, "SNES - Mega Man X - Enemies 2", 75,23.5f,.16f));
         getEnemies().add(new TallGreenEnemy(getWorld(), this, "SNES - Mega Man X - Enemies 2", 75,28,.16f));
-        getEnemies().add(new Boss(getWorld(),this,"SNES - Mega Man X - Enemies 1",250,32,.16f));
+        getEnemies().add(new Boss(getWorld(),this,"SNES - Mega Man X - Enemies 1",250,31.5f,.16f,1000));
     }
 }
 

@@ -217,7 +217,7 @@ public abstract class Playscreen extends screen{
         System.out.println((map.getProperties().get("width", Integer.class) / 10f)-3.6f);
         //To make Game Camera stop at boss position
 
-        if(map.getProperties().get("width",Integer.class)/10f<player.getB2body().getPosition().x) {
+        if(map.getProperties().get("width",Integer.class)/10f-1.5f<player.getB2body().getPosition().x) {
            gamecam.position.x = map.getProperties().get("width", Integer.class) / 10f;
            AtBossPosition=true;
         }

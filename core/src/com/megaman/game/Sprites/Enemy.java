@@ -19,7 +19,6 @@ public abstract class Enemy extends Entity
 
     public Enemy(World world, Playscreen screen, String spriteSheet, int maxHealth, float x, float y, int NumberOfAnimation,int XPositionInSpriteSheet,int YPositionInSpriteSheet,int width,int height,int ValueToIncreaseScore) {
         super(world, screen, spriteSheet, maxHealth,x,y);
-
         this.x=x;
         currentState = State.IDLE;
         previousState = State.IDLE;
@@ -35,12 +34,21 @@ public abstract class Enemy extends Entity
         if(this instanceof BlueBoss)
             setBounds(getX(), getY(), 100 / MegamanGame.PPM, 150 / MegamanGame.PPM);
         else
-            setBounds(x, getY(), 70 / MegamanGame.PPM, 45 / MegamanGame.PPM);
+            setBounds(getX(), getY(), 70 / MegamanGame.PPM, 45 / MegamanGame.PPM);
     }
 
-    public Enemy(World world, Playscreen screen, String spriteSheet, int maxHealth, float x, float y)
+    public Enemy(World world, Playscreen screen, String spriteSheet, int maxHealth, float x, float y,int ValueToIncreaseScore)
     {
         super(world, screen, spriteSheet, maxHealth, x, y);
+        this.x=x;
+        currentState = State.IDLE;
+        previousState = State.IDLE;
+        frames = new Array<TextureRegion>();
+        runningRight = true;
+        this.ValueToIncreaseScore=ValueToIncreaseScore;
+        stateTimer = 0;
+        setB2body(define());
+
     }
 
     @Override
@@ -91,6 +99,7 @@ public abstract class Enemy extends Entity
                     velocity.x = 1;
                     for(int i = 0;i < frames.size;i++)//Makes enemy looks to right
                         frames.get(i).flip(true,false);
+                    runningRight = true;
 
                 }
                 else if(this.getX() > x-1) {
@@ -101,6 +110,7 @@ public abstract class Enemy extends Entity
                         if(frames.get(i).isFlipX())
                             frames.get(i).flip(true,false);
                     }
+                    runningRight = false;
             }
 
 
@@ -129,7 +139,16 @@ public abstract class Enemy extends Entity
         Hud.IncreaseScore(ValueToIncreaseScore);
     }
 
-   /* public Array<TextureRegion> GetArrayFromSheet()
+
+    public void setWalkAnimation(Animation<TextureRegion> walkAnimation) {
+        this.walkAnimation = walkAnimation;
+    }
+
+    public Array<TextureRegion> getFrames() {
+        return frames;
+    }
+
+    /* public Array<TextureRegion> GetArrayFromSheet()
     {
         return null;
     }*/

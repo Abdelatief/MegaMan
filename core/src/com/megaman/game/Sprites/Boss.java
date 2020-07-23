@@ -1,108 +1,34 @@
-//package com.megaman.game.Sprites;
-//
-//import com.badlogic.gdx.physics.box2d.World;
-//import com.megaman.game.Screen.Playscreen;
-//
-//public class Boss extends Enemy {
-//    public Boss(World world, Playscreen screen, String spriteSheet, int maxHealth,int x, int y) {
-//        super(world, screen, spriteSheet, maxHealth,x,y);
-//    }
-//}
-
-
-
 package com.megaman.game.Sprites;
 
 //<<<<<<< HEAD
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
 //=======
-import com.badlogic.gdx.physics.box2d.Body;
 //>>>>>>> refactoring
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.Array;
 import com.megaman.game.MegamanGame;
-import com.megaman.game.Scenes.Hud;
 import com.megaman.game.Screen.Playscreen;
 
 import java.util.ArrayList;
 
 public class Boss extends Enemy {
     //<<<<<<< HEAD
-    private Array<TextureRegion> frames;
-    private Animation<TextureRegion> walkAnimation;
-    private float x, y;
-    private float Timer;
     private float animstart;
-    private Vector2 velocity = new Vector2(-1.2f,-4);
     private ArrayList<BossBullet> Bbullets;
 
-    public Boss(World world, Playscreen screen, String spriteSheet, int maxHealth, float x, float y) {
-        super(world, screen, spriteSheet, maxHealth, x, y);
-        this.x = x;
-        this.y = y;
-        currentState = Entity.State.IDLE;
-        previousState = Entity.State.IDLE;
-        frames = new Array<TextureRegion>();
-        runningRight = true;
+    public Boss(World world, Playscreen screen, String spriteSheet, int maxHealth, float x, float y,int ValueToIncreaseScore) {
+        super(world, screen, spriteSheet, maxHealth, x, y, ValueToIncreaseScore);
         for (int i = 0; i < 3; i++) {
-            frames.add(new TextureRegion(screen.getAtlas2().findRegion("pngkit_megaman-sprite-png"), i * 68, 285, 68, 109));
+            getFrames().add(new TextureRegion(screen.getAtlas2().findRegion("pngkit_megaman-sprite-png"), i * 68, 285, 68, 109));
         }
-        walkAnimation = new Animation(0.2f, frames);
-        stateTimer = 0;
+        setWalkAnimation(new Animation(0.2f,  getFrames()));
         setBounds(getX(), getY(), 68 / MegamanGame.PPM, 110 / MegamanGame.PPM);
         Bbullets = new ArrayList<BossBullet>();
-        Timer = 0;
         animstart = 1.8f;
-        getB2body().setTransform(x, y, getB2body().getAngle());
     }
-
-    public Boss(World world, Playscreen screen, String spriteSheet, int maxHealth, int x, int y) {
-        super(world, screen, spriteSheet, maxHealth, x, y);
-    }
-
-//    @Override
-//    public Body define() {
-//        BodyDef bdef = new BodyDef();
-//        bdef.position.set(getX(), getX());
-//        bdef.type = BodyDef.BodyType.DynamicBody;
-//        Body b2body = getWorld().createBody(bdef);
-//        FixtureDef fdef = new FixtureDef();
-//        CircleShape shape = new CircleShape();
-//        shape.setRadius(10 / MegamanGame.PPM);
-//        fdef.shape = shape;
-//        b2body.createFixture(fdef).setUserData(this);
-//        return b2body;
-//    }
 
     public void update(float dt) {
-//        super.update(dt);
-        stateTimer += dt;
-        //System.out.println("StatTimer  "+stateTimer);
-        //System.out.println("DT  "+dt);
-        if (!isSetToDestroy() && !isDestroyed()) {
-            getB2body().setLinearVelocity(velocity);
-            setPosition(getB2body().getPosition().x - getWidth() / 2, getB2body().getPosition().y - getHeight() / 3);
-            setRegion(walkAnimation.getKeyFrame(stateTimer, true));
-            if (this.getX() < x - 2) {
-                velocity.x = 1;
-                for (int i = 0; i < frames.size; i++)//Makes enemy looks to right
-                    frames.get(i).flip(true, false);
-                runningRight = true;
-            } else if (this.getX() > x - 1) {
-                velocity.x = -1;
-                for (int i = 0; i < frames.size; i++)//Makes enemy looks to left
-                {
-                    if (frames.get(i).isFlipX()) {
-                        frames.get(i).flip(true, false);
-                    }
-                }
-                runningRight = false;
-            }
+       super.update(dt);
             if (stateTimer >= animstart) {
                 Bbullets.add(new BossBullet(getB2body().getPosition().x, getB2body().getPosition().y, this.runningRight, getWorld(), screen));
                 animstart += 1.8f;
@@ -115,13 +41,7 @@ public class Boss extends Enemy {
             }
             Bbullets.removeAll(removeBBullets);
         }
-    }
 
-    @Override
-    public void die() {
-        super.die();
-        Hud.IncreaseScore(1000);
-    }
 
     public void BulletRender(MegamanGame game) {
         for (BossBullet bullet : Bbullets)
