@@ -9,9 +9,8 @@ import com.megaman.game.Screen.Playscreen;
 
 import java.util.ArrayList;
 
-public class Boss extends Enemy {
-    private float animstart;
-    private ArrayList<BossBullet> Bbullets;
+public class Boss extends Bosses {
+
 
     public Boss(World world, Playscreen screen, String spriteSheet, int maxHealth, float x, float y,int ValueToIncreaseScore) {
         super(world, screen, spriteSheet, maxHealth, x, y, ValueToIncreaseScore);
@@ -20,28 +19,8 @@ public class Boss extends Enemy {
         }
         setWalkAnimation(new Animation(0.2f,  getFrames()));
         setBounds(getX(), getY(), 68 / MegamanGame.PPM, 110 / MegamanGame.PPM);
-        Bbullets = new ArrayList<BossBullet>();
-        animstart = 1.8f;
+
     }
 
-    public void update(float dt) {
-       super.update(dt);
-            if (stateTimer >= animstart) {
-                Bbullets.add(new BossBullet(getB2body().getPosition().x, getB2body().getPosition().y, this.runningRight, getWorld(), screen));
-                animstart += 1.8f;
-            }
-            ArrayList<BossBullet> removeBBullets = new ArrayList<BossBullet>();
-            for (BossBullet bullet : Bbullets) {
-                if (bullet.remove)
-                    removeBBullets.add(bullet);
-                bullet.update(dt);
-            }
-            Bbullets.removeAll(removeBBullets);
-        }
 
-
-    public void BulletRender(MegamanGame game) {
-        for (BossBullet bullet : Bbullets)
-            bullet.render(game.batch);
-    }
 }

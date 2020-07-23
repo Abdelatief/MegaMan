@@ -35,7 +35,7 @@ public abstract class Enemy extends Entity
         }walkAnimation = new Animation(0.2f, frames);
         stateTimer = 0;
         setB2body(define());
-        if(this instanceof BlueBoss)
+        if(this instanceof BlueBoss||this instanceof VioletBoss)
             setBounds(getX(), getY(), 100 / MegamanGame.PPM, 150 / MegamanGame.PPM);
         else
             setBounds(getX(), getY(), 70 / MegamanGame.PPM, 45 / MegamanGame.PPM);
