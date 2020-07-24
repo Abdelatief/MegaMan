@@ -26,11 +26,6 @@ public class GameObject extends Sprite
         this.destroyed = destroyed;
     }
 
-    public GameObject(Vector2 position, Body b2body, World world)
-    {
-        this(position, b2body, world, false, false);
-    }
-
     public GameObject(Vector2 position, World world)
     {
         this(position, null, world, false, false);

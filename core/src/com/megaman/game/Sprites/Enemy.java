@@ -19,7 +19,7 @@ public abstract class Enemy extends Entity
     private float x;
     private int ValueToIncreaseScore;
     private float animstart = 1;
-    private ArrayList<EnemyBullet> Bbullets = new ArrayList<EnemyBullet>();
+    private ArrayList<Bullet> Bbullets = new ArrayList<Bullet>();
 
     public Enemy(World world, Playscreen screen, TextureRegion texture, int maxHealth, float x, float y, int NumberOfAnimation,int XPositionInSpriteSheet,int YPositionInSpriteSheet,int width,int height,int ValueToIncreaseScore) {
         super(world, screen, texture, maxHealth,x,y);
@@ -67,26 +67,7 @@ public abstract class Enemy extends Entity
             setPosition(getB2body().getPosition().x - getWidth() / 2, getB2body().getPosition().y - getHeight()/3 );
             setRegion(walkAnimation.getKeyFrame(stateTimer, true));
             //To make enemy reverses its movement direction.
-//            if(this instanceof BlueBoss)
-//            {
-//                if(this.getX() < x-2.4f) {
-//                    velocity.x = 1;
-//                    for(int i = 0;i < frames.size;i++)//Makes enemy looks to right
-//                        frames.get(i).flip(true,false);
-//
-//                }
-//                else if(this.getX() > x-1) {
-//                    velocity.x = -1;
-//
-//                    for(int i = 0;i < frames.size;i++)//Makes enemy looks to left
-//                    {
-//                        if(frames.get(i).isFlipX())
-//                            frames.get(i).flip(true,false);
-//                    }
-//                }
-//
-//            }else
-//            {
+
             if(this.getX() < x-2) {
                 velocity.x = 1;
                 for(int i = 0;i < frames.size;i++)//Makes enemy looks to right
@@ -107,12 +88,12 @@ public abstract class Enemy extends Entity
             if (!(this instanceof Bosses))
             {
                 if (stateTimer >= animstart) {
-                    Bbullets.add(new EnemyBullet(this.getB2body().getPosition().x, this.getB2body().getPosition().y, this.runningRight, getWorld(), screen));
+                    Bbullets.add(new Bullet(this.getB2body().getPosition().x, this.getB2body().getPosition().y, this.runningRight, getWorld(), .4f,100, "BM.png",204, 320, 20, 20, 5,0.01f,"Enemy"));
                     animstart += 1;
                 }
-                ArrayList<EnemyBullet> removeBBullets = new ArrayList<EnemyBullet>();
-                for (EnemyBullet bullet : Bbullets) {
-                    if (bullet.remove)
+                ArrayList<Bullet> removeBBullets = new ArrayList<Bullet>();
+                for (Bullet bullet : Bbullets) {
+                    if (bullet.isSetToDestroy())
                         removeBBullets.add(bullet);
                     bullet.update(dt);
                 }
@@ -125,8 +106,8 @@ public abstract class Enemy extends Entity
     }
 
     public void BulletRender(MegamanGame game) {
-        for (EnemyBullet bullet : Bbullets)
-            bullet.render(game.batch);
+        for (Bullet bullet : Bbullets)
+            bullet.draw(game.batch);
     }
 
     @Override

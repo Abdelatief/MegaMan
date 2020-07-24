@@ -11,9 +11,9 @@ public class WorldContactListener implements ContactListener {
         Fixture fixA = contact.getFixtureA();
         Fixture fixB = contact.getFixtureB();
 
-        if (fixA.getUserData() instanceof Bullet || fixB.getUserData() instanceof Bullet) //manage the bullet collision
+        if ((fixA.getUserData() instanceof Bullet&&((Bullet) fixA.getUserData()).getUser().equals("MegaMan") )|| (fixB.getUserData() instanceof Bullet)&&((Bullet) fixB.getUserData()).getUser().equals("MegaMan") ) //manage the bullet collision
         {
-            Fixture bullet = fixA.getUserData() instanceof Bullet ? fixA : fixB;
+            Fixture bullet = fixA.getUserData() instanceof Bullet &&((Bullet) fixA.getUserData()).getUser().equals("MegaMan") ? fixA : fixB;
             Fixture object = bullet == fixA ? fixB : fixA;
             Gdx.app.log("collision", "Bullet collision detected");
             Bullet bulletObject = (Bullet) bullet.getUserData();
@@ -41,17 +41,17 @@ public class WorldContactListener implements ContactListener {
             {
                 player.applyDamage(100);
             }
-            else if (object.getUserData() instanceof BossBullet)
+            else if (object.getUserData() instanceof Bullet &&((Bullet) object.getUserData()).getUser().equals("Boss"))
             {
-                BossBullet bullet = (BossBullet)object.getUserData();
+                Bullet bullet = (Bullet)object.getUserData();
                 player.applyDamage(bullet.getDamage());
-                bullet.remove = true;
+                bullet.setSetToDestroy(true);
             }
-            else if (object.getUserData() instanceof EnemyBullet)
+            else if (object.getUserData() instanceof Bullet&&((Bullet) object.getUserData()).getUser().equals("Enemy"))
             {
-                EnemyBullet bullet = (EnemyBullet)object.getUserData();
+                Bullet bullet = (Bullet)object.getUserData();
                 player.applyDamage(bullet.getDamage());
-                bullet.remove = true;
+                bullet.setSetToDestroy(true);
             }
             Gdx.app.log("Megaman Helath:", String.valueOf(player.getCurrentHealth()));
         }

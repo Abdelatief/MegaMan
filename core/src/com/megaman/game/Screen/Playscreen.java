@@ -55,7 +55,7 @@ public abstract class Playscreen extends screen{
     private final MegaMan player;
     private ArrayList<Enemy> enemies = new ArrayList<>();
     private ArrayList<Bullet> bullets = new ArrayList<Bullet>();
-    private ArrayList<BossBullet> bBullets = new ArrayList<BossBullet>();
+    private ArrayList<Bullet> bBullets = new ArrayList<Bullet>();
 
     // Utility booleans
     private boolean AtBossPosition;
@@ -170,7 +170,7 @@ public abstract class Playscreen extends screen{
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE))        //Shooting
         {
-            bullets.add(new Bullet(player.getB2body().getPosition().x, player.getB2body().getPosition().y, player.runningRight, world));
+            bullets.add(new Bullet(player.getB2body().getPosition().x, player.getB2body().getPosition().y, player.runningRight, world,.7f,10,"Buster.gif",410, 10, 20, 20,3,0.09f,"MegaMan"));
         }
     }
 
@@ -274,7 +274,6 @@ public abstract class Playscreen extends screen{
         b2dr.render(world, gamecam.combined);
         game.batch.setProjectionMatrix(gamecam.combined);
         game.batch.begin();
-        player.draw(game.batch);
         for (Bullet bullet: bullets)
             bullet.draw(game.batch);
         for (Enemy enemy: enemies) {
@@ -290,6 +289,7 @@ public abstract class Playscreen extends screen{
                 enemy.BulletRender(game);
         }
 
+        player.draw(game.batch);
         game.batch.end();
         //set batch to draw what hud camera sees
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);

@@ -9,22 +9,25 @@ import java.util.ArrayList;
 
 public class Bosses extends Enemy {
     private float animstart;
-    private ArrayList<BossBullet> Bbullets;
+    private ArrayList<Bullet> Bbullets;
 
     public Bosses(World world, Playscreen screen, TextureRegion texture, int maxHealth, float x, float y, int NumberOfAnimation, int XPositionInSpriteSheet, int YPositionInSpriteSheet, int width, int height, int ValueToIncreaseScore) {
         super(world, screen, texture, maxHealth, x, y, NumberOfAnimation, XPositionInSpriteSheet, YPositionInSpriteSheet, width, height, ValueToIncreaseScore);
-        Bbullets = new ArrayList<BossBullet>();
+        Bbullets = new ArrayList<Bullet>();
         animstart = 1.8f;
+
     }
     public void update(float dt) {
         super.update(dt);
         if (stateTimer >= animstart) {
-            Bbullets.add(new BossBullet(getB2body().getPosition().x, getB2body().getPosition().y, this.runningRight, getWorld(), screen));
+
+            Bbullets.add(new Bullet(getB2body().getPosition().x, getB2body().getPosition().y, this.runningRight, getWorld(), .4f,100,"Buster.gif", 70, 250, 25, 20,5,0,"Boss" ));
             animstart += 1.8f;
+
         }
-        ArrayList<BossBullet> removeBBullets = new ArrayList<BossBullet>();
-        for (BossBullet bullet : Bbullets) {
-            if (bullet.remove)
+        ArrayList<Bullet> removeBBullets = new ArrayList<Bullet>();
+        for (Bullet bullet : Bbullets) {
+            if (bullet.isSetToDestroy())
                 removeBBullets.add(bullet);
             bullet.update(dt);
         }
@@ -32,7 +35,7 @@ public class Bosses extends Enemy {
     }
 
     public void BulletRender(MegamanGame game) {
-        for (BossBullet bullet : Bbullets)
+        for (Bullet bullet : Bbullets)
             bullet.render(game.batch);
     }
 }
