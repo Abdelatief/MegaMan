@@ -13,7 +13,6 @@ import com.megaman.game.Screen.Playscreen;
 import com.megaman.game.MegamanGame;
 
 public class MegaMan extends Entity {
-    private TextureRegion ManStand;
     private Animation run;
     private Animation jump;
     private Animation fall;
@@ -102,12 +101,7 @@ public class MegaMan extends Entity {
                 isAnimationPlaying = false;
             }
         }
-//        //print statements for debugging
-//        System.out.println((b2body.getLinearVelocity().x > 0));
-//        System.out.println("Is animation playing: " + isAnimationPlaying);
-//        System.out.println("Start time for animation: " + animationStart);
-//        System.out.println("Timer: " + timer);
-//        System.out.println("Current State: " + currentState);
+
 
         setPosition(getB2body().getPosition().x-getWidth()/2,getB2body().getPosition().y-getHeight()/8);
         setRegion(getFrame(dt));

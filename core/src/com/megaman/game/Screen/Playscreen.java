@@ -209,7 +209,7 @@ public abstract class Playscreen extends screen{
 
         //GAME OVER
         if(player.getCurrentHealth()==0||player.getCurrentHealth()<0||player.getY()<-50/MegamanGame.PPM) {
-            game.setScreen(new GameOverScreen(game,player.getScore(),Level_Number));
+            game.setScreen(new EndLevelScreen(game,player.getScore(),Level_Number,"GameOver.jpg"));
         }
 
         for (Enemy enemy: enemies)
@@ -221,7 +221,7 @@ public abstract class Playscreen extends screen{
                     else if (Level_Number=="2")
                         game.setScreen(new Level3(game));
                     else
-                        game.setScreen(new WinScreen(game, player.getScore(), Level_Number));
+                        game.setScreen(new EndLevelScreen(game, player.getScore(), Level_Number,"Win.jpg"));
                 }
 
         }

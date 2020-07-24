@@ -20,13 +20,10 @@ public class Hud implements Disposable {
 
     private Integer worldTimer;
     private float timecount;
-   // private static Integer score;
     private static Integer Energy;
-    private Label countdownLabel;
     private static Label ScoreLabel;
     private Label levelabel;
     private Label worldLabel;
-    private Label timeLabel;
     private Label MegamanLabel;
     private Label MegaManEnergyLabel;
     private static Label  EnergyLabel;
@@ -36,7 +33,6 @@ public class Hud implements Disposable {
 
         worldTimer=300;
         timecount=0;
-       // score=0;
         this.player=player;
         Energy = this.player.getCurrentHealth();
         viewport=new FitViewport(MegamanGame.V_WIDTH, MegamanGame.V_HEIGHT,new OrthographicCamera());
@@ -45,13 +41,11 @@ public class Hud implements Disposable {
         Table table=new Table();
         table.top();
         table.setFillParent(true);
-        //countdownLabel= new Label(String.format("%03d",worldTimer),new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         ScoreLabel=new Label(String.format("%06d",player.getScore()),new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         EnergyLabel=new Label(String.format("%04d",Energy),new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         levelabel=new Label(NumberOfLevel,new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         worldLabel=new Label("LEVEL",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         MegamanLabel=new Label("MEGA MAN Score",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        //timeLabel=new Label("Time",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         MegaManEnergyLabel = new Label(" Mega Man Energy",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         //change Font Size
         MegaManEnergyLabel.setFontScaleX(1.5f);
@@ -88,10 +82,7 @@ public class Hud implements Disposable {
 
         ScoreLabel.setText((String.format("%04d",player.getScore())));
     }
-   /* public Integer getScore() {
-        return score;
-    }
-*/
+
     @Override
     public void dispose() {
         stage.dispose();

@@ -59,13 +59,6 @@ public class GameObject extends Sprite
     }
 
     // Getters and setters
-    public Vector2 getPosition() {
-        return position;
-    }
-
-    public void setPosition(Vector2 position) {
-        this.position = position;
-    }
 
     public World getWorld() {
         return world;
@@ -81,10 +74,6 @@ public class GameObject extends Sprite
 
     public boolean isDestroyed() {
         return destroyed;
-    }
-
-    public void setDestroyed(boolean destroyed) {
-        this.destroyed = destroyed;
     }
 
     public Body getB2body()
