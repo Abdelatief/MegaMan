@@ -1,132 +1,128 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Diagram>
   <ID>JAVA</ID>
-  <OriginalElement>com.megaman.game.Screen.GameOverScreen</OriginalElement>
+  <OriginalElement />
   <nodes>
-    <node x="1946.75" y="236.0">com.megaman.game.Screen.screen</node>
-    <node x="795.0" y="836.0">com.megaman.game.Sprites.MegaMan</node>
-    <node x="1050.25" y="397.0">com.megaman.game.Sprites.Bullet</node>
-    <node x="1489.25" y="514.0">com.megaman.game.Screen.Playscreen</node>
-    <node x="815.0" y="1572.0">com.megaman.game.Sprites.StrongEnemy</node>
-    <node x="2340.25" y="777.0">com.megaman.game.Screen.MainMenuScreen</node>
-    <node x="0.0" y="1713.0">com.megaman.game.Sprites.BossBullet</node>
-    <node x="334.0" y="1593.0">com.megaman.game.Sprites.NormalEnemy</node>
-    <node x="1766.25" y="733.0">com.megaman.game.Screen.LevelsMenuScreen</node>
-    <node x="1884.0" y="1713.0">com.megaman.game.Tools.B2WorldCreator</node>
-    <node x="0.0" y="1593.0">com.megaman.game.Sprites.Boss</node>
-    <node x="522.25" y="364.0">com.megaman.game.Sprites.Entity</node>
-    <node x="802.75" y="0.0">com.megaman.game.Tools.GameObject</node>
-    <node x="1385.0" y="1713.0">com.megaman.game.MegamanGame</node>
-    <node x="1065.5" y="2011.0">com.megaman.game.Sprites.forks</node>
-    <node x="2028.25" y="896.0">com.megaman.game.Screen.GameOverScreen</node>
-    <node x="364.0" y="1713.0">com.megaman.game.Sprites.EnemyBullet</node>
-    <node x="1956.75" y="0.0">com.badlogic.gdx.Screen</node>
-    <node x="1024.0" y="1713.0">com.megaman.game.Sprites.interactiveTileobject</node>
-    <node x="354.0" y="957.0">com.megaman.game.Sprites.Enemy</node>
-    <node x="739.0" y="1713.0">com.megaman.game.Scenes.Hud</node>
-    <node x="1528.25" y="1382.0">com.megaman.game.Levels.Level2</node>
-    <node x="1727.25" y="1382.0">com.megaman.game.Levels.Level3</node>
-    <node x="1574.0" y="1713.0">com.megaman.game.Tools.WorldContactListener</node>
-    <node x="1329.25" y="1382.0">com.megaman.game.Levels.Level1</node>
+    <node x="814.0" y="2409.0">com.megaman.game.Screen.screen</node>
+    <node x="1205.0" y="548.0">com.megaman.game.Sprites.Entity</node>
+    <node x="1496.90625" y="1123.0">com.megaman.game.Sprites.MegaMan</node>
+    <node x="1530.75" y="0.0">com.megaman.game.Tools.GameObject</node>
+    <node x="203.0" y="2713.0">com.megaman.game.Screen.Playscreen</node>
+    <node x="1726.0" y="521.0">com.megaman.game.Sprites.Bullet</node>
+    <node x="2494.0" y="2133.0">com.megaman.game.MegamanGame</node>
+    <node x="766.0" y="1955.0">com.megaman.game.Sprites.StrongEnemy</node>
+    <node x="2121.0" y="2133.0">com.megaman.game.Sprites.forks</node>
+    <node x="587.0" y="3077.5">com.megaman.game.Screen.MainMenuScreen</node>
+    <node x="1293.0" y="3050.5">com.megaman.game.Screen.EndLevelScreen</node>
+    <node x="823.5" y="2133.0">com.badlogic.gdx.Screen</node>
+    <node x="788.90625" y="1271.5">com.megaman.game.Sprites.Enemy</node>
+    <node x="1740.0" y="2133.0">com.megaman.game.Scenes.Hud</node>
+    <node x="0.0" y="1969.0">com.megaman.game.Sprites.NormalEnemy</node>
+    <node x="527.0" y="3801.0">com.megaman.game.Levels.Level2</node>
+    <node x="263.00000000000006" y="3801.0">com.megaman.game.Levels.Level3</node>
+    <node x="935.0" y="3023.5">com.megaman.game.Screen.LevelsMenuScreen</node>
+    <node x="3159.0" y="2133.0">com.megaman.game.Tools.B2WorldCreator</node>
+    <node x="2738.0" y="2133.0">com.megaman.game.Tools.WorldContactListener</node>
+    <node x="0.0" y="3801.0">com.megaman.game.Levels.Level1</node>
+    <node x="1525.0" y="1914.0">com.megaman.game.Sprites.Bosses</node>
   </nodes>
   <notes />
   <edges>
+    <edge source="com.megaman.game.Screen.EndLevelScreen" target="com.megaman.game.Screen.screen">
+      <point x="0.0" y="-181.5" />
+      <point x="1494.0" y="2683.0" />
+      <point x="1012.625" y="2683.0" />
+      <point x="85.125" y="127.0" />
+    </edge>
     <edge source="com.megaman.game.Sprites.NormalEnemy" target="com.megaman.game.Sprites.Enemy">
-      <point x="0.0" y="-27.0" />
-      <point x="0.0" y="222.0" />
+      <point x="0.0" y="-32.0" />
+      <point x="373.0" y="1889.0" />
+      <point x="903.5729166666666" y="1889.0" />
+      <point x="-229.33333333333337" y="222.0" />
     </edge>
     <edge source="com.megaman.game.Sprites.Entity" target="com.megaman.game.Tools.GameObject">
-      <point x="0.0" y="-211.0" />
-      <point x="776.25" y="339.0" />
-      <point x="887.25" y="339.0" />
-      <point x="-84.5" y="157.0" />
-    </edge>
-    <edge source="com.megaman.game.Sprites.forks" target="com.megaman.game.Sprites.interactiveTileobject">
-      <point x="0.0" y="-48.0" />
-      <point x="0.0" y="124.0" />
-    </edge>
-    <edge source="com.megaman.game.Sprites.MegaMan" target="com.megaman.game.Sprites.Entity">
-      <point x="0.0" y="-343.0" />
-      <point x="988.0" y="811.0" />
-      <point x="903.25" y="811.0" />
-      <point x="127.0" y="211.0" />
-    </edge>
-    <edge source="com.megaman.game.Screen.Playscreen" target="com.megaman.game.Screen.screen">
-      <point x="0.0" y="-409.0" />
-      <point x="1617.75" y="484.0" />
-      <point x="1967.75" y="484.0" />
-      <point x="-63.0" y="114.0" />
-    </edge>
-    <edge source="com.megaman.game.Levels.Level1" target="com.megaman.game.Screen.Playscreen">
-      <point x="0.0" y="-48.0" />
-      <point x="1418.75" y="1357.0" />
-      <point x="1532.083333333333" y="1357.0" />
-      <point x="-85.66666666666674" y="409.0" />
-    </edge>
-    <edge source="com.megaman.game.Levels.Level3" target="com.megaman.game.Screen.Playscreen">
-      <point x="0.0" y="-48.0" />
-      <point x="1816.75" y="1357.0" />
-      <point x="1703.4166666666665" y="1357.0" />
-      <point x="85.66666666666674" y="409.0" />
-    </edge>
-    <edge source="com.megaman.game.Sprites.StrongEnemy" target="com.megaman.game.Sprites.Enemy">
-      <point x="0.0" y="-48.0" />
-      <point x="1043.5" y="1547.0" />
-      <point x="704.8333333333334" y="1547.0" />
-      <point x="140.33333333333337" y="222.0" />
-    </edge>
-    <edge source="com.megaman.game.Sprites.Boss" target="com.megaman.game.Sprites.Enemy">
-      <point x="0.0" y="-27.0" />
-      <point x="157.0" y="1547.0" />
-      <point x="424.16666666666663" y="1547.0" />
-      <point x="-140.33333333333337" y="222.0" />
-    </edge>
-    <edge source="com.megaman.game.Sprites.Bullet" target="com.megaman.game.Tools.GameObject">
-      <point x="0.0" y="-178.0" />
-      <point x="1167.25" y="339.0" />
-      <point x="1056.25" y="339.0" />
-      <point x="84.5" y="157.0" />
-    </edge>
-    <edge source="com.megaman.game.Screen.GameOverScreen" target="com.megaman.game.Screen.screen">
-      <point x="0.0" y="-27.0" />
-      <point x="2174.25" y="494.0" />
-      <point x="2051.75" y="494.0" />
-      <point x="21.0" y="114.0" />
+      <point x="0.0" y="-249.0" />
+      <point x="1455.5" y="496.0" />
+      <point x="1649.75" y="496.0" />
+      <point x="-119.0" y="235.5" />
     </edge>
     <edge source="com.megaman.game.Screen.LevelsMenuScreen" target="com.megaman.game.Screen.screen">
-      <point x="0.0" y="-190.0" />
-      <point x="1887.25" y="494.0" />
-      <point x="2009.75" y="494.0" />
-      <point x="-21.0" y="114.0" />
+      <point x="0.0" y="-208.5" />
+      <point x="1104.0" y="2693.0" />
+      <point x="955.875" y="2693.0" />
+      <point x="28.375" y="127.0" />
+    </edge>
+    <edge source="com.megaman.game.Sprites.Bosses" target="com.megaman.game.Sprites.Enemy">
+      <point x="0.0" y="-87.0" />
+      <point x="1870.0" y="1889.0" />
+      <point x="1362.2395833333335" y="1889.0" />
+      <point x="229.33333333333348" y="222.0" />
     </edge>
     <edge source="com.megaman.game.Screen.screen" target="com.badlogic.gdx.Screen">
-      <point x="0.0" y="-114.0" />
-      <point x="0.0" y="93.0" />
+      <point x="0.0" y="-127.0" />
+      <point x="0.0" y="113.0" />
+    </edge>
+    <edge source="com.megaman.game.Levels.Level1" target="com.megaman.game.Screen.Playscreen">
+      <point x="0.0" y="-46.0" />
+      <point x="121.5" y="3776.0" />
+      <point x="263.6666666666667" y="3776.0" />
+      <point x="-121.33333333333331" y="519.0" />
+    </edge>
+    <edge source="com.megaman.game.Sprites.MegaMan" target="com.megaman.game.Sprites.Entity">
+      <point x="0.0" y="-370.5" />
+      <point x="1772.90625" y="1098.0" />
+      <point x="1580.75" y="1098.0" />
+      <point x="125.25" y="249.0" />
+    </edge>
+    <edge source="com.megaman.game.Screen.Playscreen" target="com.megaman.game.Screen.screen">
+      <point x="0.0" y="-519.0" />
+      <point x="385.0" y="2683.0" />
+      <point x="842.375" y="2683.0" />
+      <point x="-85.125" y="127.0" />
     </edge>
     <edge source="com.megaman.game.Levels.Level2" target="com.megaman.game.Screen.Playscreen">
-      <point x="0.0" y="-48.0" />
-      <point x="0.0" y="409.0" />
+      <point x="0.0" y="-46.0" />
+      <point x="649.0" y="3776.0" />
+      <point x="506.3333333333333" y="3776.0" />
+      <point x="121.33333333333331" y="519.0" />
+    </edge>
+    <edge source="com.megaman.game.Levels.Level3" target="com.megaman.game.Screen.Playscreen">
+      <point x="0.0" y="-46.0" />
+      <point x="0.0" y="519.0" />
     </edge>
     <edge source="com.megaman.game.Screen.MainMenuScreen" target="com.megaman.game.Screen.screen">
-      <point x="0.0" y="-146.0" />
-      <point x="2458.25" y="484.0" />
-      <point x="2093.75" y="484.0" />
-      <point x="63.0" y="114.0" />
+      <point x="0.0" y="-154.5" />
+      <point x="751.0" y="2693.0" />
+      <point x="899.125" y="2693.0" />
+      <point x="-28.375" y="127.0" />
+    </edge>
+    <edge source="com.megaman.game.Sprites.StrongEnemy" target="com.megaman.game.Sprites.Enemy">
+      <point x="0.0" y="-46.0" />
+      <point x="1135.5" y="1889.0" />
+      <point x="1132.90625" y="1889.0" />
+      <point x="0.0" y="222.0" />
+    </edge>
+    <edge source="com.megaman.game.Sprites.Bullet" target="com.megaman.game.Tools.GameObject">
+      <point x="0.0" y="-276.0" />
+      <point x="2082.0" y="496.0" />
+      <point x="1887.75" y="496.0" />
+      <point x="119.0" y="235.5" />
     </edge>
     <edge source="com.megaman.game.Sprites.Enemy" target="com.megaman.game.Sprites.Entity">
       <point x="0.0" y="-222.0" />
-      <point x="564.5" y="811.0" />
-      <point x="649.25" y="811.0" />
-      <point x="-127.0" y="211.0" />
+      <point x="1132.90625" y="1098.0" />
+      <point x="1330.25" y="1098.0" />
+      <point x="-125.25" y="249.0" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="0.30000000000000004" x="1443.809458218549" y="1098.7324544142725" />
-  <SelectedNodes />
+  <settings layout="Hierarchic Group" zoom="0.9" x="1261.0714285714284" y="1730.7777777777778" />
+  <SelectedNodes>
+    <node>com.megaman.game.Screen.screen</node>
+  </SelectedNodes>
   <Categories>
     <Category>Fields</Category>
     <Category>Constructors</Category>
     <Category>Methods</Category>
-    <Category>Properties</Category>
   </Categories>
   <SCOPE>All</SCOPE>
   <VISIBILITY>private</VISIBILITY>

@@ -51,7 +51,7 @@ public abstract class Playscreen extends screen{
 
     // Box2d variables
     private final World world;
-    private final Box2DDebugRenderer b2dr;                  // Gives graphical representation of fixtures and body inside box2d world
+    //private final Box2DDebugRenderer b2dr;                  // Gives graphical representation of fixtures and body inside box2d world
     private final MegaMan player;
     private ArrayList<Enemy> enemies = new ArrayList<>();
     private ArrayList<Bullet> bullets = new ArrayList<Bullet>();
@@ -105,7 +105,7 @@ public abstract class Playscreen extends screen{
         // Vector2 this is for gravity(0,0) no gravity now
         // Do sleep:true bec:box2d doesn't want to be calculated inside its  physics simulation "body rest"
         world = new World(new Vector2(0, -10), true);
-        b2dr = new Box2DDebugRenderer();
+        //b2dr = new Box2DDebugRenderer();
         new B2WorldCreator(world, map);
 
         // Create megaman in game and adding enemies
@@ -271,7 +271,7 @@ public abstract class Playscreen extends screen{
         //render game map
         renderer.render();
         //render our box2dDebuglines
-        b2dr.render(world, gamecam.combined);
+        //b2dr.render(world, gamecam.combined);
         game.batch.setProjectionMatrix(gamecam.combined);
         game.batch.begin();
         for (Bullet bullet: bullets)
@@ -361,7 +361,7 @@ public abstract class Playscreen extends screen{
             map.dispose();
             renderer.dispose();
             world.dispose();
-            b2dr.dispose();
+            //b2dr.dispose();
             hud.dispose();
     }
     public World getWorld() {
