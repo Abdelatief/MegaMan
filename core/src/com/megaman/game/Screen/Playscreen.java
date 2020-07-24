@@ -170,7 +170,7 @@ public abstract class Playscreen extends screen{
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE))        //Shooting
         {
-            bullets.add(new Bullet(player.getB2body().getPosition().x, player.getB2body().getPosition().y, player.runningRight, world,.7f,10,"Buster.gif",410, 10, 20, 20,3,0.09f,"MegaMan"));
+            bullets.add(new Bullet(player.getB2body().getPosition().x, player.getB2body().getPosition().y, player.runningRight, world,.9f,10,"Buster.gif",410, 10, 20, 20,3,0.09f,"MegaMan"));
         }
     }
 
