@@ -31,6 +31,15 @@ public abstract class Entity extends GameObject
         this.currentHealth = maxHealth;
         setPosition(x, y);
     }
+    public Entity(World world, Playscreen screen, TextureRegion texture, int maxHealth, float x, float y)
+    {
+        super(new Vector2(x, y), world, texture);
+        setB2body(define());
+        this.screen = screen;
+        this.maxHealth = maxHealth;
+        this.currentHealth = maxHealth;
+        setPosition(x, y);
+    }
 
     public int getCurrentHealth() {
         return currentHealth;

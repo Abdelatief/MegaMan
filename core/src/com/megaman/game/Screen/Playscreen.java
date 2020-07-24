@@ -214,7 +214,7 @@ public abstract class Playscreen extends screen{
 
         for (Enemy enemy: enemies)
         {
-            if (enemy instanceof Boss||enemy instanceof Bosses)
+            if (enemy instanceof Bosses)
                 if ( enemy.getCurrentHealth() == 0) {
                     if(Level_Number=="1")
                         game.setScreen(new Level2(game));
@@ -284,8 +284,8 @@ public abstract class Playscreen extends screen{
 
         for (Enemy enemy: enemies)
         {
-            if (enemy instanceof Boss )
-                ((Boss)enemy).BulletRender(game);
+            if (enemy instanceof Bosses )
+                ((Bosses)enemy).BulletRender(game);
             else
                 enemy.BulletRender(game);
         }

@@ -21,8 +21,8 @@ public abstract class Enemy extends Entity
     private float animstart = 1;
     private ArrayList<EnemyBullet> Bbullets = new ArrayList<EnemyBullet>();
 
-    public Enemy(World world, Playscreen screen, String spriteSheet, int maxHealth, float x, float y, int NumberOfAnimation,int XPositionInSpriteSheet,int YPositionInSpriteSheet,int width,int height,int ValueToIncreaseScore) {
-        super(world, screen, spriteSheet, maxHealth,x,y);
+    public Enemy(World world, Playscreen screen, TextureRegion texture, int maxHealth, float x, float y, int NumberOfAnimation,int XPositionInSpriteSheet,int YPositionInSpriteSheet,int width,int height,int ValueToIncreaseScore) {
+        super(world, screen, texture, maxHealth,x,y);
         this.x=x;
         currentState = State.IDLE;
         previousState = State.IDLE;
@@ -30,7 +30,7 @@ public abstract class Enemy extends Entity
         runningRight = true;
         this.ValueToIncreaseScore=ValueToIncreaseScore;
         for(int i =NumberOfAnimation; i>0; i--) {
-            frames.add(new TextureRegion(screen.getAtlas().findRegion(spriteSheet), i*XPositionInSpriteSheet, YPositionInSpriteSheet, width, height));
+            frames.add(new TextureRegion(texture, i*XPositionInSpriteSheet, YPositionInSpriteSheet, width, height));
 
         }walkAnimation = new Animation(0.2f, frames);
         stateTimer = 0;
@@ -41,19 +41,6 @@ public abstract class Enemy extends Entity
             setBounds(getX(), getY(), 70 / MegamanGame.PPM, 45 / MegamanGame.PPM);
     }
 
-    public Enemy(World world, Playscreen screen, String spriteSheet, int maxHealth, float x, float y,int ValueToIncreaseScore)
-    {
-        super(world, screen, spriteSheet, maxHealth, x, y);
-        this.x=x;
-        currentState = State.IDLE;
-        previousState = State.IDLE;
-        frames = new Array<TextureRegion>();
-        runningRight = true;
-        this.ValueToIncreaseScore=ValueToIncreaseScore;
-        stateTimer = 0;
-        setB2body(define());
-
-    }
 
     @Override
     public Body define()
@@ -117,7 +104,7 @@ public abstract class Enemy extends Entity
                 }
                 runningRight = false;
             }
-            if (!(this instanceof Boss)&&!(this instanceof Bosses))
+            if (!(this instanceof Bosses))
             {
                 if (stateTimer >= animstart) {
                     Bbullets.add(new EnemyBullet(this.getB2body().getPosition().x, this.getB2body().getPosition().y, this.runningRight, getWorld(), screen));
@@ -161,18 +148,4 @@ public abstract class Enemy extends Entity
         super.die();
         Hud.IncreaseScore(ValueToIncreaseScore);
     }
-
-
-    public void setWalkAnimation(Animation<TextureRegion> walkAnimation) {
-        this.walkAnimation = walkAnimation;
-    }
-
-    public Array<TextureRegion> getFrames() {
-        return frames;
-    }
-
-    /* public Array<TextureRegion> GetArrayFromSheet()
-    {
-        return null;
-    }*/
 }
