@@ -23,7 +23,7 @@ public class EndLevelScreen extends screen {
     private int highscore;
     private BitmapFont scoreFont;
 
-    public EndLevelScreen(MegamanGame game, int score, String Level, String PhotoName) {
+    public EndLevelScreen(MegamanGame game, int score, String PhotoName) {
         this.score=score;
         this.game = game;
         MegaMan.setScore(0);
