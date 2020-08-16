@@ -26,7 +26,6 @@ public class LevelsMenuScreen extends screen {
     public LevelsMenuScreen(MegamanGame game) {
         this.game = game;
         background= new Texture("bg.jpg");
-
         Logo= new Texture("Mega_Man_Logo.png");
         inactive_Level1_button = new Texture("inactive_level1_button.jpg");
         active_Level1_button = new Texture("active_level1_button.jpg");
@@ -44,8 +43,8 @@ public class LevelsMenuScreen extends screen {
     @Override
     public void render(float delta) {
         //clear screen with black
-        Gdx.gl.glClearColor(0,0,0,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        Gdx.gl.glClearColor(0,0,0,1);//set screen to black
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);//clear screen
         game.batch.begin();
         game.batch.draw(background,0,0,MegamanGame.V_WIDTH,MegamanGame.V_HEIGHT);
         game.batch.draw(Logo,MegamanGame.V_WIDTH-1095,MegamanGame.V_HEIGHT-200,1000,150);

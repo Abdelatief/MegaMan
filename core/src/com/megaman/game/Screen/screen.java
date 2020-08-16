@@ -2,8 +2,8 @@ package com.megaman.game.Screen;
 
 import com.badlogic.gdx.Screen;
 import com.megaman.game.MegamanGame;
-
-public class screen  implements Screen {
+//Screen represents one of many application screens, such as a main menu, a Levels menu, the Play screen and end Level menu.
+public abstract class screen  implements Screen {
     protected MegamanGame game;
 
     @Override
@@ -30,12 +30,12 @@ public class screen  implements Screen {
     public void resume() {
 
     }
-
+//Called when this screen is no longer the current screen for a Game.
     @Override
     public void hide() {
 
     }
-
+//Called when this screen should release all resources.
     @Override
     public void dispose() {
 

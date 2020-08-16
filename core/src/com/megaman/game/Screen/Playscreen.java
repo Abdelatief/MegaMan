@@ -292,8 +292,8 @@ public abstract class Playscreen extends screen{
         player.draw(game.batch);
         game.batch.end();
         //set batch to draw what hud camera sees
-        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
-        hud.stage.draw();
+        game.batch.setProjectionMatrix(hud.getStage().getCamera().combined);
+        hud.getStage().draw();
         //draw pause,continue button
         game.batch.begin();
         if(!pause)

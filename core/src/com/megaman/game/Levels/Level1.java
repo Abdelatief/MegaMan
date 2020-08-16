@@ -14,7 +14,7 @@ public class Level1 extends Playscreen {
 
     @Override
     public void setEnemies() {
-
+        // this.getAtlas().findRegion("") returns AtlasRegion,  AtlasRegion is an TextureRegion that contains additional information about the packing.
         getEnemies().add(new NormalEnemy(getWorld(), this, this.getAtlas().findRegion("SNES - Mega Man X - Enemies 2"), 25, 1.8f, .16f,2,100,100,50,90, 75) );
         getEnemies().add(new NormalEnemy(getWorld(), this, this.getAtlas().findRegion("SNES - Mega Man X - Enemies 2"), 50, 6, .16f,6,50,195,40,55,100));
         getEnemies().add(new StrongEnemy(getWorld(), this, this.getAtlas().findRegion("SNES - Mega Man X - Enemies 2"), 75, 17.5f, .16f,5,50,56,45,50,200));

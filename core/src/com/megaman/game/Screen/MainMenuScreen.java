@@ -1,7 +1,6 @@
 package com.megaman.game.Screen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.megaman.game.MegamanGame;
@@ -32,16 +31,16 @@ public class MainMenuScreen extends screen {
 
     @Override
     public void render(float delta) {
-        //clear screen with black
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        game.batch.begin();
+        // clear screen with black
+        Gdx.gl.glClearColor(0, 0, 0, 1);//set screen to black
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);//clear screen
+        game.batch.begin();//Open the box
         game.batch.draw(background, 0, 0, MegamanGame.V_WIDTH, MegamanGame.V_HEIGHT);
         game.batch.draw(Logo, MegamanGame.V_WIDTH - 1095, MegamanGame.V_HEIGHT - 200, 1000, 150);
         if (Gdx.input.getX() >= 1200 && Gdx.input.getX() <= (1200 + Button_Width) && Gdx.input.getY() <= 400 && Gdx.input.getY() >= 400 - Button_Height) {
             game.batch.draw(active_newgame_button, 1200, 600, Button_Width, Button_Height);
             if (Gdx.input.isTouched()) {
-                this.dispose();
+                this.dispose();//To release all resources.
                 game.setScreen(new LevelsMenuScreen(game));
             }
         } else
@@ -54,7 +53,7 @@ public class MainMenuScreen extends screen {
             }
         } else
             game.batch.draw(inactive_exit_button, 1200, 400, Button_Width, Button_Height);
-        game.batch.end();
+        game.batch.end();//Close the box
     }
 
 }

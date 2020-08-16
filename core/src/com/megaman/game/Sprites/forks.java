@@ -1,13 +1,13 @@
 package com.megaman.game.Sprites;
 
-import com.badlogic.gdx.Gdx;
+
 import com.badlogic.gdx.maps.tiled.TiledMap;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
 import com.megaman.game.MegamanGame;
-import com.megaman.game.Scenes.Hud;
+
 
 public class forks {
     protected World world;
