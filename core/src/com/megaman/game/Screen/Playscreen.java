@@ -6,9 +6,12 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.viewport.*;
@@ -18,7 +21,6 @@ import com.megaman.game.Levels.Level3;
 import com.megaman.game.MegamanGame;
 import com.megaman.game.Scenes.Hud;
 import com.megaman.game.Sprites.*;
-import com.megaman.game.Tools.B2WorldCreator;
 import com.megaman.game.Tools.WorldContactListener;
 
 
@@ -32,7 +34,7 @@ public abstract class Playscreen extends screen{
     private final Hud hud;
     private final OrthographicCamera gamecam;
 
-    private Viewport gameport;
+    private Viewport gameport;//Manages a camera and determines how world coordinates are mapped to and from the screens.
 
     // Button textures
     private final Texture inactive_pause_button;
@@ -60,6 +62,7 @@ public abstract class Playscreen extends screen{
     // Utility booleans
     private boolean AtBossPosition;
     private boolean pause;
+
     private Sound jumpSound;
     private String Level_Number;
 
@@ -81,12 +84,12 @@ public abstract class Playscreen extends screen{
             Level_Number="2";
         else
             Level_Number="3";
-        // Buttons textures => pause,continue button
+        // Buttons textures => pause,continue buttons
         inactive_pause_button = new Texture("inactive_pause_button.jpg");
         active_pause_button = new Texture("active_pause_button.jpg");
         active_continue_button = new Texture("active_continue_button.jpg");
         inactive_continue_button = new Texture("inactive_continue_button.jpg");
-        // Main Menu button
+        // Main Menu buttons
         active_Main_Menu = new Texture("active_Main_Menu.jpg");
         inactive_Main_Menu = new Texture("inactive_Main_Menu.jpg");
 
@@ -96,17 +99,48 @@ public abstract class Playscreen extends screen{
 
         // Load our map and setup our map renderer
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load(Map);
+        map = mapLoader.load(Map);//Map = MapName.tmx
         renderer = new OrthogonalTiledMapRenderer(map, 1 / MegamanGame.PPM);
 
         // Initially set our gamcam to be centered correctly at the start of map
-        gamecam.position.set(gameport.getWorldWidth() / 2, gameport.getWorldHeight() / 2, 0);
+       gamecam.position.set(gameport.getWorldWidth() / 2 , gameport.getWorldHeight() / 2, 0);
 
-        // Vector2 this is for gravity(0,0) no gravity now
+        // Vector2 this is for gravity(0,0) no gravity and changes it for gravity
         // Do sleep:true bec:box2d doesn't want to be calculated inside its  physics simulation "body rest"
         world = new World(new Vector2(0, -10), true);
         //b2dr = new Box2DDebugRenderer();
-        new B2WorldCreator(world, map);
+
+      //To add bodies and fixtures to world
+        //Before we create body we define what is the body consists of:
+        BodyDef bdef=new BodyDef();//A body definition holds all the data needed to construct a rigid body. You can safely re-use body definitions. Shapes are added to a body after construction.
+        PolygonShape shape=new PolygonShape();//PolygonShape for fixture.
+        FixtureDef fdef=new FixtureDef();//define fixture then add it to the body then add the body to the world
+        Body body;
+        //To create body ,fixture to every corresponding object in Tiled map layers
+        //getLayers().get(index in Tilemap start from 0 (down->up)
+        //2 index of ground
+        //.getObjects().getByType(RectangleMapObject.class) to get all objects in ground layer of rectangle type
+
+        // create ground bodies,fixtures
+        for(MapObject object: map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class))
+        {
+            //create rectangle object itself
+            Rectangle rect =((RectangleMapObject)object).getRectangle();
+            //define body type and position
+            bdef.type=BodyDef.BodyType.StaticBody;//Static body doesn't move you can it forcefully.
+            bdef.position.set((rect.getX()+rect.getWidth()/2)/ MegamanGame.PPM,(rect.getY()+rect.getHeight()/2)/ MegamanGame.PPM);
+            body=world.createBody(bdef);//Add the body to box 2DWorld.
+            shape.setAsBox((rect.getWidth()/2)/ MegamanGame.PPM,(rect.getHeight()/2)/ MegamanGame.PPM);//Define PolygonShape.
+            fdef.shape=shape;
+            body.createFixture(fdef);//Add the fixture to the body.
+        }
+        // create forks bodies,fixtures
+        for(MapObject object: map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class))
+        {
+            //create rectangle object itself
+            Rectangle rect =((RectangleMapObject)object).getRectangle();
+            new forks(world, map, rect);
+        }
 
         // Create megaman in game and adding enemies
         player = new MegaMan(world, this);
@@ -237,7 +271,7 @@ public abstract class Playscreen extends screen{
         else if(!AtBossPosition)    // If the mega man isn't at the boss position the game camera is moving with it.
             gamecam.position.x=player.getB2body().getPosition().x;
         //update cam with correct coordinate after changes
-        gamecam.update();
+        gamecam.update();//update our camera every iteration over render cycle
         //tell our render to draw what our camera sees
         renderer.setView(gamecam);
         // update the bullets and remove them after 3 seconds
@@ -249,7 +283,7 @@ public abstract class Playscreen extends screen{
         }
         bullets.removeAll(removeBullets);
     }
-
+    //Render method is getting called over and over.
     @Override
     public void render(float delta) {
         if (pause) {
@@ -272,8 +306,8 @@ public abstract class Playscreen extends screen{
         renderer.render();
         //render our box2dDebuglines
         //b2dr.render(world, gamecam.combined);
-        game.batch.setProjectionMatrix(gamecam.combined);
-        game.batch.begin();
+        game.batch.setProjectionMatrix(gamecam.combined);//Recognize where the camera is in our game world and only render what the camera can see.
+        game.batch.begin();//Open the box
         for (Bullet bullet: bullets)
             bullet.draw(game.batch);
         for (Enemy enemy: enemies) {
@@ -339,7 +373,7 @@ public abstract class Playscreen extends screen{
         // * The curly braces in this if condition
         else
             game.batch.draw(inactive_Main_Menu,1890,800,Button_Width,Button_Height);
-            game.batch.end();
+            game.batch.end();//Close the box
         }
     public TextureAtlas getAtlas()
     {
@@ -373,4 +407,5 @@ public abstract class Playscreen extends screen{
     public ArrayList<Enemy> getEnemies() {
         return enemies;
     }
+
 }

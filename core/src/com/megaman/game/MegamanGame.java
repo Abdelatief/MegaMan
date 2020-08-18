@@ -11,8 +11,8 @@ import com.megaman.game.Screen.MainMenuScreen;
 public class MegamanGame extends Game {
 	public SpriteBatch batch;//Have only spritebatch in project
 
-	public static final int V_WIDTH = 2000;
-	public static final int V_HEIGHT = 1000;
+	public static final int V_WIDTH = 2000;//virtual WIDTH
+	public static final int V_HEIGHT = 1000;//virtual HEIGHT
 	public static final float PPM = 150;//PPM->pixel per meter use for scale example:scale makes Megaman doesn't drop slowly.
 	private Sound mp3Sound;
 

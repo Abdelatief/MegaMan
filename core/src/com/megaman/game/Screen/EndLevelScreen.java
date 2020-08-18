@@ -54,7 +54,7 @@ public class EndLevelScreen extends screen {
         //clear screen with black
         Gdx.gl.glClearColor(0, 0, 0, 1);//set screen to black
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);//clear screen
-        game.batch.begin();
+        game.batch.begin();//Open the box
         game.batch.draw(background, 0, 600, 2000, 500);
         /*GlyphLayout scoreLayout = new GlyphLayout(scoreFont, "Score: " + score);//, Color.WHITE, 0, Align.left, false);
         GlyphLayout highscoreLayout = new GlyphLayout(scoreFont, "Highscore: " + highscore);//, Color.WHITE, 0, Align.left, false);*/
@@ -79,7 +79,7 @@ public class EndLevelScreen extends screen {
             }
         } else
             game.batch.draw(inactive_exit_button, 700, 100, Button_Width, Button_Height);
-        game.batch.end();
+        game.batch.end();//Close the box
     }
 
 

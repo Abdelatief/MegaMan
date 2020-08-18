@@ -16,7 +16,7 @@ import com.megaman.game.Sprites.MegaMan;
 
 public class Hud implements Disposable {
     private Stage stage;
-    private Viewport viewport;//when game world moves we want the head to stay the same so we use new camera and new viewport specifically for Hud so it stays locked there and only renders that part of the screen and the world can move around independently on its own
+    private Viewport viewport;//when game world moves we want the hud to stay the same so we use new camera and new viewport specifically for Hud so it stays locked there and only renders that part of the screen and the world can move around independently on its own
    /* private Integer worldTimer;
     private float timecount;*/
     private static Integer Energy;//static variable because it is used in static function
@@ -63,9 +63,9 @@ public class Hud implements Disposable {
         levelabel.setFontScaleX(1.5f);
         levelabel.setFontScaleY(1.5f);
         //Add Labels to Table
-        table.add(MegaManEnergyLabel).expandX().padTop(10);
-        table.add(MegamanLabel).expandX().padTop(10);
-        table.add(worldLabel).expandX().padTop(10);
+        table.add(MegaManEnergyLabel);//.expandX().padTop(10);
+        table.add(MegamanLabel);//.expandX().padTop(10);
+        table.add(worldLabel);//.expandX().padTop(10);
         table.row();//Create new row
         table.add(EnergyLabel).expandX();
         table.add(ScoreLabel).expandX();
