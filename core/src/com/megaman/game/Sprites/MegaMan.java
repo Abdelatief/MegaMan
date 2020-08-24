@@ -39,9 +39,10 @@ public class MegaMan extends Entity {
         runningRight = true;
         introAnimationPlayed = true;
         animationSetup();
-        setBounds(0,0,32/ MegamanGame.PPM,40/ MegamanGame.PPM);
-        setPosition(getB2body().getPosition().x - getWidth() / 2, getB2body().getPosition().y - getHeight()/3 );
-        getB2body().setTransform(32/MegamanGame.PPM, 100/MegamanGame.PPM, getB2body().getAngle());
+
+        setBounds(0,0,32/ MegamanGame.PPM,40/ MegamanGame.PPM);     //Sets the position and size of the sprite when drawn, before scaling and rotation are applied.
+        setPosition(getB2body().getPosition().x - getWidth() / 2, getB2body().getPosition().y - getHeight()/3 );        // Sets the position where the sprite will be drawn.
+        getB2body().setTransform(32/MegamanGame.PPM, 100/MegamanGame.PPM, getB2body().getAngle());          // Set the position of the body's origin and rotation.
         shootSound = Gdx.audio.newSound(Gdx.files.internal("audio/sounds/bullet_whizzing_by-Mike_Koenig-2005433595.wav"));
     }
 

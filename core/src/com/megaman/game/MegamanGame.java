@@ -2,12 +2,12 @@ package com.megaman.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Music;
+//import com.badlogic.gdx.assets.AssetManager;
+//import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megaman.game.Screen.MainMenuScreen;
-import com.megaman.game.Screen.Playscreen;
+//import com.megaman.game.Screen.Playscreen;
 
 public class MegamanGame extends Game {
 	public SpriteBatch batch;
@@ -23,13 +23,11 @@ public class MegamanGame extends Game {
 		mp3Sound.setLooping(mp3Sound.loop(),true);
 		mp3Sound.play();
 		setScreen(new MainMenuScreen(this));
-
 	}
 
 	@Override
 	public void render () {
 		super.render();
-
 	}
 	
 	/*@Override

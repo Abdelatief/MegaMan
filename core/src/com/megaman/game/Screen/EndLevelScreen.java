@@ -34,53 +34,52 @@ public class EndLevelScreen extends screen {
         active_exit_button = new Texture("active_Exit_button.jpg");
         scoreFont = new BitmapFont();
         //Get highscore from save file
-        Preferences prefs = Gdx.app.getPreferences("megamangame");
+        Preferences prefs = Gdx.app.getPreferences("megamangame");//Open the file or create it if it doesn't exist.
 
         this.highscore = prefs.getInteger("High score", 0);
 
         //Check if score beats highscore
-            if (this.score > highscore) {
+        if (this.score > highscore) {
 
-                prefs.putInteger("High score", this.score);
-                prefs.flush();
-                this.highscore = this.score;
-            }
-
+            prefs.putInteger("High score", this.score);
+            prefs.flush();//Save to file
+            this.highscore = this.score;
         }
+
+    }
 
 
     @Override
     public void render(float delta) {
         //clear screen with black
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        game.batch.begin();
+        Gdx.gl.glClearColor(0, 0, 0, 1);//set screen to black
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);//clear screen
+        game.batch.begin();//Open the box
         game.batch.draw(background, 0, 600, 2000, 500);
-        GlyphLayout scoreLayout = new GlyphLayout(scoreFont, "Score: " + score, Color.WHITE, 0, Align.left, false);
-        GlyphLayout highscoreLayout = new GlyphLayout(scoreFont, "Highscore: " + highscore, Color.WHITE, 0, Align.left, false);
+        /*GlyphLayout scoreLayout = new GlyphLayout(scoreFont, "Score: " + score);//, Color.WHITE, 0, Align.left, false);
+        GlyphLayout highscoreLayout = new GlyphLayout(scoreFont, "Highscore: " + highscore);//, Color.WHITE, 0, Align.left, false);*/
         scoreFont.getData().setScale(4,4);
-        scoreFont.draw(game.batch, scoreLayout, MegamanGame.V_WIDTH / 2- scoreLayout.width / 2 , MegamanGame.V_HEIGHT - 500 - 15 * 2);
-        scoreFont.draw(game.batch, highscoreLayout, MegamanGame.V_WIDTH / 2 - highscoreLayout.width / 2 , MegamanGame.V_HEIGHT - 500 - scoreLayout.height - 15 * 3);
+        scoreFont.draw(game.batch, "Score: " + score, (MegamanGame.V_WIDTH / 2)-160, MegamanGame.V_HEIGHT - 500);
+        scoreFont.draw(game.batch, "Highscore: " + highscore, (MegamanGame.V_WIDTH / 2)-160, MegamanGame.V_HEIGHT - 600 );
 
-
-        if (Gdx.input.getX() >= 650 && Gdx.input.getX() <= (650 + Button_Width) && Gdx.input.getY() <= 800 && Gdx.input.getY() >= 800 - Button_Height) {
-            game.batch.draw(active_newgame_button, 650, 200, Button_Width, Button_Height);
+        if (Gdx.input.getX() >= 700 && Gdx.input.getX() <= (700 + Button_Width) && Gdx.input.getY() <= 800 && Gdx.input.getY() >= 800 - Button_Height) {
+            game.batch.draw(active_newgame_button, 700, 200, Button_Width, Button_Height);
 
             if (Gdx.input.isTouched()) {
                 this.dispose();
                 game.setScreen(new LevelsMenuScreen(game));
             }
         } else
-            game.batch.draw(inactive_newgame_button, 650, 200, Button_Width, Button_Height);
-        if (Gdx.input.getX() >= 650 && Gdx.input.getX() <= (650 + Button_Width) && Gdx.input.getY() <= 900 && Gdx.input.getY() >= 900 - Button_Height) {
-            game.batch.draw(active_exit_button, 650, 100, Button_Width, Button_Height);
+            game.batch.draw(inactive_newgame_button, 700, 200, Button_Width, Button_Height);
+        if (Gdx.input.getX() >= 700 && Gdx.input.getX() <= (700 + Button_Width) && Gdx.input.getY() <= 900 && Gdx.input.getY() >= 900 - Button_Height) {
+            game.batch.draw(active_exit_button, 700, 100, Button_Width, Button_Height);
             if (Gdx.input.isTouched()) {
 
                 Gdx.app.exit();
             }
         } else
-            game.batch.draw(inactive_exit_button, 650, 100, Button_Width, Button_Height);
-        game.batch.end();
+            game.batch.draw(inactive_exit_button, 700, 100, Button_Width, Button_Height);
+        game.batch.end();//Close the box
     }
 
 

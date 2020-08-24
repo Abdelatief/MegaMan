@@ -55,7 +55,7 @@ public abstract class Playscreen extends screen{
     private final MegaMan player;
     private ArrayList<Enemy> enemies = new ArrayList<>();
     private ArrayList<Bullet> bullets = new ArrayList<Bullet>();
-    private ArrayList<Bullet> bBullets = new ArrayList<Bullet>();
+//    private ArrayList<Bullet> bBullets = new ArrayList<Bullet>();
 
     // Utility booleans
     private boolean AtBossPosition;
@@ -125,13 +125,11 @@ public abstract class Playscreen extends screen{
     {
         if(Gdx.input.isKeyJustPressed(Input.Keys.W)||Gdx.input.isKeyJustPressed(Input.Keys.UP))
         {
-
-                jumpSound.play();
             if (player.canJump()) {
+                jumpSound.play();
                 player.getB2body().applyLinearImpulse(new Vector2(0, 3.5f), player.getB2body().getWorldCenter(), true);
                 player.incrementJumps();
             }
-
         }
 
         if((Gdx.input.isKeyPressed(Input.Keys.D)||Gdx.input.isKeyPressed(Input.Keys.RIGHT))&&(player.getB2body().getLinearVelocity().x<= 2))
@@ -226,10 +224,7 @@ public abstract class Playscreen extends screen{
 
         }
 
-
-
         //To make Game Camera stop at boss position
-
         if(map.getProperties().get("width",Integer.class)/10f-1.5f<player.getB2body().getPosition().x) {
            gamecam.position.x = map.getProperties().get("width", Integer.class) / 10f;
            AtBossPosition=true;
@@ -271,7 +266,7 @@ public abstract class Playscreen extends screen{
         //render game map
         renderer.render();
         //render our box2dDebuglines
-        //b2dr.render(world, gamecam.combined);
+        //b2dr.render(world, gamecam.combined);    // green frames around tiles and bodies
         game.batch.setProjectionMatrix(gamecam.combined);
         game.batch.begin();
         for (Bullet bullet: bullets)
@@ -279,7 +274,6 @@ public abstract class Playscreen extends screen{
         for (Enemy enemy: enemies) {
             enemy.draw(game.batch);
         }
-
 
         for (Enemy enemy: enemies)
         {
@@ -292,8 +286,8 @@ public abstract class Playscreen extends screen{
         player.draw(game.batch);
         game.batch.end();
         //set batch to draw what hud camera sees
-        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
-        hud.stage.draw();
+        game.batch.setProjectionMatrix(hud.getStage().getCamera().combined);
+        hud.getStage().draw();
         //draw pause,continue button
         game.batch.begin();
         if(!pause)

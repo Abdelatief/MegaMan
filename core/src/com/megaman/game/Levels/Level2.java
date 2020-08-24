@@ -10,7 +10,6 @@ public class Level2 extends Playscreen {
 
     public Level2(MegamanGame game) {
         super(game,"Level2.tmx");
-
     }
     @Override
     public void setEnemies() {

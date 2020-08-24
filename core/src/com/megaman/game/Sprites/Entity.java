@@ -44,10 +44,12 @@ public abstract class Entity extends GameObject
     public void setCurrentHealth(int currentHealth) {
         this.currentHealth = currentHealth;
     }
+
     public abstract Body define();
 
     public abstract TextureRegion getFrame(float dt);
 
+    // TODO: refactor
     public abstract State getState();
 
     protected abstract void animationSetup();
@@ -64,5 +66,4 @@ public abstract class Entity extends GameObject
     {
         setSetToDestroy(true);
     }
-
 }

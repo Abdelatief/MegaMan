@@ -10,17 +10,17 @@ import com.megaman.game.MegamanGame;
 import com.megaman.game.Scenes.Hud;
 
 public class forks {
-    protected World world;
-    protected TiledMap map;
-    protected TiledMapTile tile;
-    protected Rectangle bounds;
+//    protected World world;
+//    protected TiledMap map;
+//    protected TiledMapTile tile;
+//    protected Rectangle bounds;
     protected Body body;
     protected Fixture fixture;
     public forks(World world, TiledMap map, Rectangle bounds)
     {
-        this.world = world;
-        this.map =  map;
-        this.bounds = bounds;
+//        this.world = world;
+//        this.map =  map;
+//        this.bounds = bounds;
         BodyDef bdef=new BodyDef();
         FixtureDef fdef=new FixtureDef();
         PolygonShape shape=new PolygonShape();

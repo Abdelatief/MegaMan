@@ -15,7 +15,6 @@ public class Bosses extends Enemy {
         super(world, screen, texture, maxHealth, x, y, NumberOfAnimation, XPositionInSpriteSheet, YPositionInSpriteSheet, width, height, ValueToIncreaseScore);
         Bbullets = new ArrayList<Bullet>();
         animstart = 1.8f;
-
     }
     public void update(float dt) {
         super.update(dt);

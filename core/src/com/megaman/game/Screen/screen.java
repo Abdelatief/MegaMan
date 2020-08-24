@@ -3,7 +3,7 @@ package com.megaman.game.Screen;
 import com.badlogic.gdx.Screen;
 import com.megaman.game.MegamanGame;
 
-public class screen  implements Screen {
+public class screen implements Screen {
     protected MegamanGame game;
 
     @Override

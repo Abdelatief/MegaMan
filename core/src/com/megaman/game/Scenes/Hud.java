@@ -15,33 +15,35 @@ import com.megaman.game.Sprites.MegaMan;
 
 
 public class Hud implements Disposable {
-    public Stage stage;
-    private Viewport viewport;
-
-    private Integer worldTimer;
-    private float timecount;
-    private static Integer Energy;
-    private static Label ScoreLabel;
+    private Stage stage;
+    private Viewport viewport;//when game world moves we want the hud to stay the same so we use new camera and new viewport specifically for Hud so it stays locked there and only renders that part of the screen and the world can move around independently on its own
+    /* private Integer worldTimer;
+     private float timecount;*/
+    private static Integer Energy;//static variable because it is used in static function
+    private static Label ScoreLabel;//static variable because it is used in static function
     private Label levelabel;
     private Label worldLabel;
     private Label MegamanLabel;
     private Label MegaManEnergyLabel;
-    private static Label  EnergyLabel;
+    private static Label  EnergyLabel;//static variable because it is used in static function
     private static MegaMan player;
     public  Hud(SpriteBatch sb,MegaMan player, String NumberOfLevel)
     {
 
-        worldTimer=300;
-        timecount=0;
+       /* worldTimer=300;
+        timecount=0;*/
         this.player=player;
         Energy = this.player.getCurrentHealth();
         viewport=new FitViewport(MegamanGame.V_WIDTH, MegamanGame.V_HEIGHT,new OrthographicCamera());
 
         stage =new Stage(viewport,sb);
+        /*Stage is basically an empty box if just tried to put widgets in there they would fall and they wouldn't have any kind of organization so
+       create a table inside of our stage then we can layout that table in a way to organize our labels in a certain position inside of our stage */
         Table table=new Table();
-        table.top();
-        table.setFillParent(true);
-        ScoreLabel=new Label(String.format("%06d",player.getScore()),new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        table.top();//it's going to put it at the top of our stage
+        table.setFillParent(true);//table size = stage size
+        //String.format convert Energy to string and make 4 numbers appear 0000 and return string
+        ScoreLabel=new Label(String.format("%06d",player.getScore()),new Label.LabelStyle(new BitmapFont(), Color.WHITE));//%06d means 6 numbers while appear
         EnergyLabel=new Label(String.format("%04d",Energy),new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         levelabel=new Label(NumberOfLevel,new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         worldLabel=new Label("LEVEL",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
@@ -60,14 +62,18 @@ public class Hud implements Disposable {
         worldLabel.setFontScaleY(1.5f);
         levelabel.setFontScaleX(1.5f);
         levelabel.setFontScaleY(1.5f);
-        table.add(MegaManEnergyLabel).expandX().padTop(10);
-        table.add(MegamanLabel).expandX().padTop(10);
-        table.add(worldLabel).expandX().padTop(10);
-        table.row();
+        //Add Labels to Table
+        table.add(MegaManEnergyLabel);//.expandX().padTop(10);
+        table.add(MegamanLabel);//.expandX().padTop(10);
+        table.add(worldLabel);//.expandX().padTop(10);
+        table.row();//Create new row
         table.add(EnergyLabel).expandX();
         table.add(ScoreLabel).expandX();
         table.add(levelabel).expandX();
-        stage.addActor(table);
+        stage.addActor(table);//add table to stage
+    }
+    public Stage getStage() {
+        return stage;
     }
     public static void  decreaseMegaManEnergy(int value)
     {
@@ -79,10 +85,10 @@ public class Hud implements Disposable {
     public static void  IncreaseScore(int value)
     {
         player.setScore(player.getScore()+value);
-
         ScoreLabel.setText((String.format("%04d",player.getScore())));
     }
 
+    /** Releases all resources of this object. */
     @Override
     public void dispose() {
         stage.dispose();

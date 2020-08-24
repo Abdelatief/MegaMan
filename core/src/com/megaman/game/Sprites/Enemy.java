@@ -16,31 +16,32 @@ public abstract class Enemy extends Entity
     private Vector2 velocity = new Vector2(-1.2f,-4);;
     private Array<TextureRegion> frames;
     private Animation<TextureRegion> walkAnimation;
-    private float x;
+    private float x;        // set the initial position of the enemy
     private int ValueToIncreaseScore;
-    private float animstart = 1;
-    private ArrayList<Bullet> Bbullets = new ArrayList<Bullet>();
+    private float animstart = 1;   // to handle the time between bullets inistantiation
+    private ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 
     public Enemy(World world, Playscreen screen, TextureRegion texture, int maxHealth, float x, float y, int NumberOfAnimation,int XPositionInSpriteSheet,int YPositionInSpriteSheet,int width,int height,int ValueToIncreaseScore) {
         super(world, screen, texture, maxHealth,x,y);
-        this.x=x;
+        this.x = x;
         currentState = State.IDLE;
         previousState = State.IDLE;
         frames = new Array<TextureRegion>();
         runningRight = true;
-        this.ValueToIncreaseScore=ValueToIncreaseScore;
-        for(int i =NumberOfAnimation; i>0; i--) {
+        this.ValueToIncreaseScore = ValueToIncreaseScore;
+        for(int i=NumberOfAnimation; i>0; i--) {
             frames.add(new TextureRegion(texture, i*XPositionInSpriteSheet, YPositionInSpriteSheet, width, height));
-
-        }walkAnimation = new Animation(0.2f, frames);
+        }
+        walkAnimation = new Animation(0.2f, frames);
         stateTimer = 0;
         setB2body(define());
+
+        // adjust the size ratios of enemies
         if(this instanceof Bosses)
             setBounds(getX(), getY(), 100 / MegamanGame.PPM, 150 / MegamanGame.PPM);
         else
             setBounds(getX(), getY(), 70 / MegamanGame.PPM, 45 / MegamanGame.PPM);
     }
-
 
     @Override
     public Body define()
@@ -70,10 +71,9 @@ public abstract class Enemy extends Entity
 
             if(this.getX() < x-2) {
                 velocity.x = 1;
-                for(int i = 0;i < frames.size;i++)//Makes enemy looks to right
+                for(int i = 0;i < frames.size;i++) //Makes enemy looks to right
                     frames.get(i).flip(true,false);
                 runningRight = true;
-
             }
             else if(this.getX() > x-1) {
                 velocity.x = -1;
@@ -85,28 +85,25 @@ public abstract class Enemy extends Entity
                 }
                 runningRight = false;
             }
-            if (!(this instanceof Bosses))
+            if (!(this instanceof Bosses))   // ***
             {
                 if (stateTimer >= animstart) {
-                    Bbullets.add(new Bullet(this.getB2body().getPosition().x, this.getB2body().getPosition().y, this.runningRight, getWorld(), .4f,100, "BM.png",204, 320, 20, 20, 5,0.01f,"Enemy"));
+                    bullets.add(new Bullet(this.getB2body().getPosition().x, this.getB2body().getPosition().y, this.runningRight, getWorld(), .4f,100, "BM.png",204, 320, 20, 20, 5,0.01f,"Enemy"));
                     animstart += 1;
                 }
-                ArrayList<Bullet> removeBBullets = new ArrayList<Bullet>();
-                for (Bullet bullet : Bbullets) {
+                ArrayList<Bullet> removeBullets = new ArrayList<Bullet>();
+                for (Bullet bullet : bullets) {
                     if (bullet.isSetToDestroy())
-                        removeBBullets.add(bullet);
+                        removeBullets.add(bullet);
                     bullet.update(dt);
                 }
-                Bbullets.removeAll(removeBBullets);
+                bullets.removeAll(removeBullets);
             }
-
-
-
         }
     }
 
     public void BulletRender(MegamanGame game) {
-        for (Bullet bullet : Bbullets)
+        for (Bullet bullet : bullets)
             bullet.draw(game.batch);
     }
 
@@ -128,5 +125,21 @@ public abstract class Enemy extends Entity
     public void die() {
         super.die();
         Hud.IncreaseScore(ValueToIncreaseScore);
+    }
+
+    public float getAnimstart() {
+        return animstart;
+    }
+
+    public void setAnimstart(float animstart) {
+        this.animstart = animstart;
+    }
+
+    public ArrayList<Bullet> getBullets() {
+        return bullets;
+    }
+
+    public void setBullets(ArrayList<Bullet> bullets) {
+        this.bullets = bullets;
     }
 }
